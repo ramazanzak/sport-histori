@@ -1,278 +1,252 @@
 <!DOCTYPE html>
 <html lang="ru" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хроники Спорта — Энциклопедия мирового спорта</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Unbounded:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Хроники Спорта — Энциклопедия мирового спорта</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Шрифты Inter и Unbounded -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Unbounded:wght@500&display=swap" rel="stylesheet">
+  <!-- Подключение внешнего CSS -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="min-h-screen flex flex-col selection:bg-amber-600 selection:text-white">
 
-    <!-- Header -->
-    <header class="glass-header sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-3">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
-
-                <!-- Logo -->
-                <a href="#home" onclick="appLogic.showMainPage()" class="flex items-center gap-3 shrink-0">
-                    <div class="w-10 h-10 rounded-lg bg-[#d97706] flex items-center justify-center">
-                        <svg class="w-5 h-5 text-[#161513]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5.2-9.8C4.8 11.2 3 9.5 3 7V5h3m11.2 6.2c2 0 3.8-1.7 3.8-4.2V5h-3M6 4h12v5a6 6 0 01-12 0V4z"/>
-                        </svg>
-                    </div>
-                    <span class="font-display text-base font-medium text-[#efe9de] leading-none">Хроники Спорта</span>
-                </a>
-
-                <!-- Search -->
-                <div class="w-full lg:max-w-md relative">
-                    <div class="relative flex items-center">
-                        <svg class="w-4 h-4 text-[#8a847a] absolute left-3 pointer-events-none" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
-                        </svg>
-                        <input
-                            id="sportSearchInput"
-                            type="text"
-                            placeholder="Поиск дисциплины"
-                            class="w-full pl-10 pr-16 py-2 rounded-lg bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] text-sm text-[#efe9de] placeholder-[#8a847a] focus:outline-none focus:border-[#d97706] transition-colors"
-                            oninput="appLogic.handleSearch(this.value)"
-                        >
-                        <button
-                            id="clearSearchBtn"
-                            onclick="appLogic.clearSearch()"
-                            class="hidden absolute right-3 text-xs text-[#8a847a] hover:text-[#efe9de] px-2 py-1 rounded bg-[#262421] transition-colors"
-                        >Сброс</button>
-                    </div>
-                    <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
-                        <span class="text-[#8a847a]">Фильтр:</span>
-                        <button onclick="appLogic.quickFilter('Футбол')" class="text-[#aaa398] hover:text-[#efe9de] px-2 py-0.5 rounded bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] transition-colors">Футбол</button>
-                        <button onclick="appLogic.quickFilter('Бокс')" class="text-[#aaa398] hover:text-[#efe9de] px-2 py-0.5 rounded bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] transition-colors">Бокс</button>
-                        <button onclick="appLogic.quickFilter('Волейбол')" class="text-[#aaa398] hover:text-[#efe9de] px-2 py-0.5 rounded bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] transition-colors">Волейбол</button>
-                        <button onclick="appLogic.quickFilter('Хоккей')" class="text-[#aaa398] hover:text-[#efe9de] px-2 py-0.5 rounded bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] transition-colors">Хоккей</button>
-                        <button onclick="appLogic.quickFilter('Баскетбол')" class="text-[#aaa398] hover:text-[#efe9de] px-2 py-0.5 rounded bg-[#1c1a18] border border-[rgba(239,233,222,0.08)] transition-colors">Баскетбол</button>
-                    </div>
-                </div>
-
-                <!-- Nav -->
-                <nav class="flex items-center gap-1 shrink-0">
-                    <button onclick="appLogic.navigateSection('hero')" class="px-3 py-2 rounded-lg text-xs font-medium text-[#aaa398] hover:text-[#efe9de] hover:bg-[#262421] transition-colors">Главная</button>
-                    <button onclick="appLogic.navigateSection('about-site')" class="px-3 py-2 rounded-lg text-xs font-medium text-[#aaa398] hover:text-[#efe9de] hover:bg-[#262421] transition-colors">О сайте</button>
-                    <button onclick="appLogic.navigateSection('sports-catalog')" class="px-3 py-2 rounded-lg text-xs font-medium text-[#aaa398] hover:text-[#efe9de] hover:bg-[#262421] transition-colors">Дисциплины</button>
-                    <button onclick="appLogic.navigateSection('team-qa')" class="px-3 py-2 rounded-lg text-xs font-medium text-[#aaa398] hover:text-[#efe9de] hover:bg-[#262421] transition-colors">Команда</button>
-                </nav>
-
-            </div>
+<!-- Липкая шапка сайта -->
+<header class="glass-header sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-3">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+      <a href="#home" onclick="appLogic.showMainPage(); return false;" class="flex items-center gap-3 shrink-0">
+        <div class="logo-box w-10 h-10 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#2a200f" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5.2-9.8C4.8 11.2 3 9.5 3 7V5h3m11.2 6.2c2 0 3.8-1.7 3.8-4.2V5h-3M6 4h12v5a6 6 0 01-12 0V4z"/>
+          </svg>
         </div>
-    </header>
+        <span class="font-display text-base font-medium leading-none">Хроники Спорта</span>
+      </a>
 
-    <!-- Main page -->
-    <main id="mainPageView" class="flex-grow">
-
-        <!-- Hero -->
-        <section id="hero" class="pt-16 pb-20 lg:pt-20 lg:pb-24">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-                    <div class="lg:col-span-7 space-y-6">
-                        <span class="text-xs font-medium text-[#8a847a]">Интерактивная энциклопедия · 6 дисциплин</span>
-
-                        <h1 class="font-display text-4xl sm:text-5xl font-medium text-[#efe9de] leading-[1.08]">
-                            История спортивных дисциплин от истоков до современности
-                        </h1>
-
-                        <p class="text-[#aaa398] text-base leading-relaxed max-w-lg">
-                            Исследуйте эволюцию футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от первых правил до легендарных арен и турниров
-                        </p>
-
-                        <div class="flex items-center gap-3 pt-2">
-                            <button onclick="appLogic.navigateSection('sports-catalog')" class="px-5 py-3 rounded-lg bg-[#efe9de] text-[#161513] text-sm font-medium transition-colors hover:bg-[#d9d4c8] inline-flex items-center gap-2">
-                                Перейти к дисциплинам
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7"/></svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product preview -->
-                    <div class="lg:col-span-5">
-                        <div class="glass-panel rounded-2xl p-5 border border-[rgba(239,233,222,0.08)]">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-medium text-[#8a847a]">Футбол</span>
-                                <span class="text-xs font-mono text-[#8a847a] tabular-nums">1863</span>
-                            </div>
-                            <div class="rounded-xl bg-[#12110f] border border-[rgba(239,233,222,0.08)] p-4 mb-4">
-                                <svg class="w-full h-36" viewBox="0 0 320 150" fill="none">
-                                    <rect x="15" y="10" width="290" height="130" rx="4" fill="none" stroke="#5a7a68" stroke-width="1"/>
-                                    <line x1="160" y1="10" x2="160" y2="140" stroke="#5a7a68" stroke-width="1" stroke-dasharray="4 4"/>
-                                    <circle cx="160" cy="75" r="28" stroke="#5a7a68" stroke-width="1" fill="none"/>
-                                    <rect x="15" y="45" width="36" height="60" fill="none" stroke="#5a7a68" stroke-width="1"/>
-                                    <rect x="269" y="45" width="36" height="60" fill="none" stroke="#5a7a68" stroke-width="1"/>
-                                    <circle cx="160" cy="75" r="4" fill="#d97706"/>
-                                </svg>
-                            </div>
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-[#8a847a]">Площадка</span>
-                                    <span class="font-mono text-[#aaa398] tabular-nums">105 × 68 м</span>
-                                </div>
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-[#8a847a]">Ворота</span>
-                                    <span class="font-mono text-[#aaa398] tabular-nums">7,32 × 2,44 м</span>
-                                </div>
-                                <div class="flex items-center justify-between text-xs">
-                                    <span class="text-[#8a847a]">Состав</span>
-                                    <span class="font-mono text-[#aaa398] tabular-nums">11 на 11</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- About -->
-        <section id="about-site" class="py-16 border-t border-[rgba(239,233,222,0.08)] bg-[#12110f]">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <span class="text-xs font-medium text-[#8a847a]">О проекте</span>
-                    <h2 class="font-display text-2xl sm:text-3xl font-medium mt-2 text-[#efe9de]">Что это за сайт и для чего создан</h2>
-                    <p class="text-[#aaa398] mt-3 text-sm">Образовательная платформа по истории шести главных спортивных дисциплин</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                        <span class="text-xs font-mono text-[#d97706]">01</span>
-                        <h3 class="text-sm font-medium text-[#efe9de] mt-2 mb-2">Цифровой справочник</h3>
-                        <p class="text-[#aaa398] text-xs leading-relaxed">Интерактивная энциклопедия, где история спорта представлена через схемы арен, таймлайны и визуальную инфографику</p>
-                    </div>
-                    <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                        <span class="text-xs font-mono text-[#d97706]">02</span>
-                        <h3 class="text-sm font-medium text-[#efe9de] mt-2 mb-2">6 дисциплин</h3>
-                        <p class="text-[#aaa398] text-xs leading-relaxed">Происхождение и эволюция футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от древних корней до современных правил</p>
-                    </div>
-                    <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                        <span class="text-xs font-mono text-[#d97706]">03</span>
-                        <h3 class="text-sm font-medium text-[#efe9de] mt-2 mb-2">Быстрое изучение</h3>
-                        <p class="text-[#aaa398] text-xs leading-relaxed">Помогает студентам и школьникам находить точные даты, размеры площадок и ключевые этапы развития каждой дисциплины</p>
-                    </div>
-                    <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                        <span class="text-xs font-mono text-[#d97706]">04</span>
-                        <h3 class="text-sm font-medium text-[#efe9de] mt-2 mb-2">Векторная графика</h3>
-                        <p class="text-[#aaa398] text-xs leading-relaxed">Все схемы арен и площадок нарисованы в SVG — чёткие на любом экране, от телефона до проектора</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Catalog -->
-        <section id="sports-catalog" class="py-16">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-                    <div>
-                        <span class="text-xs font-medium text-[#8a847a]">Каталог дисциплин</span>
-                        <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1 text-[#efe9de]">Выберите вид спорта</h2>
-                    </div>
-                    <span class="text-xs text-[#8a847a]">Нажмите на карточку для краткого обзора</span>
-                </div>
-
-                <div id="searchStatusBanner" class="hidden mb-4 p-3 rounded-lg bg-[#262421] border border-[rgba(239,233,222,0.08)] flex items-center justify-between">
-                    <span id="searchStatusText" class="text-sm text-[#aaa398]"></span>
-                    <button onclick="appLogic.clearSearch()" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-[#efe9de] text-[#161513] transition-colors hover:bg-[#d9d4c8]">Показать все</button>
-                </div>
-
-                <div id="sportsGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Internal sport view -->
-    <section id="internalSportView" class="hidden py-12 flex-grow">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center gap-4 mb-8">
-                <button onclick="appLogic.showMainPage()" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#1c1a18] text-[#aaa398] border border-[rgba(239,233,222,0.08)] text-sm font-medium transition-colors hover:text-[#efe9de] hover:bg-[#262421]">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m12 19-7-7 7-7"/><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5"/></svg>
-                    Ко всем дисциплинам
-                </button>
-            </div>
-            <div id="internalSportContent" class="space-y-8"></div>
+      <!-- Поиск и быстрые фильтры -->
+      <div class="w-full lg:max-w-md relative">
+        <div class="relative flex items-center">
+          <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
+          </svg>
+          <input id="sportSearchInput" type="text" placeholder="Поиск дисциплины"
+            class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
+            oninput="appLogic.handleSearch(this.value)">
+          <button id="clearSearchBtn" onclick="appLogic.clearSearch()"
+            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted hover:text-white">Сброс</button>
         </div>
-    </section>
-
-    <!-- Team -->
-    <section id="team-qa" class="py-16 border-t border-[rgba(239,233,222,0.08)] bg-[#12110f]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
-                <div>
-                    <span class="text-xs font-medium text-[#8a847a]">Команда проекта</span>
-                    <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1 text-[#efe9de]">Участники и тестирование</h2>
-                </div>
-                <button onclick="qaTester.runAllTests()" class="px-4 py-2 rounded-lg bg-[#efe9de] text-[#161513] text-sm font-medium transition-colors hover:bg-[#d9d4c8] shrink-0">Запустить проверку</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                    <span class="text-xs font-mono text-[#d97706]">01</span>
-                    <h3 class="text-sm font-medium text-[#efe9de] mt-2">Изамутдин</h3>
-                    <p class="text-xs text-[#8a847a] mt-0.5 mb-2">Дизайн и SVG</p>
-                    <p class="text-xs text-[#aaa398] leading-relaxed">Визуальное оформление, векторные арены в style.css</p>
-                </div>
-                <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                    <span class="text-xs font-mono text-[#d97706]">02</span>
-                    <h3 class="text-sm font-medium text-[#efe9de] mt-2">Рамазан</h3>
-                    <p class="text-xs text-[#8a847a] mt-0.5 mb-2">Главная страница</p>
-                    <p class="text-xs text-[#aaa398] leading-relaxed">Шапка, основной экран, раздел «О сайте» и сетка карточек</p>
-                </div>
-                <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                    <span class="text-xs font-mono text-[#d97706]">03</span>
-                    <h3 class="text-sm font-medium text-[#efe9de] mt-2">Хучбар</h3>
-                    <p class="text-xs text-[#8a847a] mt-0.5 mb-2">Внутренняя страница</p>
-                    <p class="text-xs text-[#aaa398] leading-relaxed">Историческая летопись, хронология и таблицы рекордов</p>
-                </div>
-                <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                    <span class="text-xs font-mono text-[#d97706]">04</span>
-                    <h3 class="text-sm font-medium text-[#efe9de] mt-2">Адам</h3>
-                    <p class="text-xs text-[#8a847a] mt-0.5 mb-2">Функциональность</p>
-                    <p class="text-xs text-[#aaa398] leading-relaxed">Поиск, быстрые фильтры, логика открытия карточек</p>
-                </div>
-                <div class="glass-panel p-5 rounded-xl border border-[rgba(239,233,222,0.08)]">
-                    <span class="text-xs font-mono text-[#d97706]">05</span>
-                    <h3 class="text-sm font-medium text-[#efe9de] mt-2">Джабраил</h3>
-                    <p class="text-xs text-[#8a847a] mt-0.5 mb-2">Тестировщик</p>
-                    <p class="text-xs text-[#aaa398] leading-relaxed">Автоматический контроль всех пунктов технического задания</p>
-                </div>
-            </div>
-
-            <div class="glass-panel rounded-xl p-5 border border-[rgba(239,233,222,0.08)]">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[rgba(239,233,222,0.08)]">
-                    <div>
-                        <h4 class="text-sm font-medium text-[#efe9de]">Результаты проверки</h4>
-                        <p class="text-xs text-[#8a847a] mt-0.5">Автоматическое тестирование по пунктам ТЗ</p>
-                    </div>
-                    <span class="px-3 py-1 rounded-lg bg-[rgba(76,195,138,0.1)] text-[#4cc38a] text-xs font-medium">Все проверки пройдены</span>
-                </div>
-                <div id="qaResultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4"></div>
-            </div>
+        <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
+          <span class="muted">Фильтр:</span>
+          <button onclick="appLogic.quickFilter('Футбол')" class="soft px-2 py-0.5 rounded btn-dark">Футбол</button>
+          <button onclick="appLogic.quickFilter('Бокс')" class="soft px-2 py-0.5 rounded btn-dark">Бокс</button>
+          <button onclick="appLogic.quickFilter('Волейбол')" class="soft px-2 py-0.5 rounded btn-dark">Волейбол</button>
+          <button onclick="appLogic.quickFilter('Хоккей')" class="soft px-2 py-0.5 rounded btn-dark">Хоккей</button>
+          <button onclick="appLogic.quickFilter('Баскетбол')" class="soft px-2 py-0.5 rounded btn-dark">Баскетбол</button>
         </div>
-    </section>
+      </div>
 
-    <!-- Footer -->
-    <footer class="border-t border-[rgba(239,233,222,0.08)] py-8 bg-[#12110f]">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#8a847a]">
-            <span class="font-display text-[#aaa398] font-medium">Хроники Спорта</span>
-            <div class="flex flex-wrap justify-center gap-3">
-                <span>Дизайн: Изамутдин</span>
-                <span>Главная: Рамазан</span>
-                <span>История: Хучбар</span>
-                <span>Логика: Адам</span>
-                <span>QA: Джабраил</span>
-            </div>
+      <!-- Навигация -->
+      <nav class="flex items-center gap-1 shrink-0">
+        <button onclick="appLogic.navigateSection('hero')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</button>
+        <button onclick="appLogic.navigateSection('about-site')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">О сайте</button>
+        <button onclick="appLogic.navigateSection('sports-catalog')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Дисциплины</button>
+        <button onclick="appLogic.navigateSection('team-qa')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Команда</button>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- Главная страница -->
+<main id="mainPageView" class="flex-grow">
+
+  <!-- Первый экран (Hero) -->
+  <section id="hero" class="pt-16 pb-20 lg:pt-20 lg:pb-24">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <span class="text-xs font-medium muted">Интерактивная энциклопедия · 6 дисциплин</span>
+          <h1 class="font-display text-4xl sm:text-5xl font-medium leading-tight">
+            История спортивных дисциплин от истоков до современности
+          </h1>
+          <p class="soft text-base leading-relaxed max-w-lg">
+            Исследуйте эволюцию футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от первых правил до легендарных арен и турниров
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <button onclick="appLogic.navigateSection('sports-catalog')" class="btn-light px-5 py-3 rounded-lg text-sm font-medium inline-flex items-center gap-2">
+              Перейти к дисциплинам
+            </button>
+          </div>
         </div>
-    </footer>
 
-    <script src="script.js"></script>
+        <!-- Карточка-превью с переключением видов спорта по стрелке справа -->
+        <div class="lg:col-span-6 flex items-center gap-3 sm:gap-4">
+          <div id="heroPreviewCard" class="glass-panel border-line rounded-2xl p-5 flex-1 min-w-0">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-2">
+                <span id="heroSportName" class="text-xs font-medium muted">Футбол</span>
+                <span id="heroSportCounter" class="text-[11px] font-mono muted opacity-70 tabular-nums">1 / 6</span>
+              </div>
+              <span id="heroSportYear" class="text-xs font-mono muted tabular-nums">1863</span>
+            </div>
+            <div id="heroSportVisual" class="box-deep rounded-xl p-3 mb-4"></div>
+            <div id="heroSportStats" class="space-y-2"></div>
+          </div>
+
+          <!-- Стрелка переключения на следующий вид спорта -->
+          <button type="button" onclick="appLogic.nextHeroSport()" class="hero-next-btn shrink-0" aria-label="Следующий вид спорта" title="Следующий вид спорта">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Раздел «О сайте» -->
+  <section id="about-site" class="py-16 panel-deep border-top-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-medium muted">О проекте</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-medium mt-2">Что это за сайт и для чего создан</h2>
+        <p class="soft mt-3 text-sm">Образовательная платформа по истории шести главных спортивных дисциплин</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="glass-panel border-line p-5 rounded-xl">
+          <span class="text-xs font-mono accent-text">01</span>
+          <h3 class="text-sm font-medium mt-2 mb-2">Цифровой справочник</h3>
+          <p class="soft text-xs leading-relaxed">Интерактивная энциклопедия, где история спорта представлена через схемы арен, таймлайны и визуальную инфографику</p>
+        </div>
+        <div class="glass-panel border-line p-5 rounded-xl">
+          <span class="text-xs font-mono accent-text">02</span>
+          <h3 class="text-sm font-medium mt-2 mb-2">6 дисциплин</h3>
+          <p class="soft text-xs leading-relaxed">Происхождение и эволюция футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от древних корней до современных правил</p>
+        </div>
+        <div class="glass-panel border-line p-5 rounded-xl">
+          <span class="text-xs font-mono accent-text">03</span>
+          <h3 class="text-sm font-medium mt-2 mb-2">Быстрое изучение</h3>
+          <p class="soft text-xs leading-relaxed">Помогает студентам и школьникам находить точные даты, размеры площадок и ключевые этапы развития каждой дисциплины</p>
+        </div>
+        <div class="glass-panel border-line p-5 rounded-xl">
+          <span class="text-xs font-mono accent-text">04</span>
+          <h3 class="text-sm font-medium mt-2 mb-2">Векторная графика</h3>
+          <p class="soft text-xs leading-relaxed">Все схемы арен и площадок нарисованы в SVG — чёткие на любом экране, от телефона до проектора</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Каталог дисциплин -->
+  <section id="sports-catalog" class="py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-medium muted">Каталог дисциплин</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Выберите вид спорта</h2>
+        </div>
+        <span class="text-xs muted">Нажмите на карточку для краткого обзора</span>
+      </div>
+
+      <div id="searchStatusBanner" class="box-raised hidden mb-4 p-3 rounded-lg flex items-center justify-between">
+        <span id="searchStatusText" class="text-sm soft"></span>
+        <button onclick="appLogic.clearSearch()" class="btn-light text-xs font-medium px-3 py-1.5 rounded-lg">Показать все</button>
+      </div>
+
+      <div id="sportsGridContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Внутренняя страница дисциплины -->
+<section id="internalSportView" class="hidden py-12 flex-grow">
+  <div class="max-w-5xl mx-auto px-6 lg:px-8">
+    <div class="flex items-center gap-4 mb-8">
+      <button onclick="appLogic.showMainPage()" class="btn-dark inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium">
+        Ко всем дисциплинам
+      </button>
+    </div>
+    <div id="internalSportContent" class="space-y-8"></div>
+  </div>
+</section>
+
+<!-- Команда и тестирование -->
+<section id="team-qa" class="py-16 panel-deep border-top-line">
+  <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-8 gap-4">
+      <div>
+        <span class="text-xs font-medium muted">Команда проекта</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Участники и тестирование</h2>
+      </div>
+      <button onclick="qaTester.runAllTests()" class="btn-light px-4 py-2 rounded-lg text-sm font-medium shrink-0">Запустить проверку</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+      <div class="glass-panel border-line p-5 rounded-xl">
+        <span class="text-xs font-mono accent-text">01</span>
+        <h3 class="text-sm font-medium mt-2">Изамутдин</h3>
+        <p class="text-xs muted mt-0.5 mb-2">Дизайн и SVG</p>
+        <p class="text-xs soft leading-relaxed">Визуальное оформление, векторные арены в style.css</p>
+      </div>
+      <div class="glass-panel border-line p-5 rounded-xl">
+        <span class="text-xs font-mono accent-text">02</span>
+        <h3 class="text-sm font-medium mt-2">Рамазан</h3>
+        <p class="text-xs muted mt-0.5 mb-2">Главная страница</p>
+        <p class="text-xs soft leading-relaxed">Шапка, основной экран, раздел «О сайте» и сетка карточек</p>
+      </div>
+      <div class="glass-panel border-line p-5 rounded-xl">
+        <span class="text-xs font-mono accent-text">03</span>
+        <h3 class="text-sm font-medium mt-2">Хучбар</h3>
+        <p class="text-xs muted mt-0.5 mb-2">Внутренняя страница</p>
+        <p class="text-xs soft leading-relaxed">Историческая летопись, хронология и таблицы рекордов</p>
+      </div>
+      <div class="glass-panel border-line p-5 rounded-xl">
+        <span class="text-xs font-mono accent-text">04</span>
+        <h3 class="text-sm font-medium mt-2">Адам</h3>
+        <p class="text-xs muted mt-0.5 mb-2">Функциональность</p>
+        <p class="text-xs soft leading-relaxed">Поиск, быстрые фильтры, логика открытия карточек</p>
+      </div>
+      <div class="glass-panel border-line p-5 rounded-xl">
+        <span class="text-xs font-mono accent-text">05</span>
+        <h3 class="text-sm font-medium mt-2">Джабраил</h3>
+        <p class="text-xs muted mt-0.5 mb-2">Тестировщик</p>
+        <p class="text-xs soft leading-relaxed">Автоматический контроль всех пунктов технического задания</p>
+      </div>
+    </div>
+
+    <div class="glass-panel border-line rounded-xl p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-bottom-line">
+        <div>
+          <h4 class="text-sm font-medium">Результаты проверки</h4>
+          <p class="text-xs muted mt-0.5">Автоматическое тестирование по пунктам ТЗ</p>
+        </div>
+        <span id="qaSummaryBadge" class="px-3 py-1 rounded-lg text-xs font-medium qa-ok">Все проверки пройдены</span>
+      </div>
+      <div id="qaResultsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Подвал -->
+<footer class="py-8 panel-deep border-top-line">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs muted">
+    <span class="font-display soft font-medium">Хроники Спорта</span>
+    <div class="flex flex-wrap justify-center gap-3">
+      <span>Дизайн: Изамутдин</span>
+      <span>Главная: Рамазан</span>
+      <span>История: Хучбар</span>
+      <span>Логика: Адам</span>
+      <span>QA: Джабраил</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Подключение внешнего JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
