@@ -594,3 +594,28 @@ h1, h2, h3, h4, .font-display {
   50% { opacity: 1; }
   60%, 100% { opacity: 0; }
 }
+
+/* Легенды спорта */
+.legend-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-ink);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  box-shadow: 0 0 14px var(--glow);
+}
+
+.legend-card {
+  transition: border-color 200ms ease-out, transform 200ms ease-out;
+}
+
+.legend-card:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-2px);
+}
