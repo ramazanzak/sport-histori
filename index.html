@@ -42,11 +42,12 @@
         </div>
         <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
           <span class="muted">Фильтр:</span>
-          <button onclick="appLogic.quickFilter('Футбол')" class="soft px-2 py-0.5 rounded btn-dark">Футбол</button>
-          <button onclick="appLogic.quickFilter('Бокс')" class="soft px-2 py-0.5 rounded btn-dark">Бокс</button>
-          <button onclick="appLogic.quickFilter('Волейбол')" class="soft px-2 py-0.5 rounded btn-dark">Волейбол</button>
-          <button onclick="appLogic.quickFilter('Хоккей')" class="soft px-2 py-0.5 rounded btn-dark">Хоккей</button>
-          <button onclick="appLogic.quickFilter('Баскетбол')" class="soft px-2 py-0.5 rounded btn-dark">Баскетбол</button>
+          <button onclick="appLogic.quickFilter('Футбол')" data-filter="футбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Футбол</button>
+          <button onclick="appLogic.quickFilter('Бокс')" data-filter="бокс" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Бокс</button>
+          <button onclick="appLogic.quickFilter('Волейбол')" data-filter="волейбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Волейбол</button>
+          <button onclick="appLogic.quickFilter('Хоккей')" data-filter="хоккей" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Хоккей</button>
+          <button onclick="appLogic.quickFilter('Баскетбол')" data-filter="баскетбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Баскетбол</button>
+          <button onclick="appLogic.quickFilter('Теннис')" data-filter="теннис" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Теннис</button>
         </div>
       </div>
 
@@ -83,26 +84,50 @@
           </div>
         </div>
 
-        <!-- Карточка-превью с переключением видов спорта по стрелке справа -->
-        <div class="lg:col-span-6 flex items-center gap-3 sm:gap-4">
-          <div id="heroPreviewCard" class="glass-panel border-line rounded-2xl p-5 flex-1 min-w-0">
-            <div class="flex items-center justify-between mb-4">
-              <div class="flex items-center gap-2">
-                <span id="heroSportName" class="text-xs font-medium muted">Футбол</span>
-                <span id="heroSportCounter" class="text-[11px] font-mono muted opacity-70 tabular-nums">1 / 6</span>
+        <!-- Карточка-превью с переключением видов спорта и переходом в историю -->
+        <div class="lg:col-span-6">
+          <div class="flex items-center gap-2 sm:gap-4">
+            <!-- Стрелка переключения на предыдущий вид спорта -->
+            <button type="button" onclick="appLogic.prevHeroSport()" class="hero-nav-btn hero-prev-btn shrink-0" aria-label="Предыдущий вид спорта" title="Предыдущий вид спорта">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 6l-6 6 6 6"/>
+              </svg>
+            </button>
+
+            <div id="heroPreviewCard" onclick="appLogic.openHeroSportDetail()" role="button" tabindex="0"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();appLogic.openHeroSportDetail();}"
+              class="hero-preview-card glass-panel border-line rounded-2xl p-5 flex-1 min-w-0 cursor-pointer"
+              title="Нажмите, чтобы открыть полную историю дисциплины">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <span id="heroSportName" class="text-xs font-medium muted">Футбол</span>
+                  <span id="heroSportCounter" class="text-[11px] font-mono muted opacity-70 tabular-nums">1 / 6</span>
+                </div>
+                <span id="heroSportYear" class="text-xs font-mono muted tabular-nums">1863</span>
               </div>
-              <span id="heroSportYear" class="text-xs font-mono muted tabular-nums">1863</span>
+              <div id="heroSportVisual" class="box-deep rounded-xl p-3 mb-4"></div>
+              <div id="heroSportStats" class="space-y-2"></div>
+              <div class="flex items-center justify-between mt-4 pt-3 border-top-line text-xs">
+                <span class="muted">Нажмите на карточку</span>
+                <span class="accent-text font-medium inline-flex items-center gap-1">
+                  Открыть историю
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M13 6l6 6-6 6"/>
+                  </svg>
+                </span>
+              </div>
             </div>
-            <div id="heroSportVisual" class="box-deep rounded-xl p-3 mb-4"></div>
-            <div id="heroSportStats" class="space-y-2"></div>
+
+            <!-- Стрелка переключения на следующий вид спорта -->
+            <button type="button" onclick="appLogic.nextHeroSport()" class="hero-nav-btn hero-next-btn shrink-0" aria-label="Следующий вид спорта" title="Следующий вид спорта">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 6l6 6-6 6"/>
+              </svg>
+            </button>
           </div>
 
-          <!-- Стрелка переключения на следующий вид спорта -->
-          <button type="button" onclick="appLogic.nextHeroSport()" class="hero-next-btn shrink-0" aria-label="Следующий вид спорта" title="Следующий вид спорта">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 6l6 6-6 6"/>
-            </svg>
-          </button>
+          <!-- Точки-индикаторы дисциплин (1–6) -->
+          <div id="heroDots" class="flex items-center justify-center gap-2 mt-4" aria-label="Выбор дисциплины"></div>
         </div>
       </div>
     </div>

@@ -610,6 +610,7 @@ const appLogic = {
     const yearEl = document.getElementById('heroSportYear');
     const visualEl = document.getElementById('heroSportVisual');
     const statsEl = document.getElementById('heroSportStats');
+    const dotsEl = document.getElementById('heroDots');
 
     if (nameEl) nameEl.textContent = sport.name;
     if (counterEl) counterEl.textContent = `${this.heroSportIndex + 1} / ${SPORTS_DATABASE.length}`;
@@ -624,6 +625,13 @@ const appLogic = {
         </div>`).join('');
     }
 
+    if (dotsEl) {
+      dotsEl.innerHTML = SPORTS_DATABASE.map((item, idx) => `
+        <button type="button" onclick="appLogic.goToHeroSport(${idx})"
+          class="hero-dot ${idx === this.heroSportIndex ? 'is-active' : ''}"
+          aria-label="${item.name}" title="${item.name}"></button>`).join('');
+    }
+
     if (animate && card) {
       card.classList.remove('hero-card-fade');
       void card.offsetWidth;
@@ -634,6 +642,22 @@ const appLogic = {
   nextHeroSport() {
     this.heroSportIndex = (this.heroSportIndex + 1) % SPORTS_DATABASE.length;
     this.renderHeroPreview(true);
+  },
+
+  prevHeroSport() {
+    this.heroSportIndex = (this.heroSportIndex - 1 + SPORTS_DATABASE.length) % SPORTS_DATABASE.length;
+    this.renderHeroPreview(true);
+  },
+
+  goToHeroSport(index) {
+    if (index < 0 || index >= SPORTS_DATABASE.length || index === this.heroSportIndex) return;
+    this.heroSportIndex = index;
+    this.renderHeroPreview(true);
+  },
+
+  openHeroSportDetail() {
+    const sport = SPORTS_DATABASE[this.heroSportIndex];
+    if (sport) this.openSportDetail(sport.id);
   },
 
   toggleCardPreview(sportId, event) {
@@ -727,11 +751,21 @@ const appLogic = {
     }).join('');
   },
 
+  updateFilterChips(cleanQuery) {
+    document.querySelectorAll('.filter-chip').forEach(btn => {
+      const filterVal = (btn.getAttribute('data-filter') || '').toLowerCase();
+      btn.classList.toggle('is-active', cleanQuery.length > 0 && cleanQuery === filterVal);
+    });
+  },
+
   handleSearch(query) {
     const cleanQuery = query.trim().toLowerCase();
     const clearBtn = document.getElementById('clearSearchBtn');
     const statusBanner = document.getElementById('searchStatusBanner');
     const statusText = document.getElementById('searchStatusText');
+
+    this.currentFilter = cleanQuery;
+    this.updateFilterChips(cleanQuery);
 
     if (!document.getElementById('internalSportView').classList.contains('hidden') && cleanQuery.length > 0) {
       this.showMainPage(false);
@@ -756,6 +790,10 @@ const appLogic = {
 
   quickFilter(sportName) {
     const input = document.getElementById('sportSearchInput');
+    if (this.currentFilter === sportName.trim().toLowerCase()) {
+      this.clearSearch();
+      return;
+    }
     if (input) {
       input.value = sportName;
       this.handleSearch(sportName);
@@ -770,15 +808,53 @@ const appLogic = {
   },
 
   openSportDetail(sportId) {
-    const sport = SPORTS_DATABASE.find(s => s.id === sportId);
-    if (!sport) return;
+    const sportIndex = SPORTS_DATABASE.findIndex(s => s.id === sportId);
+    if (sportIndex === -1) return;
+
+    const sport = SPORTS_DATABASE[sportIndex];
+    const prevSport = SPORTS_DATABASE[(sportIndex - 1 + SPORTS_DATABASE.length) % SPORTS_DATABASE.length];
+    const nextSport = SPORTS_DATABASE[(sportIndex + 1) % SPORTS_DATABASE.length];
+    const eqColsClass = sport.fullHistory.equipmentEvolution.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
 
     document.getElementById('internalSportContent').innerHTML = `
       <div class="glass-panel border-line rounded-xl p-6 sm:p-8">
         <span class="text-xs font-mono accent-text">${sport.category} · ${sport.originYear}</span>
-        <h1 class="font-display text-2xl sm:text-4xl font-medium mt-3 mb-4">${sport.name}</h1>
+        <h1 class="font-display text-2xl sm:text-4xl font-medium mt-3 mb-2">${sport.name}</h1>
+        <p class="text-sm muted mb-4">${sport.subtitle}</p>
         <p class="soft text-sm leading-relaxed mb-6">${sport.fullHistory.intro}</p>
         <div class="box-deep rounded-lg p-4">${VISUAL(sport)}</div>
+      </div>
+
+      <div class="glass-panel border-line rounded-xl p-6 sm:p-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 mb-5 border-bottom-line">
+          <div>
+            <span class="text-xs font-mono accent-text">Исторические корни</span>
+            <p class="text-sm soft mt-1">${sport.ancientRoots}</p>
+          </div>
+          <span class="tag px-3 py-1 rounded-lg text-xs font-medium self-start md:self-center">${sport.originYear}</span>
+        </div>
+        <h2 class="font-display text-lg font-medium mb-4">Ключевые параметры</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          ${sport.fullHistory.keyStats.map(st => `
+            <div class="box-deep p-4 rounded-lg">
+              <div class="text-xs muted mb-1">${st.label}</div>
+              <div class="text-sm font-mono font-medium soft tabular-nums">${st.value}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+
+      <div class="glass-panel border-line rounded-xl p-6 sm:p-8">
+        <h2 class="font-display text-xl font-medium mb-6">Схемы и детали</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${sport.galleryFrames.map(frame => `
+            <div class="box-deep rounded-lg p-4">
+              ${frame.svg}
+              <div class="mt-3">
+                <div class="text-sm font-medium">${frame.title}</div>
+                <div class="text-xs muted mt-1">${frame.caption}</div>
+              </div>
+            </div>`).join('')}
+        </div>
       </div>
 
       <div class="glass-panel border-line rounded-xl p-6 sm:p-8">
@@ -795,13 +871,30 @@ const appLogic = {
 
       <div class="glass-panel border-line rounded-xl p-6 sm:p-8">
         <h2 class="font-display text-xl font-medium mb-6">Эволюция инвентаря</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 ${eqColsClass} gap-3">
           ${sport.fullHistory.equipmentEvolution.map(eq => `
             <div class="box-deep p-4 rounded-lg">
               <div class="text-sm font-medium accent-text mb-2">${eq.item}</div>
               <p class="soft text-xs">${eq.detail}</p>
             </div>`).join('')}
         </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+        <button type="button" onclick="appLogic.openSportDetail('${prevSport.id}')"
+          class="btn-dark px-5 py-3 rounded-xl text-sm font-medium inline-flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 6l-6 6 6 6"/>
+          </svg>
+          <span>Предыдущая: ${prevSport.name}</span>
+        </button>
+        <button type="button" onclick="appLogic.openSportDetail('${nextSport.id}')"
+          class="btn-light px-5 py-3 rounded-xl text-sm font-medium inline-flex items-center justify-center gap-2">
+          <span>Следующая: ${nextSport.name}</span>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 6l6 6-6 6"/>
+          </svg>
+        </button>
       </div>`;
 
     document.getElementById('mainPageView').classList.add('hidden');
