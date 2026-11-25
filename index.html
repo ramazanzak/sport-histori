@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru" class="scroll-smooth" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +9,43 @@
   <!-- Шрифты Inter и Unbounded -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Unbounded:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
-<body class="min-h-screen flex flex-col selection:bg-amber-600 selection:text-white">
+<body class="min-h-screen flex flex-col">
+
+<!-- Стадионный многослойный фон -->
+<div class="stadium-bg" aria-hidden="true">
+  <i class="sb-glow g1"></i>
+  <i class="sb-glow g2"></i>
+  <i class="sb-glow g3"></i>
+  <i class="sb-beams"></i>
+  <i class="sb-grain"></i>
+</div>
+
+<!-- Полоса прогресса прокрутки -->
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
 
 <!-- Липкая шапка сайта -->
 <header class="glass-header sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8 py-3">
-    <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
-      <a href="#home" onclick="appLogic.showMainPage(); return false;" class="flex items-center gap-3 shrink-0">
-        <div class="logo-box w-10 h-10 rounded-lg flex items-center justify-center">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#2a200f" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5.2-9.8C4.8 11.2 3 9.5 3 7V5h3m11.2 6.2c2 0 3.8-1.7 3.8-4.2V5h-3M6 4h12v5a6 6 0 01-12 0V4z"/>
-          </svg>
-        </div>
-        <span class="font-display text-base font-medium leading-none">Хроники Спорта</span>
-      </a>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-4">
+      <div class="w-full lg:w-auto flex items-center justify-between gap-3">
+        <a href="#home" onclick="appLogic.showMainPage(); return false;" class="flex items-center gap-3 shrink-0">
+          <div class="logo-box w-10 h-10 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0b1f4b" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5.2-9.8C4.8 11.2 3 9.5 3 7V5h3m11.2 6.2c2 0 3.8-1.7 3.8-4.2V5h-3M6 4h12v5a6 6 0 01-12 0V4z"/>
+            </svg>
+          </div>
+          <span class="font-display text-base font-medium leading-none">Хроники Спорта</span>
+        </a>
+
+        <!-- Кнопка переключения темы (мобильная позиция) -->
+        <button type="button" onclick="appLogic.toggleTheme()" class="theme-toggle-btn lg:hidden" aria-label="Переключить тему" title="Светлая / тёмная тема">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </div>
 
       <!-- Поиск и быстрые фильтры -->
       <div class="w-full lg:max-w-md relative">
@@ -38,7 +57,7 @@
             class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
             oninput="appLogic.handleSearch(this.value)">
           <button id="clearSearchBtn" onclick="appLogic.clearSearch()"
-            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted hover:text-white">Сброс</button>
+            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted">Сброс</button>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
           <span class="muted">Фильтр:</span>
@@ -51,13 +70,18 @@
         </div>
       </div>
 
-      <!-- Навигация -->
-      <nav class="flex items-center gap-1 shrink-0">
-        <button onclick="appLogic.navigateSection('hero')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</button>
-        <button onclick="appLogic.navigateSection('about-site')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">О сайте</button>
-        <button onclick="appLogic.navigateSection('sports-catalog')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Дисциплины</button>
-        <button onclick="appLogic.navigateSection('team-qa')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Команда</button>
-      </nav>
+      <!-- Навигация и переключатель темы -->
+      <div class="flex items-center justify-center gap-1.5 shrink-0 flex-wrap">
+        <nav class="flex items-center gap-1 flex-wrap justify-center">
+          <button onclick="appLogic.navigateSection('hero')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</button>
+          <button onclick="appLogic.navigateSection('about-site')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">О сайте</button>
+          <button onclick="appLogic.navigateSection('sports-catalog')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Дисциплины</button>
+          <button onclick="appLogic.navigateSection('team-qa')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Команда</button>
+        </nav>
+        <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-toggle-btn hidden lg:grid" aria-label="Переключить тему" title="Светлая / тёмная тема">
+          <span class="theme-icon" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </div>
 </header>
@@ -271,7 +295,14 @@
   </div>
 </footer>
 
+<!-- Кнопка «Наверх» -->
+<button id="toTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="to-top-btn" type="button" aria-label="Наверх" title="Наверх">
+  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js"></script>
+<script src="script.js?v=3"></script>
 </body>
 </html>

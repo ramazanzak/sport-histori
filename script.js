@@ -595,9 +595,42 @@ const appLogic = {
   heroSportIndex: 0,
 
   init() {
+    this.initTheme();
+    this.initScrollUI();
     this.renderHeroPreview(false);
     this.renderSportsCatalog(SPORTS_DATABASE);
     qaTester.runAllTests();
+  },
+
+  initTheme() {
+    let saved = 'dark';
+    try {
+      saved = localStorage.getItem('hc-theme') || 'dark';
+    } catch (e) {}
+    document.documentElement.setAttribute('data-theme', saved);
+  },
+
+  toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try {
+      localStorage.setItem('hc-theme', next);
+    } catch (e) {}
+  },
+
+  initScrollUI() {
+    const progressEl = document.getElementById('scrollProgress');
+    const toTopBtn = document.getElementById('toTopBtn');
+    const updateScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (scrollTop / docHeight) * 100) : 0;
+      if (progressEl) progressEl.style.width = `${pct}%`;
+      if (toTopBtn) toTopBtn.classList.toggle('is-visible', scrollTop > 380);
+    };
+    window.addEventListener('scroll', updateScroll, { passive: true });
+    updateScroll();
   },
 
   renderHeroPreview(animate = true) {
@@ -897,14 +930,27 @@ const appLogic = {
         </button>
       </div>`;
 
-    document.getElementById('mainPageView').classList.add('hidden');
-    document.getElementById('internalSportView').classList.remove('hidden');
+    const mainEl = document.getElementById('mainPageView');
+    const detailEl = document.getElementById('internalSportView');
+    mainEl.classList.add('hidden');
+    detailEl.classList.remove('hidden');
+    detailEl.classList.remove('view-enter');
+    void detailEl.offsetWidth;
+    detailEl.classList.add('view-enter');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
   showMainPage(scrollToTop = true) {
-    document.getElementById('internalSportView').classList.add('hidden');
-    document.getElementById('mainPageView').classList.remove('hidden');
+    const mainEl = document.getElementById('mainPageView');
+    const detailEl = document.getElementById('internalSportView');
+    const wasHidden = mainEl.classList.contains('hidden');
+    detailEl.classList.add('hidden');
+    mainEl.classList.remove('hidden');
+    if (wasHidden) {
+      mainEl.classList.remove('view-enter');
+      void mainEl.offsetWidth;
+      mainEl.classList.add('view-enter');
+    }
     if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 

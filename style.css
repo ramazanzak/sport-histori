@@ -1,44 +1,220 @@
-/* Основные переменные тёмно-золотой палитры */
-:root {
-  --bg-page: #2a200f;
-  --bg-deep: #1f1809;
-  --bg-card: #352a14;
-  --bg-raised: #433619;
-  --text: #fbf3df;
-  --text-2: #d9c9a3;
-  --text-3: #a8956a;
-  --accent: #d4a537;
-  --accent-hover: #e8c25e;
-  --line: rgba(251, 243, 223, 0.12);
+/* Основные переменные тёмной (по умолчанию) и светлой тем */
+:root,
+[data-theme="dark"] {
+  --bg-page: #070b16;
+  --bg-deep: rgba(11, 20, 44, 0.68);
+  --bg-card: rgba(255, 255, 255, 0.055);
+  --bg-raised: rgba(255, 255, 255, 0.1);
+  --bg-box: rgba(7, 11, 24, 0.68);
+  --header-bg: rgba(7, 11, 22, 0.8);
+  --text: #eef2fb;
+  --text-2: #c5cfe6;
+  --text-3: #8fa0c7;
+  --heading: #ffffff;
+  --accent: #d4af37;
+  --accent-hover: #f0dc8e;
+  --accent-ink: #0b1f4b;
+  --line: rgba(255, 255, 255, 0.11);
+  --glow: rgba(212, 175, 55, 0.25);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="light"] {
+  --bg-page: #f4f2ec;
+  --bg-deep: rgba(255, 255, 255, 0.62);
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-raised: rgba(11, 31, 75, 0.06);
+  --bg-box: rgba(11, 31, 75, 0.045);
+  --header-bg: rgba(255, 255, 255, 0.86);
+  --text: #1b1f2a;
+  --text-2: #3b4459;
+  --text-3: #636d82;
+  --heading: #0b1f4b;
+  --accent: #d4af37;
+  --accent-hover: #e5c65c;
+  --accent-ink: #0b1f4b;
+  --line: rgba(11, 31, 75, 0.12);
+  --glow: rgba(212, 175, 55, 0.3);
+  --shadow-card: 0 8px 26px rgba(11, 31, 75, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--bg-page);
+  background: transparent;
   color: var(--text);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: color 300ms ease-out;
+}
+
+h1, h2, h3, h4, .font-display {
+  color: var(--heading);
 }
 
 .font-display {
   font-family: 'Unbounded', sans-serif;
 }
 
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* ================= Стадионный фон (королевская ночь / дневная арена) ================= */
+.stadium-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 700px at 50% 108%, rgba(36, 62, 118, 0.75) 0%, rgba(36, 62, 118, 0) 70%),
+    radial-gradient(900px 600px at 12% 0%, rgba(28, 46, 86, 0.7) 0%, rgba(28, 46, 86, 0) 70%),
+    linear-gradient(180deg, #070a12 0%, #0d1320 55%, #121a2b 100%);
+  transition: background 400ms ease-out;
+}
+
+.sb-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+}
+
+.g1 {
+  width: 520px;
+  height: 520px;
+  left: -140px;
+  top: 8%;
+  background: #233f7a;
+  animation: sbFloat 22s ease-in-out infinite alternate;
+}
+
+.g2 {
+  width: 460px;
+  height: 460px;
+  right: -120px;
+  top: 35%;
+  background: #d4af37;
+  opacity: 0.26;
+  animation: sbFloat 28s ease-in-out infinite alternate-reverse;
+}
+
+.g3 {
+  width: 600px;
+  height: 380px;
+  left: 30%;
+  bottom: -160px;
+  background: #2d4c8f;
+  opacity: 0.35;
+  animation: sbFloat 25s ease-in-out infinite alternate;
+}
+
+@keyframes sbFloat {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(60px, -40px) scale(1.15); }
+}
+
+.sb-beams {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 200deg at 50% -12%,
+    transparent 0deg,
+    rgba(255, 233, 160, 0.13) 8deg,
+    transparent 18deg,
+    transparent 40deg,
+    rgba(255, 233, 160, 0.09) 48deg,
+    transparent 58deg,
+    transparent 100deg,
+    rgba(255, 233, 160, 0.1) 110deg,
+    transparent 120deg,
+    transparent 150deg,
+    rgba(255, 233, 160, 0.12) 158deg,
+    transparent 168deg
+  );
+  animation: sbSway 18s ease-in-out infinite alternate;
+  transform-origin: 50% 0;
+}
+
+@keyframes sbSway {
+  from { transform: rotate(-2.5deg); }
+  to { transform: rotate(2.5deg); }
+}
+
+.sb-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1.2px);
+  background-size: 46px 46px;
+  background-position: 7px 11px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 75%);
+  mask-image: linear-gradient(180deg, #000, transparent 75%);
+}
+
+.stadium-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1200px 700px at 50% 60%, rgba(5, 9, 22, 0), rgba(5, 9, 22, 0.5));
+}
+
+[data-theme="light"] .stadium-bg {
+  background:
+    radial-gradient(1000px 650px at 50% 108%, #cdd9ff 0%, rgba(205, 217, 255, 0) 70%),
+    linear-gradient(180deg, #f6f3ea 0%, #ece8dc 100%);
+}
+
+[data-theme="light"] .sb-glow { opacity: 0.22; }
+[data-theme="light"] .g2 { opacity: 0.3; }
+[data-theme="light"] .sb-beams { opacity: 0.5; }
+[data-theme="light"] .sb-grain { opacity: 0.12; filter: invert(1); }
+[data-theme="light"] .stadium-bg::after { background: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sb-glow, .sb-beams { animation: none; }
+}
+
+/* Полоса прогресса прокрутки */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+  z-index: 60;
+  transition: width 100ms linear;
+}
+
+/* Стеклянные панели и контейнеры */
 .glass-header {
-  background: rgba(42, 32, 15, 0.96);
-  backdrop-filter: blur(8px);
+  background: var(--header-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--glow);
 }
 
 .glass-panel {
   background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
 }
 
 .panel-deep {
   background: var(--bg-deep);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .box-deep {
-  background: var(--bg-deep);
+  background: var(--bg-box);
   border: 1px solid var(--line);
 }
 
@@ -63,14 +239,58 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--line);
   color: var(--text);
+  transition: border-color 180ms ease-out, box-shadow 180ms ease-out;
+}
+
+.search-input::placeholder {
+  color: var(--text-3);
 }
 
 .search-input:focus {
-  border-color: rgba(212, 165, 55, 0.6);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--glow);
 }
 
 .btn-clear-search {
   background: var(--bg-raised);
+  transition: color 150ms ease-out;
+}
+
+.btn-clear-search:hover {
+  color: var(--heading);
+}
+
+/* Кнопка переключения темы */
+.theme-toggle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--heading);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 250ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--glow);
+  transform: rotate(20deg);
+}
+
+.theme-icon {
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: inset -5px -3px 0 0 var(--bg-page);
+  transition: box-shadow 250ms ease-out;
+}
+
+[data-theme="light"] .theme-icon {
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35);
 }
 
 /* Кнопки-стрелки и индикаторы переключения вида спорта на главном экране */
@@ -154,16 +374,22 @@ body {
 .sport-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
-  transition: border-color 200ms ease-out;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+  transition: border-color 220ms ease-out, transform 220ms ease-out, box-shadow 220ms ease-out;
   cursor: pointer;
 }
 
 .sport-card:hover {
-  border-color: rgba(212, 165, 55, 0.35);
+  border-color: rgba(212, 175, 55, 0.5);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card), 0 0 22px var(--glow);
 }
 
 .sport-card.is-expanded {
-  border-color: rgba(212, 165, 55, 0.7);
+  border-color: rgba(212, 175, 55, 0.75);
+  transform: none;
 }
 
 .sport-click-drawer {
@@ -180,49 +406,63 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.view-enter {
+  animation: viewFade 320ms cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+@keyframes viewFade {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Кнопки и акценты */
 .btn-light {
-  background: var(--accent);
-  color: #2a200f;
-  transition: background-color 150ms ease-out;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--accent-ink);
+  font-weight: 600;
+  box-shadow: 0 4px 16px var(--glow);
+  transition: transform 180ms ease-out, box-shadow 180ms ease-out, filter 180ms ease-out;
 }
 
 .btn-light:hover {
-  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px var(--glow);
+  filter: brightness(1.04);
 }
 
 .btn-dark {
   background: var(--bg-raised);
   color: var(--text-2);
   border: 1px solid var(--line);
-  transition: color 150ms ease-out, border-color 150ms ease-out;
+  transition: color 150ms ease-out, border-color 150ms ease-out, background-color 150ms ease-out;
 }
 
 .btn-dark:hover {
-  color: var(--text);
-  border-color: rgba(212, 165, 55, 0.35);
+  color: var(--heading);
+  border-color: rgba(212, 175, 55, 0.45);
 }
 
 .filter-chip.is-active {
-  background: var(--accent);
-  color: #2a200f;
-  border-color: var(--accent);
-  font-weight: 500;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--accent-ink);
+  border-color: transparent;
+  box-shadow: 0 3px 12px var(--glow);
+  font-weight: 600;
 }
 
 .filter-chip.is-active:hover {
-  background: var(--accent-hover);
-  color: #2a200f;
+  color: var(--accent-ink);
 }
 
 .tag {
-  background: var(--bg-raised);
-  color: #f0d58a;
-  border: 1px solid var(--line);
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(212, 175, 55, 0.32);
 }
 
 .logo-box {
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  box-shadow: 0 0 18px var(--glow);
 }
 
 .muted {
@@ -235,7 +475,7 @@ body {
 
 .hl:hover {
   background: var(--bg-raised);
-  color: var(--text);
+  color: var(--heading);
 }
 
 .accent-text {
@@ -243,12 +483,51 @@ body {
 }
 
 .qa-ok {
+  color: #34a853;
+  background: rgba(52, 168, 83, 0.12);
+}
+
+[data-theme="dark"] .qa-ok {
   color: #8fd19e;
-  background: rgba(143, 209, 158, 0.1);
+  background: rgba(143, 209, 158, 0.12);
 }
 
 .qa-fail {
   color: #e08a80;
+}
+
+/* Кнопка «Наверх» */
+.to-top-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  color: var(--heading);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 220ms ease-out, transform 220ms ease-out, border-color 200ms ease-out, visibility 220ms;
+  z-index: 45;
+  box-shadow: var(--shadow-card);
+}
+
+.to-top-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.to-top-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Анимации хоккейной арены: синхронное движение шайбы и удары клюшек */
