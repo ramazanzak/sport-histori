@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Зал славы и хронология — Хроники Спорта</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Шрифты Inter и Unbounded -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+  <!-- Подключение внешнего CSS -->
+  <link rel="stylesheet" href="style.css?v=7">
+</head>
+<body class="min-h-screen flex flex-col">
+
+<!-- Стадионный многослойный фон -->
+<div class="stadium-bg" aria-hidden="true">
+  <i class="sb-glow g1"></i>
+  <i class="sb-glow g2"></i>
+  <i class="sb-glow g3"></i>
+  <i class="sb-beams"></i>
+</div>
+
+<!-- Полоса прогресса прокрутки -->
+<div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Липкая шапка сайта -->
+<header class="glass-header sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-4">
+      <div class="w-full lg:w-auto flex items-center justify-between gap-3">
+        <a href="index.html" class="flex items-center gap-3 shrink-0">
+          <div class="logo-box w-10 h-10 rounded-lg flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="#0b1f4b" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5.2-9.8C4.8 11.2 3 9.5 3 7V5h3m11.2 6.2c2 0 3.8-1.7 3.8-4.2V5h-3M6 4h12v5a6 6 0 01-12 0V4z"/>
+            </svg>
+          </div>
+          <span class="font-display text-base font-medium leading-none">Хроники Спорта</span>
+        </a>
+
+        <!-- Переключатель темы (мобильная позиция) -->
+        <button type="button" onclick="appLogic.toggleTheme()" class="theme-switch lg:hidden" aria-label="Переключить тему" title="Тёмная / светлая тема">
+          <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="theme-switch-item theme-switch-light" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+
+      <!-- Поиск по легендам и событиям -->
+      <div class="w-full lg:max-w-md relative">
+        <div class="relative flex items-center">
+          <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
+          </svg>
+          <input id="hallSearchInput" type="text" placeholder="Поиск легенды, страны или события"
+            class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
+            oninput="hallLogic.handleSearch(this.value)">
+          <button id="hallClearSearchBtn" onclick="hallLogic.clearSearch()"
+            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted">Сброс</button>
+        </div>
+        <div id="hallSportFilters" class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
+          <button onclick="hallLogic.setSportFilter('all')" data-hall-filter="all" class="filter-chip is-active px-2.5 py-0.5 rounded btn-dark">Все</button>
+          <button onclick="hallLogic.setSportFilter('football')" data-hall-filter="football" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Футбол</button>
+          <button onclick="hallLogic.setSportFilter('boxing')" data-hall-filter="boxing" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Бокс</button>
+          <button onclick="hallLogic.setSportFilter('volleyball')" data-hall-filter="volleyball" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Волейбол</button>
+          <button onclick="hallLogic.setSportFilter('hockey')" data-hall-filter="hockey" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Хоккей</button>
+          <button onclick="hallLogic.setSportFilter('basketball')" data-hall-filter="basketball" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Баскетбол</button>
+          <button onclick="hallLogic.setSportFilter('tennis')" data-hall-filter="tennis" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Теннис</button>
+        </div>
+      </div>
+
+      <!-- Навигация и переключатель темы -->
+      <div class="flex items-center justify-center gap-1.5 shrink-0 flex-wrap">
+        <nav class="flex items-center gap-1 flex-wrap justify-center">
+          <a href="index.html" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</a>
+          <a href="#hall-of-fame" class="hl nav-link-active px-3 py-2 rounded-lg text-xs font-medium">Зал славы</a>
+          <a href="#unified-timeline" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Хронология</a>
+          <a href="#world-records" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Рекорды</a>
+        </nav>
+        <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-switch hidden lg:inline-flex" aria-label="Переключить тему" title="Тёмная / светлая тема">
+          <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="theme-switch-item theme-switch-light" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow view-enter">
+
+  <!-- Заглавный экран Зала славы -->
+  <section class="pt-14 pb-12 lg:pt-16 lg:pb-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="glass-panel border-line rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div class="space-y-4 max-w-2xl">
+            <span class="text-xs font-medium muted">Архив великих достижений · 6 дисциплин</span>
+            <h1 class="font-display text-3xl sm:text-5xl font-medium leading-tight">
+              Зал славы и великая хронология спорта
+            </h1>
+            <p class="soft text-sm sm:text-base leading-relaxed">
+              Единая летопись ключевых событий от Античной Олимпии до современности, легендарные спортсмены и главные мировые рекорды.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 shrink-0">
+            <a href="index.html#sports-catalog" class="btn-dark px-4 py-2.5 rounded-lg text-xs font-medium inline-flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 6l-6 6 6 6"/>
+              </svg>
+              <span>К каталогу дисциплин</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-8 pt-6 border-top-line">
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text" id="hallLegendsCount">24</div>
+            <div class="text-xs muted mt-1">Легенды спорта</div>
+          </div>
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text" id="hallEventsCount">19</div>
+            <div class="text-xs muted mt-1">Исторических вех</div>
+          </div>
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text">688 до н.э.</div>
+            <div class="text-xs muted mt-1">Первая дата архива</div>
+          </div>
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text">6</div>
+            <div class="text-xs muted mt-1">Спортивных дисциплин</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Общий Зал славы -->
+  <section id="hall-of-fame" class="py-12">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-xs font-medium muted">Легендарные спортсмены</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Зал славы</h2>
+        </div>
+        <span id="hallLegendsStatus" class="text-xs font-mono muted">Показано: 24</span>
+      </div>
+
+      <div id="hallLegendsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </div>
+  </section>
+
+  <!-- Единая лента времени -->
+  <section id="unified-timeline" class="py-16 panel-deep border-top-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <span class="text-xs font-medium muted">От древности до XXI века</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Единая хронология событий</h2>
+        </div>
+        <span id="hallTimelineStatus" class="text-xs font-mono muted">Событий: 19</span>
+      </div>
+
+      <div id="hallTimelineList" class="timeline-track space-y-4"></div>
+    </div>
+  </section>
+
+  <!-- Таблица мировых рекордов и стандартов -->
+  <section id="world-records" class="py-16 border-top-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="mb-8">
+        <span class="text-xs font-medium muted">Цифры и достижения</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Мировые рекорды и стандарты</h2>
+      </div>
+
+      <div id="hallRecordsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
+
+      <div class="glass-panel border-line rounded-xl overflow-hidden">
+        <div class="px-5 py-4 border-bottom-line flex items-center justify-between">
+          <h3 class="text-sm font-medium">Сравнительная сводка правил и арен</h3>
+          <span class="text-xs font-mono muted">6 дисциплин</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead>
+              <tr class="border-bottom-line muted">
+                <th class="px-5 py-3 font-medium">Дисциплина</th>
+                <th class="px-5 py-3 font-medium">Год правил</th>
+                <th class="px-5 py-3 font-medium">Ключевой стандарт</th>
+                <th class="px-5 py-3 font-medium">Состав / Формат</th>
+              </tr>
+            </thead>
+            <tbody id="hallStandardsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Подвал -->
+<footer class="py-8 panel-deep border-top-line">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs muted">
+    <div class="flex items-center gap-4">
+      <span class="font-display soft font-medium">Хроники Спорта</span>
+      <a href="index.html" class="hover:underline soft">Главная страница</a>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3">
+      <span>Дизайн: Изамутдин</span>
+      <span>Главная: Рамазан</span>
+      <span>История: Хучбар</span>
+      <span>Логика: Адам</span>
+      <span>QA: Джабраил</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Кнопка «Наверх» -->
+<button id="toTopBtn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })" class="to-top-btn" type="button" aria-label="Наверх" title="Наверх">
+  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<!-- Подключение внешнего JavaScript -->
+<script src="script.js?v=5"></script>
+</body>
+</html>

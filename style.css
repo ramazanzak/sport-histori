@@ -609,3 +609,42 @@ h1, h2, h3, h4, .font-display {
   border-color: rgba(212, 175, 55, 0.5);
   transform: translateY(-2px);
 }
+
+/* Активная ссылка страницы в шапке и вертикальная лента времени */
+.nav-link-active {
+  background: rgba(212, 175, 55, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.timeline-track {
+  position: relative;
+  padding-left: 24px;
+}
+
+.timeline-track::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), rgba(212, 175, 55, 0.15));
+  border-radius: 9999px;
+}
+
+.timeline-node {
+  position: relative;
+}
+
+.timeline-node::before {
+  content: "";
+  position: absolute;
+  left: -21px;
+  top: 22px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+}
