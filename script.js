@@ -1171,26 +1171,34 @@ const hallLogic = {
     const countEl = document.getElementById('hallLegendsCount');
     if (!grid) return;
 
-    const allLegends = [];
+    let totalCount = 0;
+    const groups = [];
+
     SPORTS_DATABASE.forEach(sport => {
-      (LEGENDS[sport.id] || []).forEach(person => {
-        allLegends.push({ ...person, sportId: sport.id, sportName: sport.name });
+      const sportLegends = LEGENDS[sport.id] || [];
+      totalCount += sportLegends.length;
+
+      if (this.activeSport !== 'all' && sport.id !== this.activeSport) return;
+
+      const matched = sportLegends.filter(item => {
+        if (!this.searchQuery) return true;
+        const hay = `${item.name} ${item.country} ${item.role} ${item.highlight} ${item.text} ${sport.name}`.toLowerCase();
+        return hay.includes(this.searchQuery);
       });
-    });
-    if (countEl) countEl.textContent = allLegends.length;
 
-    const filtered = allLegends.filter(item => {
-      if (this.activeSport !== 'all' && item.sportId !== this.activeSport) return false;
-      if (!this.searchQuery) return true;
-      const hay = `${item.name} ${item.country} ${item.role} ${item.highlight} ${item.text} ${item.sportName}`.toLowerCase();
-      return hay.includes(this.searchQuery);
+      if (matched.length > 0) {
+        groups.push({ sport, legends: matched });
+      }
     });
 
-    if (status) status.textContent = `Показано: ${filtered.length}`;
+    if (countEl) countEl.textContent = totalCount;
 
-    if (filtered.length === 0) {
+    const shownCount = groups.reduce((sum, g) => sum + g.legends.length, 0);
+    if (status) status.textContent = `Показано: ${shownCount}`;
+
+    if (groups.length === 0) {
       grid.innerHTML = `
-        <div class="md:col-span-2 lg:col-span-3 glass-panel border-line rounded-xl p-8 text-center">
+        <div class="glass-panel border-line rounded-xl p-8 text-center">
           <div class="text-sm font-medium mb-2">Совпадений в Зале славы не найдено</div>
           <p class="text-xs muted mb-4">Попробуйте другой запрос или выберите все дисциплины</p>
           <button onclick="hallLogic.setSportFilter('all'); hallLogic.clearSearch();" class="btn-light px-4 py-2 rounded-lg text-xs font-medium">Сбросить фильтры</button>
@@ -1198,32 +1206,41 @@ const hallLogic = {
       return;
     }
 
-    grid.innerHTML = filtered.map(p => `
-      <article class="legend-card glass-panel border-line rounded-xl p-5 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="tag px-2 py-0.5 rounded-lg text-xs font-medium">${p.sportName}</span>
-            <span class="text-xs font-mono muted">${p.years}</span>
+    grid.innerHTML = groups.map(({ sport, legends }) => `
+      <section class="glass-panel border-line rounded-2xl p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-bottom-line">
+          <div class="flex flex-wrap items-center gap-3">
+            <h3 class="font-display text-xl sm:text-2xl font-medium">${sport.name}</h3>
+            <span class="tag px-2.5 py-0.5 rounded-lg text-xs font-medium">${legends.length} легенд</span>
           </div>
-          <div class="flex items-center gap-3 mb-3">
-            <div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>
-            <div class="min-w-0">
-              <h3 class="text-sm font-medium">${p.name}</h3>
-              <div class="text-xs muted">${p.country} · ${p.role}</div>
-            </div>
-          </div>
-          <div class="text-xs font-mono accent-text mb-2">${p.highlight}</div>
-          <p class="soft text-xs leading-relaxed">${p.text}</p>
-        </div>
-        <div class="mt-4 pt-3 border-top-line">
-          <a href="index.html#sport=${p.sportId}" class="text-xs accent-text font-medium inline-flex items-center gap-1 hover:underline">
+          <a href="index.html#sport=${sport.id}" class="text-xs accent-text font-medium inline-flex items-center gap-1 hover:underline shrink-0">
             <span>История дисциплины</span>
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
           </a>
         </div>
-      </article>`).join('');
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${legends.map(p => `
+            <article class="legend-card box-deep rounded-xl p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-3 mb-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>
+                    <div class="min-w-0">
+                      <h4 class="text-sm font-medium">${p.name}</h4>
+                      <div class="text-xs muted">${p.years} · ${p.country}</div>
+                    </div>
+                  </div>
+                  <span class="tag px-2 py-0.5 rounded-lg text-xs font-medium shrink-0">${p.role}</span>
+                </div>
+                <div class="text-xs font-mono accent-text mb-2">${p.highlight}</div>
+                <p class="soft text-xs leading-relaxed">${p.text}</p>
+              </div>
+            </article>`).join('')}
+        </div>
+      </section>`).join('');
   },
 
   renderTimeline() {
