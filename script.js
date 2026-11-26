@@ -584,8 +584,15 @@ const VISUALS = {
   </svg>`
 };
 
+let visualUidCounter = 0;
+
 function VISUAL(sport) {
-  return VISUALS[sport.id] || '';
+  const raw = VISUALS[sport.id] || '';
+  if (!raw) return '';
+  const uid = ++visualUidCounter;
+  return raw
+    .replace(/\bid="([a-z]+-[a-z]+)"/g, `id="$1-${uid}"`)
+    .replace(/url\(#([a-z]+-[a-z]+)\)/g, `url(#$1-${uid})`);
 }
 
 /* Основная логика приложения */

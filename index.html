@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -21,7 +21,6 @@
   <i class="sb-glow g2"></i>
   <i class="sb-glow g3"></i>
   <i class="sb-beams"></i>
-  <i class="sb-grain"></i>
 </div>
 
 <!-- Полоса прогресса прокрутки -->
@@ -41,9 +40,19 @@
           <span class="font-display text-base font-medium leading-none">Хроники Спорта</span>
         </a>
 
-        <!-- Кнопка переключения темы (мобильная позиция) -->
-        <button type="button" onclick="appLogic.toggleTheme()" class="theme-toggle-btn lg:hidden" aria-label="Переключить тему" title="Светлая / тёмная тема">
-          <span class="theme-icon" aria-hidden="true"></span>
+        <!-- Переключатель темы (мобильная позиция) -->
+        <button type="button" onclick="appLogic.toggleTheme()" class="theme-switch lg:hidden" aria-label="Переключить тему" title="Тёмная / светлая тема">
+          <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="theme-switch-item theme-switch-light" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
         </button>
       </div>
 
@@ -78,8 +87,18 @@
           <button onclick="appLogic.navigateSection('sports-catalog')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Дисциплины</button>
           <button onclick="appLogic.navigateSection('team-qa')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Команда</button>
         </nav>
-        <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-toggle-btn hidden lg:grid" aria-label="Переключить тему" title="Светлая / тёмная тема">
-          <span class="theme-icon" aria-hidden="true"></span>
+        <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-switch hidden lg:inline-flex" aria-label="Переключить тему" title="Тёмная / светлая тема">
+          <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </span>
+          <span class="theme-switch-item theme-switch-light" aria-hidden="true">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </span>
         </button>
       </div>
     </div>
@@ -303,6 +322,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=3"></script>
+<script src="script.js?v=4"></script>
 </body>
 </html>

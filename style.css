@@ -145,17 +145,6 @@ h1, h2, h3, h4, .font-display {
   to { transform: rotate(2.5deg); }
 }
 
-.sb-grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.45;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 1px, transparent 1.2px);
-  background-size: 46px 46px;
-  background-position: 7px 11px;
-  -webkit-mask-image: linear-gradient(180deg, #000, transparent 75%);
-  mask-image: linear-gradient(180deg, #000, transparent 75%);
-}
-
 .stadium-bg::after {
   content: "";
   position: absolute;
@@ -172,7 +161,6 @@ h1, h2, h3, h4, .font-display {
 [data-theme="light"] .sb-glow { opacity: 0.22; }
 [data-theme="light"] .g2 { opacity: 0.3; }
 [data-theme="light"] .sb-beams { opacity: 0.5; }
-[data-theme="light"] .sb-grain { opacity: 0.12; filter: invert(1); }
 [data-theme="light"] .stadium-bg::after { background: none; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -260,37 +248,39 @@ h1, h2, h3, h4, .font-display {
   color: var(--heading);
 }
 
-/* Кнопка переключения темы */
-.theme-toggle-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 9999px;
+/* Переключатель темы в стиле сайта */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
   border: 1px solid var(--line);
-  background: var(--bg-card);
-  color: var(--heading);
+  background: var(--bg-raised);
   cursor: pointer;
+  transition: border-color 180ms ease-out, box-shadow 180ms ease-out;
+}
+
+.theme-switch:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 0 14px var(--glow);
+}
+
+.theme-switch-item {
+  width: 28px;
+  height: 26px;
+  border-radius: 7px;
   display: grid;
   place-items: center;
-  transition: transform 250ms ease-out, border-color 200ms ease-out, box-shadow 200ms ease-out;
+  color: var(--text-3);
+  transition: background 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
 }
 
-.theme-toggle-btn:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 14px var(--glow);
-  transform: rotate(20deg);
-}
-
-.theme-icon {
-  width: 15px;
-  height: 15px;
-  border-radius: 9999px;
-  background: var(--accent);
-  box-shadow: inset -5px -3px 0 0 var(--bg-page);
-  transition: box-shadow 250ms ease-out;
-}
-
-[data-theme="light"] .theme-icon {
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.35);
+[data-theme="dark"] .theme-switch-dark,
+[data-theme="light"] .theme-switch-light {
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--accent-ink);
+  box-shadow: 0 2px 8px var(--glow);
 }
 
 /* Кнопки-стрелки и индикаторы переключения вида спорта на главном экране */
