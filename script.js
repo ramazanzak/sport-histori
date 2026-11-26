@@ -600,68 +600,100 @@ function VISUAL(sport) {
 const LEGENDS = {
   football: [
     { name: 'Пеле', years: '1940–2022', country: 'Бразилия', role: 'Нападающий', highlight: '3 чемпионата мира',
+      photo: 'assets/legends/pele.jpg', photoPos: 'center 18%',
       text: 'Единственный футболист, трижды выигравший чемпионат мира: в 1958, 1962 и 1970 годах. Первый мундиаль выиграл в 17 лет.' },
     { name: 'Диего Марадона', years: '1960–2020', country: 'Аргентина', role: 'Атакующий полузащитник', highlight: 'Чемпион мира 1986',
+      photo: 'assets/legends/maradona.jpg', photoPos: 'center 22%',
       text: 'Привёл Аргентину к титулу в Мексике. В четвертьфинале с Англией забил «гол века» и «руку Бога». С «Наполи» дважды выиграл чемпионат Италии.' },
     { name: 'Лионель Месси', years: 'р. 1987', country: 'Аргентина', role: 'Нападающий', highlight: '8 «Золотых мячей»',
+      photo: 'assets/legends/messi.jpg', photoPos: 'center 20%',
       text: 'Восемь раз признавался лучшим футболистом мира по версии France Football. В 2022 году выиграл с Аргентиной чемпионат мира в Катаре.' },
     { name: 'Криштиану Роналду', years: 'р. 1985', country: 'Португалия', role: 'Нападающий', highlight: '5 «Золотых мячей»',
+      photo: 'assets/legends/ronaldo.jpg', photoPos: 'center 18%',
       text: 'Пять раз становился лучшим футболистом мира, в 2016 году выиграл с Португалией чемпионат Европы. Рекордсмен среди мужчин по голам за национальные сборные.' }
   ],
   boxing: [
     { name: 'Мохаммед Али', years: '1942–2016', country: 'США', role: 'Супертяжёлый вес', highlight: 'Олимпийский чемпион 1960',
+      photo: 'assets/legends/ali.jpg', photoPos: 'center 20%',
       text: 'Олимпийский чемпион Рима и трёхкратный чемпион мира среди профессионалов. Победа над Джорджем Форманом в Заире в 1974 году вошла в историю как «Грохот в джунглях».' },
     { name: 'Джо Луис', years: '1914–1981', country: 'США', role: 'Супертяжёлый вес', highlight: '25 защит титула',
+      photo: 'assets/legends/louis.jpg', photoPos: 'center 18%',
       text: 'Чемпион мира с 1937 по 1949 год: никто в тяжёлом весе не удерживал титул дольше.' },
     { name: 'Майк Тайсон', years: 'р. 1966', country: 'США', role: 'Супертяжёлый вес', highlight: 'Самый молодой чемпион',
+      photo: 'assets/legends/tyson.jpg', photoPos: 'center 18%',
       text: 'В 1986 году в 20 лет завоевал титул чемпиона мира по версии WBC и стал самым молодым чемпионом в тяжёлом весе.' },
     { name: 'Флойд Мейвезер', years: 'р. 1977', country: 'США', role: 'Несколько весов', highlight: '50 побед, 0 поражений',
+      photo: 'assets/legends/mayweather.jpg', photoPos: 'center 20%',
       text: 'Завершил профессиональную карьеру без единого поражения и стал чемпионом мира в пяти весовых категориях.' }
   ],
   volleyball: [
     { name: 'Карч Кирай', years: 'р. 1960', country: 'США', role: 'Доигровщик', highlight: 'Золото в зале и на песке',
+      photo: 'assets/legends/kiraly.jpg', photoPos: 'center 20%',
       text: 'Олимпийский чемпион 1984 и 1988 годов в классическом волейболе и 1996 года в пляжном. Единственный, кто выигрывал Олимпиаду в обеих версиях игры.' },
     { name: 'Лан Пин', years: 'р. 1960', country: 'Китай', role: 'Нападающая', highlight: 'Золото как игрок и тренер',
+      photo: 'assets/legends/langping.jpg', photoPos: 'center 20%',
       text: 'Лидер сборной Китая, олимпийская чемпионка 1984 года. Как тренер привела китаянок к золоту Олимпиады 2016 года в Рио.' },
     { name: 'Сергей Тетюхин', years: 'р. 1975', country: 'Россия', role: 'Нападающий', highlight: 'Олимпийское золото 2000 и 2012',
+      photo: 'assets/legends/tetyukhin.jpg', photoPos: 'center 20%',
       text: 'Один из самых титулованных волейболистов России: олимпийский чемпион Сиднея и Лондона, бронзовый призёр Игр 2004 и 2008 годов.' },
     { name: 'Жиба', years: 'р. 1976', country: 'Бразилия', role: 'Доигровщик', highlight: 'Олимпийское золото 2004',
+      photo: 'assets/legends/giba.jpg', photoPos: 'center 22%',
       text: 'Лидер сборной Бразилии: олимпийский чемпион 2004 года и чемпион мира 2002 и 2006 годов.' }
   ],
   hockey: [
     { name: 'Уэйн Гретцки', years: 'р. 1961', country: 'Канада', role: 'Центральный нападающий', highlight: '2857 очков в НХЛ',
+      photo: 'assets/legends/gretzky.jpg', photoPos: 'center 20%',
       text: 'Лучший бомбардир в истории НХЛ по очкам (894 гола и 1963 передачи), четырёхкратный обладатель Кубка Стэнли. Номер 99 выведен из обращения во всей лиге.' },
     { name: 'Владислав Третьяк', years: 'р. 1952', country: 'СССР / Россия', role: 'Вратарь', highlight: '3 олимпийских золота',
+      photo: 'assets/legends/tretiak.jpg', photoPos: 'center 20%',
       text: 'Олимпийский чемпион 1972, 1976 и 1984 годов и десятикратный чемпион мира. Один из величайших вратарей в истории.' },
     { name: 'Валерий Харламов', years: '1948–1981', country: 'СССР', role: 'Нападающий', highlight: '8 титулов чемпиона мира',
+      photo: 'assets/legends/kharlamov.jpg', photoPos: 'center 20%',
       text: 'Звезда ЦСКА и сборной СССР, двукратный олимпийский чемпион (1972 и 1976). Погиб в автокатастрофе в 33 года.' },
     { name: 'Александр Овечкин', years: 'р. 1985', country: 'Россия', role: 'Левый нападающий', highlight: 'Рекорд по голам в НХЛ',
+      photo: 'assets/legends/ovechkin.jpg', photoPos: 'center 20%',
       text: 'В апреле 2025 года забил 895-й гол в регулярных чемпионатах НХЛ и побил рекорд Гретцки. В 2018 году выиграл Кубок Стэнли с «Вашингтоном».' }
   ],
   basketball: [
     { name: 'Майкл Джордан', years: 'р. 1963', country: 'США', role: 'Атакующий защитник', highlight: '6 титулов НБА',
+      photo: 'assets/legends/jordan.jpg', photoPos: 'center 20%',
       text: 'Шесть чемпионств с «Чикаго Буллз» (1991–1993 и 1996–1998), шесть раз MVP финала. Олимпийский чемпион 1984 и 1992 годов.' },
     { name: 'Коби Брайант', years: '1978–2020', country: 'США', role: 'Атакующий защитник', highlight: '81 очко в одном матче',
+      photo: 'assets/legends/bryant.jpg', photoPos: 'center 20%',
       text: 'Все 20 сезонов провёл в «Лос-Анджелес Лейкерс» и выиграл пять чемпионств. В 2006 году набрал 81 очко в матче с «Торонто», второй результат в истории НБА.' },
     { name: 'Леброн Джеймс', years: 'р. 1984', country: 'США', role: 'Форвард', highlight: 'Лучший бомбардир НБА',
+      photo: 'assets/legends/lebron.jpg', photoPos: 'center 20%',
       text: 'В 2023 году обошёл Карима Абдул-Джаббара по числу очков в НБА. Четырёхкратный чемпион лиги с «Майами», «Кливлендом» и «Лейкерс».' },
     { name: 'Уилт Чемберлен', years: '1936–1999', country: 'США', role: 'Центровой', highlight: '100 очков в одном матче',
+      photo: 'assets/legends/chamberlain.jpg', photoPos: 'center 20%',
       text: '2 марта 1962 года набрал 100 очков в игре против «Нью-Йорк Никс». Этот рекорд НБА до сих пор не побит.' }
   ],
   tennis: [
     { name: 'Роджер Федерер', years: 'р. 1981', country: 'Швейцария', role: 'Одиночный разряд', highlight: '20 титулов Большого шлема',
+      photo: 'assets/legends/federer.jpg', photoPos: 'center 20%',
       text: 'Восемь побед на Уимблдоне, больше, чем у любого мужчины в Открытую эру. Провёл 310 недель во главе рейтинга ATP.' },
     { name: 'Рафаэль Надаль', years: 'р. 1986', country: 'Испания', role: 'Одиночный разряд', highlight: '14 титулов «Ролан Гаррос»',
+      photo: 'assets/legends/nadal.jpg', photoPos: 'center 18%',
       text: '22 победы на турнирах Большого шлема, 14 из них на грунте в Париже. Олимпийский чемпион 2008 года.' },
     { name: 'Новак Джокович', years: 'р. 1987', country: 'Сербия', role: 'Одиночный разряд', highlight: 'Рекордсмен по Большим шлемам',
+      photo: 'assets/legends/djokovic.jpg', photoPos: 'center 18%',
       text: 'На 2025 год имеет 24 победы на турнирах Большого шлема, больше, чем у любого другого мужчины. В 2024 году выиграл Олимпиаду в Париже.' },
     { name: 'Серена Уильямс', years: 'р. 1981', country: 'США', role: 'Одиночный разряд', highlight: '23 титула Большого шлема',
+      photo: 'assets/legends/williams.jpg', photoPos: 'center 18%',
       text: '23 победы в одиночном разряде в Открытую эру, рекорд. Четырёхкратная олимпийская чемпионка в одиночном и парном разрядах.' }
   ]
 };
 
 function legendInitials(name) {
   return name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+function legendImgFallback(img, name) {
+  const badge = document.createElement('div');
+  badge.className = 'legend-avatar';
+  badge.setAttribute('aria-hidden', 'true');
+  badge.textContent = legendInitials(name);
+  img.replaceWith(badge);
 }
 
 function legendsSection(sportId) {
@@ -1227,7 +1259,9 @@ const hallLogic = {
               <div>
                 <div class="flex items-center justify-between gap-3 mb-3">
                   <div class="flex items-center gap-3 min-w-0">
-                    <div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>
+                    ${p.photo
+                      ? `<img src="${p.photo}" alt="${p.name}" class="legend-photo" style="object-position:${p.photoPos || 'center 20%'}" loading="lazy" onerror="legendImgFallback(this, '${p.name.replace(/'/g, "\\'")}')">`
+                      : `<div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>`}
                     <div class="min-w-0">
                       <h4 class="text-sm font-medium">${p.name}</h4>
                       <div class="text-xs muted">${p.years} · ${p.country}</div>
