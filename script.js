@@ -266,8 +266,286 @@ const SPORTS_DATABASE = [
         { label: 'Большой шлем', value: '4 главных турнира' }
       ]
     }
+  },
+  {
+    id: 'formula1',
+    name: 'Формула-1',
+    subtitle: 'Вершина мирового автоспорта и инженерных технологий',
+    originYear: '1950 год (Сильверстоун, Великобритания)',
+    shortYear: '1950',
+    ancientRoots: 'Европейские гран-при 1906–1930-х годов',
+    category: 'Автоспорт',
+    shortSummary: 'Чемпионат мира по кольцевым автогонкам на болидах с открытыми колёсами, где скорости превышают 350 км/ч, а победу решают доли секунды на пит-стопе.',
+    heroStats: [
+      { label: 'Макс. скорость', value: '360+ км/ч' },
+      { label: 'Пит-стоп', value: 'от 1,8 сек' },
+      { label: 'Сезон', value: '24 Гран-при' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Схема гоночной трассы',
+        caption: 'Прямые разгона, скоростные шиканы и поребрики апексов',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><path d="M48,26 H162 C192,26 196,56 174,68 C160,76 178,90 156,90 H52 C24,90 22,26 48,26 Z" stroke="#d4af37" stroke-width="8" fill="none" stroke-opacity="0.35"/><path d="M48,26 H162 C192,26 196,56 174,68 C160,76 178,90 156,90 H52 C24,90 22,26 48,26 Z" stroke="#fbf3df" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/></svg>'
+      },
+      {
+        title: 'Аэродинамика болида',
+        caption: 'Антикрылья и граунд-эффект прижимают машину к асфальту',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><path d="M42,60 L72,48 L154,50 L182,58 L154,66 L72,66 Z" fill="#dc2626" stroke="#fbf3df" stroke-width="1.4"/><line x1="34" y1="42" x2="184" y2="42" stroke="#d4af37" stroke-width="1.4" stroke-dasharray="4 3"/><line x1="34" y1="74" x2="184" y2="74" stroke="#93c5fd" stroke-width="1.4" stroke-dasharray="4 3"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'Первый официальный чемпионат мира Формулы-1 стартовал 13 мая 1950 года на трассе Сильверстоун. За семь десятилетий спорт прошёл путь от переднемоторных машин до гибридных углепластиковых болидов.',
+      timeline: [
+        { year: '1950 год', title: 'Первый Гран-при Формулы-1', desc: 'На британском автодроме Сильверстоун состоялся первый этап чемпионата мира FIA.' },
+        { year: '1968 год', title: 'Эпоха антикрыльев', desc: 'На болидах появились передние и задние антикрылья, резко увеличившие прижимную силу в поворотах.' },
+        { year: '2018 год', title: 'Защита кокпита Halo', desc: 'Титановая дуга над головой пилота стала обязательным стандартом безопасности.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Монокок из карбона', detail: 'Сверхпрочная капсула безопасности защищает пилота при перегрузках свыше 50G.' },
+        { item: 'Гибридная силовая установка', detail: 'Турбомотор V6 1.6 л с рекуперацией энергии тепловой и кинетической систем.' }
+      ],
+      keyStats: [
+        { label: 'Старт чемпионата', value: '1950 год' },
+        { label: 'Рекорд пит-стопа', value: '1,80 секунды' },
+        { label: 'Длина гонки', value: '305+ км' }
+      ]
+    }
+  },
+  {
+    id: 'swimming',
+    name: 'Плавание',
+    subtitle: 'Олимпийская классика скорости и техники на воде',
+    originYear: '1896 год (Олимпийский дебют)',
+    shortYear: '1896',
+    ancientRoots: 'Древнегреческие и римские состязания пловцов',
+    category: 'Водный олимпийский спорт',
+    shortSummary: 'Соревнования на скорость преодоления дистанций от 50 до 1500 метров четырьмя стилями: вольный стиль, брасс, баттерфляй и на спине.',
+    heroStats: [
+      { label: 'Бассейн', value: '50 × 25 м' },
+      { label: 'Число дорожек', value: '8–10 дорожек' },
+      { label: 'Стили', value: '4 основных' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Разметка 50-метрового бассейна',
+        caption: 'Волногасящие поплавки и Т-образные маркеры поворота',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="18" y="16" width="184" height="78" rx="4" fill="#0369a1" stroke="#cbd5e1" stroke-width="1.5"/><line x1="18" y1="42" x2="202" y2="42" stroke="#f8fafc" stroke-width="1.2" stroke-dasharray="5 3"/><line x1="18" y1="68" x2="202" y2="68" stroke="#f8fafc" stroke-width="1.2" stroke-dasharray="5 3"/></svg>'
+      },
+      {
+        title: 'Четыре стиля плавания',
+        caption: 'Кроль, спина, брасс и баттерфляй на Олимпийских играх',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><path d="M25,40 Q55,22 85,40 T145,40 T195,40" stroke="#38bdf8" stroke-width="2"/><path d="M25,68 Q55,50 85,68 T145,68 T195,68" stroke="#d4af37" stroke-width="2"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'Плавание входит в программу всех современных Олимпийских игр начиная с Афин 1896 года. В XX веке техника гребка и поворотов преобразилась благодаря изучению гидродинамики.',
+      timeline: [
+        { year: '1896 год', title: 'Первые Олимпийские заплывы', desc: 'В Афинах соревнования прошли прямо в открытом море залива Зея.' },
+        { year: '1956 год', title: 'Выделение баттерфляя', desc: 'На Играх в Мельбурне баттерфляй впервые отделили от брасса как самостоятельный стиль.' },
+        { year: '2010 год', title: 'Текстильные костюмы FINA', desc: 'После серии рекордов запретили полиуретановые комбинезоны, вернув акцент на технику.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Волногасящие дорожки', detail: 'Специальные вращающиеся диски на канатах гасят боковые волны соседних пловцов.' },
+        { item: 'Электронные щиты финиша', detail: 'Сенсорные панели на стенке фиксируют касание с точностью до 0,01 секунды.' }
+      ],
+      keyStats: [
+        { label: 'Олимпийский бассейн', value: '50 × 25 м' },
+        { label: 'Дистанции', value: '50 м — 10 км' },
+        { label: 'Температура воды', value: '25–28 °C' }
+      ]
+    }
+  },
+  {
+    id: 'badminton',
+    name: 'Бадминтон',
+    subtitle: 'Самый быстрый ракеточный спорт планеты',
+    originYear: '1893 год (Англия)',
+    shortYear: '1893',
+    ancientRoots: 'Древняя игра «Пуна» в Индии и волан в Азии',
+    category: 'Ракеточный вид спорта',
+    shortSummary: 'Сверхбыстрая игра через высокую сетку, в которой начальная скорость удара по перьевому волану превышает 490 км/ч.',
+    heroStats: [
+      { label: 'Корт', value: '13,4 × 6,1 м' },
+      { label: 'Волан', value: '16 перьев · 5 г' },
+      { label: 'Сетка', value: 'Высота 1,55 м' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Аэродинамика волана',
+        caption: '16 гусиных перьев стабилизируют полёт за миллисекунды',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><path d="M88,55 L50,32 L50,78 Z" fill="#fbf3df" fill-opacity="0.25" stroke="#fbf3df" stroke-width="1.5"/><circle cx="92" cy="55" r="7" fill="#ef4444" stroke="#fbf3df" stroke-width="1.5"/><path d="M105,55 Q145,25 185,55" stroke="#d4af37" stroke-width="1.8" stroke-dasharray="4 3"/></svg>'
+      },
+      {
+        title: 'Одиночный и парный корт',
+        caption: 'Разные границы подачи по боковым и задним линиям',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="26" y="16" width="168" height="78" fill="#1b7a57" stroke="#ffffff" stroke-width="1.5"/><line x1="110" y1="16" x2="110" y2="94" stroke="#d4af37" stroke-width="2"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'Современный бадминтон сформировался в XIX веке в английском поместье Бадминтон-хаус, а в 1992 году в Барселоне стал полноценным олимпийским видом спорта.',
+      timeline: [
+        { year: '1873 год', title: 'Правила Бадминтон-хауса', desc: 'Герцог Бофорт представил первый свод правил игры в усадьбе Глостершира.' },
+        { year: '1893 год', title: 'Ассоциация бадминтона Англии', desc: 'Единые стандарты сетки и разметки корта распространились по всему миру.' },
+        { year: '1992 год', title: 'Олимпийский дебют в Барселоне', desc: 'Бадминтон вошёл в программу летних Олимпийских игр.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Углепластиковые ракетки', detail: 'Вес современной ракетки снизился до 75–85 граммов при колоссальной жёсткости.' },
+        { item: 'Перьевой волан', detail: 'Пробковая головка и ровно 16 перьев левого крыла гуся.' }
+      ],
+      keyStats: [
+        { label: 'Размер корта', value: '13,4 × 6,1 м' },
+        { label: 'Матч', value: 'До 2 побед по 21' },
+        { label: 'Рекорд смешера', value: '565 км/ч (удары)' }
+      ]
+    }
+  },
+  {
+    id: 'chess',
+    name: 'Шахматы',
+    subtitle: 'Тысячелетняя игра стратегии, расчёта и интуиции',
+    originYear: '1851 год (Первый международный турнир)',
+    shortYear: '1851',
+    ancientRoots: 'Древнеиндийская чатуранга (VI век н.э.)',
+    category: 'Интеллектуальный спорт',
+    shortSummary: 'Дуэль двух гроссмейстеров на 64-клеточной доске, где победа зависит от глубины просчёта вариантов, позиционного чутья и контроля времени.',
+    heroStats: [
+      { label: 'Доска', value: '8 × 8 (64 клетки)' },
+      { label: 'Фигуры', value: 'По 16 на сторону' },
+      { label: 'Основание ФИДЕ', value: '1924 год' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Геометрия 64 клеток',
+        caption: 'Центр доски e4–d4–e5–d5 определяет борьбу за пространство',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="65" y="10" width="90" height="90" rx="3" fill="#432613" stroke="#d4af37" stroke-width="1.5"/><rect x="92" y="37" width="36" height="36" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 3"/></svg>'
+      },
+      {
+        title: 'Механические и электронные часы',
+        caption: 'Добавление секунд на каждый ход (контроль Фишера)',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="45" y="25" width="130" height="60" rx="6" stroke="#a8956a" stroke-width="1.5"/><circle cx="82" cy="55" r="16" stroke="#fbf3df" stroke-width="1.5"/><circle cx="138" cy="55" r="16" stroke="#d4af37" stroke-width="1.5"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'От индийской чатуранги VI века и персидского шатранджа шахматы дошли до современных международных супертурниров и матчей за мировую корону под эгидой ФИДЕ.',
+      timeline: [
+        { year: 'VI век н.э.', title: 'Индийская чатуранга', desc: 'Предшественник современных шахмат с четырьмя родами войск на доске 8×8.' },
+        { year: '1851 год', title: 'Первый турнир в Лондоне', desc: 'Международный турнир в Англии, положивший начало эпохе официальных соревнований.' },
+        { year: '1886 год', title: 'Первый матч за звание чемпиона мира', desc: 'Вильгельм Стейниц обыграл Иоганна Цукерторта и стал первым официальным чемпионом.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Комплект Стаунтона', detail: 'Стандарт дизайна шахматных фигур 1849 года, используемый на всех турнирах.' },
+        { item: 'Электронные часы Фишера', detail: 'Добавляют бонусные секунды после каждого сделанного хода.' }
+      ],
+      keyStats: [
+        { label: 'Поле игры', value: '64 клетки (8 × 8)' },
+        { label: 'Стартовый набор', value: '32 фигуры' },
+        { label: 'Пик рейтинга Эло', value: '2882 (Карлсен)' }
+      ]
+    }
+  },
+  {
+    id: 'tabletennis',
+    name: 'Настольный теннис',
+    subtitle: 'Молниеносная реакция и вращение у синего стола',
+    originYear: '1926 год (Основание ITTF)',
+    shortYear: '1926',
+    ancientRoots: 'Салонная игра «Пинг-понг» в Англии конца XIX века',
+    category: 'Ракеточный вид спорта',
+    shortSummary: 'Олимпийская дисциплина, где спортсмены обмениваются ударами 40-миллиметровым мячом со скоростью свыше 100 км/ч на расстоянии трёх метров.',
+    heroStats: [
+      { label: 'Стол', value: '2,74 × 1,525 м' },
+      { label: 'Мяч', value: '40 мм · 2,7 г' },
+      { label: 'Партия', value: 'До 11 очков' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Геометрия теннисного стола',
+        caption: 'Высота 76 см и низкая сетка высотой 15,25 см',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="26" y="20" width="168" height="70" fill="#1d4ed8" stroke="#ffffff" stroke-width="1.8"/><line x1="110" y1="16" x2="110" y2="94" stroke="#f8fafc" stroke-width="2"/><line x1="26" y1="55" x2="194" y2="55" stroke="#ffffff" stroke-width="1" opacity="0.8"/></svg>'
+      },
+      {
+        title: 'Слоистая ракетка с накладками',
+        caption: 'Карбоновое основание и губчатые накладки для сильного вращения',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><ellipse cx="95" cy="48" rx="22" ry="26" fill="#dc2626" stroke="#fbf3df" stroke-width="1.5"/><rect x="90" y="72" width="10" height="22" rx="2" fill="#d97706"/><circle cx="145" cy="48" r="7" fill="#fb923c" stroke="#ffffff" stroke-width="1"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'Рождённый в Англии как домашняя альтернатива большому теннису в дождливую погоду, пинг-понг превратился в сложнейший олимпийский спорт с миллионной аудиторией.',
+      timeline: [
+        { year: '1926 год', title: 'Создание федерации ITTF', desc: 'В Берлине основана Международная федерация настольного тенниса и проведён первый ЧМ.' },
+        { year: '1988 год', title: 'Олимпийский дебют в Сеуле', desc: 'Настольный теннис впервые вошёл в программу летних Олимпийских игр.' },
+        { year: '2001 год', title: 'Счёт до 11 очков', desc: 'Партии сократили с 21 до 11 очков, а диаметр мяча увеличили с 38 до 40 мм.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Пластиковый мяч 40+', detail: 'В 2014 году целлулоид заменили безопасным полимерным мячом.' },
+        { item: 'Губчатые накладки', detail: 'Совершили революцию в 1950-х, позволив делать мощные топ-спины.' }
+      ],
+      keyStats: [
+        { label: 'Размер стола', value: '2,74 × 1,525 м' },
+        { label: 'Сетка', value: 'Высота 15,25 см' },
+        { label: 'Счёт в сете', value: 'До 11 очков' }
+      ]
+    }
+  },
+  {
+    id: 'judo',
+    name: 'Дзюдо',
+    subtitle: '«Гибкий путь» силы, баланса и уважения на татами',
+    originYear: '1882 год (Школа Кодокан, Токио)',
+    shortYear: '1882',
+    ancientRoots: 'Японские школы классического джиу-джитсу',
+    category: 'Олимпийское единоборство',
+    shortSummary: 'Японское боевое искусство, основанное Дзигоро Кано, в котором победа достигается техничным броском («Иппон»), удержанием или болевым приёмом.',
+    heroStats: [
+      { label: 'Татами', value: 'До 14 × 14 м' },
+      { label: 'Главная оценка', value: 'Иппон (чистая победа)' },
+      { label: 'Схватка', value: '4 минуты' }
+    ],
+    galleryFrames: [
+      {
+        title: 'Зоны соревновательного татами',
+        caption: 'Зелёная или жёлтая рабочая зона и красная граница опасности',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="30" y="10" width="160" height="90" rx="4" fill="#ca8a04"/><rect x="48" y="20" width="124" height="70" fill="#dc2626"/><rect x="58" y="27" width="104" height="56" fill="#15803d"/></svg>'
+      },
+      {
+        title: 'Дзюдоги и ранги поясов',
+        caption: 'Синий и белый кимоно в олимпийских финалах для чёткого различия',
+        svg: '<svg class="w-full h-28" viewBox="0 0 220 110" fill="none"><rect x="65" y="34" width="32" height="42" rx="8" fill="#2563eb" stroke="#93c5fd" stroke-width="1.5"/><rect x="123" y="34" width="32" height="42" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/></svg>'
+      }
+    ],
+    fullHistory: {
+      intro: 'В 1882 году мастер Дзигоро Кано объединил лучшие безопасные приёмы джиу-джитсу в новую систему воспитания тела и духа — Кодокан Дзюдо.',
+      timeline: [
+        { year: '1882 год', title: 'Открытие школы Кодокан', desc: 'Дзигоро Кано основал первый зал дзюдо в Токио с 9 учениками.' },
+        { year: '1964 год', title: 'Олимпийский дебют в Токио', desc: 'Дзюдо впервые вошло в программу летних Олимпийских игр.' },
+        { year: '1992 год', title: 'Женское олимпийское дзюдо', desc: 'В Барселоне впервые разыграны полные комплекты наград среди женщин.' }
+      ],
+      equipmentEvolution: [
+        { item: 'Хлопковое дзюдоги', detail: 'Усиленное плетение ткани выдерживает мощные захваты в стойке и партере.' },
+        { item: 'Система видеоповторов CARE', detail: 'Мгновенный просмотр спорных бросков у судейского стола.' }
+      ],
+      keyStats: [
+        { label: 'Рабочая зона', value: '8 × 8 м — 10 × 10 м' },
+        { label: 'Время схватки', value: '4 минуты + Golden Score' },
+        { label: 'Высшая оценка', value: 'Иппон' }
+      ]
+    }
   }
 ];
+
+/* Общий генератор фигурок спортсменов (вид сверху: форма + голова) */
+function svgPlayers(coords, fill, stroke, head, animClass = '', w = 9, h = 12.5, r = 3.2) {
+  const rx = (w * 0.36).toFixed(1);
+  const hw = (w / 2).toFixed(1);
+  const hh = (h / 2).toFixed(1);
+  const items = coords.map(([x, y]) => `
+    <g transform="translate(${x} ${y})">
+      <rect x="-${hw}" y="-${hh}" width="${w}" height="${h}" rx="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="0.9"/>
+      <line x1="0" y1="-${hh}" x2="0" y2="${hh}" stroke="#0f172a" stroke-width="1.2" opacity="0.55"/>
+      <circle cx="0" cy="0" r="${r}" fill="${head}" stroke="#1e293b" stroke-width="0.7"/>
+    </g>`).join('');
+  return animClass ? `<g class="${animClass}">${items}</g>` : `<g>${items}</g>`;
+}
 
 /* Улучшенные анимированные SVG-иллюстрации арен (320×180) */
 const VISUALS = {
@@ -316,6 +594,10 @@ const VISUALS = {
       <circle cx="296" cy="66" r="1.8" fill="#ffffff"/>
       <circle cx="296" cy="114" r="1.8" fill="#ffffff"/>
     </g>
+    ${svgPlayers([[31,90]], '#eab308', '#fef08a', '#fde68a', 'pl-gk', 7.6, 10.4, 2.5)}
+    ${svgPlayers([[58,34],[54,70],[54,110],[58,146],[96,48],[92,90],[96,132],[136,38],[144,90],[136,142]], '#2563eb', '#93c5fd', '#fde68a', 'pl-team-a', 7.6, 10.4, 2.5)}
+    ${svgPlayers([[289,90]], '#0ea5e9', '#bae6fd', '#fde68a', 'pl-gk', 7.6, 10.4, 2.5)}
+    ${svgPlayers([[262,34],[266,70],[266,110],[262,146],[224,48],[228,90],[224,132],[184,38],[176,90],[184,142]], '#dc2626', '#fca5a5', '#fde68a', 'pl-team-b', 7.6, 10.4, 2.5)}
     <g>
       <circle cx="0" cy="0" r="6.5" fill="#fbf3df" stroke="#1e1b18" stroke-width="1.1"/>
       <polygon points="0,-3.2 3,-1 1.9,2.6 -1.9,2.6 -3,-1" fill="#1e1b18"/>
@@ -367,6 +649,8 @@ const VISUALS = {
         values="0 0; 0 0; -36 -4; 0 0"
         keyTimes="0; 0.5; 0.72; 1" dur="1.8s" repeatCount="indefinite"/>
     </g>
+    ${svgPlayers([[86,126]], '#d4a537', '#fef08a', '#fde68a', 'pl-court-a', 11, 14, 3.6)}
+    ${svgPlayers([[234,126]], '#c93b2b', '#fca5a5', '#fde68a', 'pl-court-b', 11, 14, 3.6)}
     <g transform="translate(160 80)" opacity="0">
       <polygon points="0,-14 3.5,-4 14,-4 5.5,2.5 8.5,12 0,6 -8.5,12 -5.5,2.5 -14,-4 -3.5,-4" fill="#ffe066" stroke="#ffffff" stroke-width="1"/>
       <animate attributeName="opacity"
@@ -415,6 +699,8 @@ const VISUALS = {
       <rect x="158.5" y="155" width="3" height="4" fill="#d93b2b"/>
       <rect x="158.5" y="163" width="3" height="4" fill="#d93b2b"/>
     </g>
+    ${svgPlayers([[68,48],[68,90],[68,132],[128,48],[128,90],[128,132]], '#2563eb', '#93c5fd', '#fde68a', 'pl-court-a', 9, 12.2, 3.1)}
+    ${svgPlayers([[192,48],[192,90],[192,132],[252,48],[252,90],[252,132]], '#eab308', '#fef08a', '#fde68a', 'pl-court-b', 9, 12.2, 3.1)}
     <g>
       <circle cx="0" cy="0" r="7" fill="#f7d046" stroke="#1e293b" stroke-width="1"/>
       <path d="M-6.5,-2 Q0,-6 6.5,-2 Q4,4 0,6.8 Q-4,4 -6.5,-2 Z" fill="#2563eb"/>
@@ -450,6 +736,10 @@ const VISUALS = {
     <path d="M282,74 A16,16 0 0 0 282,106 Z" fill="#7fc4e8" fill-opacity="0.65" stroke="#c8372d" stroke-width="1.3"/>
     <path d="M282,76 L294,79 C298,82 298,98 294,101 L282,104 Z" fill="#b7cad6"/>
     <path d="M282,76 L294,79 C298,82 298,98 294,101 L282,104 Z" fill="url(#hk-net)" stroke="#c8372d" stroke-width="2.2" stroke-linejoin="round"/>
+    ${svgPlayers([[44,90]], '#eab308', '#fef08a', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8)}
+    ${svgPlayers([[82,56],[82,124],[130,38],[136,72],[130,140]], '#1d4ed8', '#93c5fd', '#ffffff', 'pl-court-a', 8.5, 11.5, 2.8)}
+    ${svgPlayers([[276,90]], '#0ea5e9', '#bae6fd', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8)}
+    ${svgPlayers([[238,56],[238,124],[190,38],[184,72],[190,140]], '#dc2626', '#fca5a5', '#ffffff', 'pl-court-b', 8.5, 11.5, 2.8)}
     <g transform="translate(72 42)">
       <g class="hk-stick-left">
         <line x1="0" y1="0" x2="8" y2="54" stroke="#2c241b" stroke-width="4.2" stroke-linecap="round"/>
@@ -511,6 +801,8 @@ const VISUALS = {
     <rect x="307" y="72" width="5" height="36" fill="#fbf3df"/>
     <circle cx="299" cy="90" r="6" fill="none" stroke="#e05a24" stroke-width="2.4"/>
     <circle cx="299" cy="90" r="3.5" fill="none" stroke="#fbf3df" stroke-width="1" stroke-dasharray="2 2"/>
+    ${svgPlayers([[44,90],[74,48],[74,132],[114,58],[114,122]], '#ea580c', '#fed7aa', '#fde68a', 'pl-team-a', 9, 12.2, 3.1)}
+    ${svgPlayers([[276,90],[246,48],[246,132],[206,58],[206,122]], '#4f46e5', '#c7d2fe', '#fde68a', 'pl-team-b', 9, 12.2, 3.1)}
     <ellipse cx="160" cy="148" rx="14" ry="3.5" fill="#2a1a0c" opacity="0.45">
       <animate attributeName="rx" values="14;7;14" keyTimes="0;0.5;1" dur="1.15s" repeatCount="indefinite"/>
       <animate attributeName="opacity" values="0.45;0.18;0.45" keyTimes="0;0.5;1" dur="1.15s" repeatCount="indefinite"/>
@@ -575,11 +867,256 @@ const VISUALS = {
           keyTimes="0; 0.44; 0.57; 0.74; 1" dur="2.4s" repeatCount="indefinite"/>
       </g>
     </g>
+    ${svgPlayers([[46,124]], '#d4af37', '#fef08a', '#fde68a', 'pl-court-a', 9.5, 12.5, 3.2)}
+    ${svgPlayers([[274,124]], '#3b82f6', '#bfdbfe', '#fde68a', 'pl-court-b', 9.5, 12.5, 3.2)}
     <g>
       <circle cx="0" cy="0" r="5.5" fill="#d8f244" stroke="#2a200f" stroke-width="0.9"/>
       <path d="M-3.5,-3.5 Q0,0 -3.5,3.5 M3.5,-3.5 Q0,0 3.5,3.5" stroke="#ffffff" stroke-width="0.9" fill="none"/>
       <animateMotion dur="2.4s" repeatCount="indefinite"
         path="M60,82 Q160,24 260,82 Q160,24 60,82"/>
+    </g>
+  </svg>`,
+
+  formula1: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <defs>
+      <pattern id="f1-check" width="6" height="6" patternUnits="userSpaceOnUse">
+        <rect width="3" height="3" fill="#ffffff"/>
+        <rect x="3" width="3" height="3" fill="#111827"/>
+        <rect y="3" width="3" height="3" fill="#111827"/>
+        <rect x="3" y="3" width="3" height="3" fill="#ffffff"/>
+      </pattern>
+    </defs>
+    <rect x="6" y="8" width="308" height="164" rx="8" fill="#1e462a"/>
+    <path d="M 76,34 L 238,34 C 282,34 290,82 260,104 C 242,118 272,146 234,146 L 84,146 C 36,146 32,34 76,34 Z"
+      stroke="#dc2626" stroke-width="28" stroke-dasharray="7 7" stroke-linejoin="round" fill="none" opacity="0.9"/>
+    <path d="M 76,34 L 238,34 C 282,34 290,82 260,104 C 242,118 272,146 234,146 L 84,146 C 36,146 32,34 76,34 Z"
+      stroke="#ffffff" stroke-width="28" stroke-dasharray="7 7" stroke-dashoffset="7" stroke-linejoin="round" fill="none" opacity="0.9"/>
+    <path d="M 76,34 L 238,34 C 282,34 290,82 260,104 C 242,118 272,146 234,146 L 84,146 C 36,146 32,34 76,34 Z"
+      stroke="#272c36" stroke-width="23" stroke-linejoin="round" fill="none"/>
+    <path d="M 76,34 L 238,34 C 282,34 290,82 260,104 C 242,118 272,146 234,146 L 84,146 C 36,146 32,34 76,34 Z"
+      stroke="#64748b" stroke-width="1" stroke-dasharray="4 5" stroke-linejoin="round" fill="none" opacity="0.45"/>
+    <path d="M 102,22 L 210,22" stroke="#374151" stroke-width="7" stroke-linecap="round"/>
+    <rect x="150" y="23" width="6" height="22" fill="url(#f1-check)"/>
+    <g stroke="#e2e8f0" stroke-width="1.1" opacity="0.7">
+      <path d="M135,28 H141 V32 M122,36 H128 V40 M109,28 H115 V32"/>
+    </g>
+    <rect x="108" y="75" width="94" height="30" rx="5" fill="#152b1d" stroke="#d4af37" stroke-opacity="0.4" stroke-width="1"/>
+    <text x="155" y="93" text-anchor="middle" fill="#d4af37" font-size="9" font-family="monospace" font-weight="700" letter-spacing="1.5">GRAND PRIX</text>
+    <g>
+      <rect x="-12" y="-7.5" width="4" height="3.2" rx="1" fill="#0f172a"/>
+      <rect x="-12" y="4.3" width="4" height="3.2" rx="1" fill="#0f172a"/>
+      <rect x="4" y="-7" width="4" height="2.8" rx="1" fill="#0f172a"/>
+      <rect x="4" y="4.2" width="4" height="2.8" rx="1" fill="#0f172a"/>
+      <rect x="-14" y="-6.5" width="3" height="13" rx="0.8" fill="#d4af37"/>
+      <path d="M-12,-4.5 L6,-3 L14,0 L6,3 L-12,4.5 Z" fill="#ef4444" stroke="#ffffff" stroke-width="0.6"/>
+      <rect x="11" y="-6" width="3" height="12" rx="0.8" fill="#ffffff"/>
+      <circle cx="-1" cy="0" r="2.2" fill="#facc15"/>
+      <line x1="-16" y1="-3" x2="-24" y2="-3" stroke="#93c5fd" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <line x1="-16" y1="3" x2="-24" y2="3" stroke="#93c5fd" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+      <animateMotion dur="3.4s" repeatCount="indefinite" rotate="auto"
+        path="M 76,34 L 238,34 C 282,34 290,82 260,104 C 242,118 272,146 234,146 L 84,146 C 36,146 32,34 76,34 Z"/>
+    </g>
+  </svg>`,
+
+  swimming: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <defs>
+      <linearGradient id="sw-water" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#0284c7"/>
+        <stop offset="50%" stop-color="#0ea5e9"/>
+        <stop offset="100%" stop-color="#0369a1"/>
+      </linearGradient>
+      <pattern id="sw-rope" width="12" height="4" patternUnits="userSpaceOnUse">
+        <rect x="0" y="0.5" width="6" height="3" rx="1.5" fill="#f8fafc"/>
+        <rect x="6" y="0.5" width="6" height="3" rx="1.5" fill="#ef4444"/>
+      </pattern>
+    </defs>
+    <rect x="8" y="10" width="304" height="160" rx="6" fill="#cbd5e1"/>
+    <rect x="24" y="18" width="272" height="144" rx="2" fill="url(#sw-water)"/>
+    <g stroke="#0c4a6e" stroke-width="2.2" opacity="0.65">
+      <path d="M40,36 H280 M40,31 V41 M280,31 V41"/>
+      <path d="M40,72 H280 M40,67 V77 M280,67 V77"/>
+      <path d="M40,108 H280 M40,103 V113 M280,103 V113"/>
+      <path d="M40,144 H280 M40,139 V149 M280,139 V149"/>
+    </g>
+    <rect x="24" y="52" width="272" height="4" fill="url(#sw-rope)"/>
+    <rect x="24" y="88" width="272" height="4" fill="url(#sw-rope)"/>
+    <rect x="24" y="124" width="272" height="4" fill="url(#sw-rope)"/>
+    <g fill="#475569" stroke="#f8fafc" stroke-width="1">
+      <rect x="13" y="30" width="10" height="12" rx="2"/>
+      <rect x="13" y="66" width="10" height="12" rx="2"/>
+      <rect x="13" y="102" width="10" height="12" rx="2"/>
+      <rect x="13" y="138" width="10" height="12" rx="2"/>
+    </g>
+    <line x1="60" y1="18" x2="60" y2="162" stroke="#facc15" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/>
+    <line x1="260" y1="18" x2="260" y2="162" stroke="#facc15" stroke-width="1" stroke-dasharray="4 4" opacity="0.8"/>
+    <g transform="translate(0 72)">
+      <g>
+        <path d="M-26,-4 Q-16,-7 -10,-2 M-26,4 Q-16,7 -10,2" stroke="#e0f2fe" stroke-width="1.3" stroke-linecap="round" opacity="0.85">
+          <animate attributeName="opacity" values="0.9;0.35;0.9" dur="0.7s" repeatCount="indefinite"/>
+        </path>
+        <ellipse cx="0" cy="0" rx="11" ry="4.5" fill="#fde68a"/>
+        <line x1="2" y1="-4" x2="10" y2="-11" stroke="#fde68a" stroke-width="2.6" stroke-linecap="round" class="sw-stroke-l"/>
+        <line x1="2" y1="4" x2="10" y2="11" stroke="#fde68a" stroke-width="2.6" stroke-linecap="round" class="sw-stroke-r"/>
+        <circle cx="12" cy="0" r="4.2" fill="#d4af37" stroke="#0b1f4b" stroke-width="0.9"/>
+        <animateMotion dur="3.8s" repeatCount="indefinite" rotate="auto" path="M 48,0 L 268,0 L 48,0"/>
+      </g>
+    </g>
+    <g transform="translate(0 108)">
+      <g>
+        <path d="M-24,-3 Q-15,-6 -9,-1 M-24,3 Q-15,6 -9,1" stroke="#bae6fd" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+        <ellipse cx="0" cy="0" rx="10.5" ry="4.2" fill="#fed7aa"/>
+        <line x1="2" y1="-4" x2="9" y2="-10" stroke="#fed7aa" stroke-width="2.4" stroke-linecap="round" class="sw-stroke-r"/>
+        <line x1="2" y1="4" x2="9" y2="10" stroke="#fed7aa" stroke-width="2.4" stroke-linecap="round" class="sw-stroke-l"/>
+        <circle cx="11" cy="0" r="4" fill="#ef4444" stroke="#ffffff" stroke-width="0.8"/>
+        <animateMotion dur="4.2s" repeatCount="indefinite" rotate="auto" path="M 264,0 L 50,0 L 264,0"/>
+      </g>
+    </g>
+  </svg>`,
+
+  badminton: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <defs>
+      <pattern id="bd-mesh" width="4" height="4" patternUnits="userSpaceOnUse">
+        <path d="M0 0H4M0 0V4" stroke="#ffffff" stroke-width="0.6" opacity="0.8"/>
+      </pattern>
+    </defs>
+    <rect x="8" y="10" width="304" height="160" rx="5" fill="#134e3a"/>
+    <rect x="34" y="24" width="252" height="132" fill="#1b7a57"/>
+    <g stroke="#ffffff" stroke-width="1.5" fill="none">
+      <rect x="34" y="24" width="252" height="132"/>
+      <line x1="34" y1="36" x2="286" y2="36"/>
+      <line x1="34" y1="144" x2="286" y2="144"/>
+      <line x1="50" y1="24" x2="50" y2="156"/>
+      <line x1="270" y1="24" x2="270" y2="156"/>
+      <line x1="122" y1="24" x2="122" y2="156"/>
+      <line x1="198" y1="24" x2="198" y2="156"/>
+      <line x1="34" y1="90" x2="122" y2="90"/>
+      <line x1="198" y1="90" x2="286" y2="90"/>
+    </g>
+    <rect x="157" y="20" width="6" height="140" fill="url(#bd-mesh)"/>
+    <line x1="160" y1="20" x2="160" y2="160" stroke="#ffffff" stroke-width="2.2"/>
+    ${svgPlayers([[50,124]], '#d4af37', '#fef08a', '#fde68a', 'pl-court-a', 9, 12, 3.1)}
+    <g transform="translate(56 120)">
+      <g>
+        <line x1="0" y1="0" x2="0" y2="-22" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round"/>
+        <ellipse cx="0" cy="-34" rx="9" ry="13" fill="url(#bd-mesh)" stroke="#d4af37" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate"
+          values="-18; 32; -10; -18" keyTimes="0; 0.12; 0.3; 1" dur="2.2s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    ${svgPlayers([[270,124]], '#38bdf8', '#bae6fd', '#fde68a', 'pl-court-b', 9, 12, 3.1)}
+    <g transform="translate(264 120)">
+      <g>
+        <line x1="0" y1="0" x2="0" y2="-22" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round"/>
+        <ellipse cx="0" cy="-34" rx="9" ry="13" fill="url(#bd-mesh)" stroke="#38bdf8" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate"
+          values="10; 18; -32; 10" keyTimes="0; 0.45; 0.58; 1" dur="2.2s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <g>
+      <path d="M-2,0 L-10,-5 L-10,5 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.7"/>
+      <circle cx="0" cy="0" r="3" fill="#ef4444" stroke="#ffffff" stroke-width="0.8"/>
+      <animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto"
+        path="M 66,86 Q 160,18 254,86 Q 160,26 66,86"/>
+    </g>
+  </svg>`,
+
+  chess: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <defs>
+      <pattern id="ch-cells" width="34" height="34" patternUnits="userSpaceOnUse">
+        <rect width="17" height="17" fill="#f3e5ab"/>
+        <rect x="17" width="17" height="17" fill="#7c4a26"/>
+        <rect y="17" width="17" height="17" fill="#7c4a26"/>
+        <rect x="17" y="17" width="17" height="17" fill="#f3e5ab"/>
+      </pattern>
+    </defs>
+    <rect x="52" y="12" width="156" height="156" rx="6" fill="#432613" stroke="#d4af37" stroke-opacity="0.45" stroke-width="1.2"/>
+    <rect x="62" y="22" width="136" height="136" fill="url(#ch-cells)"/>
+    <rect x="147" y="39" width="17" height="17" fill="#d4af37" opacity="0.7" class="chess-dest-glow"/>
+    <g transform="translate(130 140)">
+      <circle cx="8.5" cy="9.5" r="5.5" fill="#fffbeb" stroke="#292524" stroke-width="1"/>
+      <path d="M8.5,3 V6.5 M6.8,4.7 H10.2" stroke="#292524" stroke-width="1.2" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(130 22)">
+      <circle cx="8.5" cy="9" r="5.5" fill="#1c1917" stroke="#d4af37" stroke-width="0.9"/>
+      <path d="M8.5,2.5 V6 M6.8,4.2 H10.2" stroke="#d4af37" stroke-width="1.1" stroke-linecap="round"/>
+    </g>
+    <circle cx="104.5" cy="64.5" r="4.5" fill="#1c1917" stroke="#94a3b8" stroke-width="0.8"/>
+    <circle cx="87.5" cy="115.5" r="4.5" fill="#fffbeb" stroke="#292524" stroke-width="0.9"/>
+    <g class="chess-knight">
+      <circle cx="8.5" cy="9" r="7" fill="#d4af37" stroke="#0b1f4b" stroke-width="1.1"/>
+      <path d="M6,13 L11.5,13 L11,9.5 L8.5,8.5 L11.5,7 L10.2,4.5 L6.5,5.8 L5.5,9 Z" fill="#0b1f4b"/>
+    </g>
+    <g transform="translate(226 52)">
+      <rect x="0" y="0" width="76" height="44" rx="6" fill="#1e293b" stroke="#d4af37" stroke-opacity="0.5" stroke-width="1.2"/>
+      <circle cx="22" cy="24" r="12" fill="#0f172a" stroke="#64748b" stroke-width="1.2"/>
+      <circle cx="54" cy="24" r="12" fill="#0f172a" stroke="#d4af37" stroke-width="1.2"/>
+      <line x1="22" y1="24" x2="22" y2="15" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round"/>
+      <line x1="54" y1="24" x2="54" y2="15" stroke="#d4af37" stroke-width="1.6" stroke-linecap="round">
+        <animateTransform attributeName="transform" type="rotate" from="0 54 24" to="360 54 24" dur="3.2s" repeatCount="indefinite"/>
+      </line>
+      <text x="38" y="60" text-anchor="middle" fill="#d4af37" font-size="8.5" font-family="monospace">05:00 · BLITZ</text>
+    </g>
+  </svg>`,
+
+  tabletennis: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <defs>
+      <pattern id="tt-mesh" width="3.5" height="3.5" patternUnits="userSpaceOnUse">
+        <path d="M0 0H3.5M0 0V3.5" stroke="#e2e8f0" stroke-width="0.55" opacity="0.85"/>
+      </pattern>
+    </defs>
+    <rect x="8" y="10" width="304" height="160" rx="6" fill="#0f172a"/>
+    <rect x="44" y="34" width="236" height="116" rx="3" fill="#020617" opacity="0.55"/>
+    <rect x="40" y="30" width="240" height="120" rx="2" fill="#1d4ed8" stroke="#ffffff" stroke-width="2.2"/>
+    <line x1="40" y1="90" x2="280" y2="90" stroke="#ffffff" stroke-width="1.4"/>
+    <rect x="157.5" y="24" width="5" height="132" fill="url(#tt-mesh)"/>
+    <line x1="160" y1="24" x2="160" y2="156" stroke="#f8fafc" stroke-width="2"/>
+    <rect x="156" y="22" width="8" height="4" rx="1" fill="#94a3b8"/>
+    <rect x="156" y="154" width="8" height="4" rx="1" fill="#94a3b8"/>
+    ${svgPlayers([[24,90]], '#dc2626', '#fca5a5', '#fde68a', 'pl-court-a', 9, 12, 3.1)}
+    <g transform="translate(46 90)">
+      <g>
+        <rect x="-2" y="8" width="4" height="12" rx="1.5" fill="#d97706"/>
+        <ellipse cx="0" cy="-2" rx="8" ry="10" fill="#dc2626" stroke="#f8fafc" stroke-width="1"/>
+        <animateTransform attributeName="transform" type="translate"
+          values="0 -14; 8 -14; 0 18; 0 -14" keyTimes="0; 0.08; 0.65; 1" dur="1.45s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    ${svgPlayers([[296,90]], '#1e293b', '#d4af37', '#fde68a', 'pl-court-b', 9, 12, 3.1)}
+    <g transform="translate(274 90)">
+      <g>
+        <rect x="-2" y="8" width="4" height="12" rx="1.5" fill="#d97706"/>
+        <ellipse cx="0" cy="-2" rx="8" ry="10" fill="#1e293b" stroke="#d4af37" stroke-width="1"/>
+        <animateTransform attributeName="transform" type="translate"
+          values="0 16; -8 16; 0 -14; 0 16" keyTimes="0; 0.56; 0.85; 1" dur="1.45s" repeatCount="indefinite"/>
+      </g>
+    </g>
+    <circle cx="0" cy="0" r="4.2" fill="#fb923c" stroke="#ffffff" stroke-width="0.8">
+      <animateMotion dur="1.45s" repeatCount="indefinite" path="M 56,74 L 222,118 L 266,104 L 96,62 L 56,74"/>
+    </circle>
+  </svg>`,
+
+  judo: `<svg class="w-full h-44" viewBox="0 0 320 180" fill="none">
+    <rect x="16" y="10" width="288" height="160" rx="5" fill="#ca8a04"/>
+    <rect x="44" y="24" width="232" height="132" fill="#dc2626"/>
+    <rect x="58" y="34" width="204" height="112" fill="#15803d"/>
+    <g stroke="#166534" stroke-width="0.9" opacity="0.65">
+      <line x1="126" y1="34" x2="126" y2="146"/>
+      <line x1="194" y1="34" x2="194" y2="146"/>
+      <line x1="58" y1="71" x2="262" y2="71"/>
+      <line x1="58" y1="109" x2="262" y2="109"/>
+    </g>
+    <line x1="122" y1="84" x2="122" y2="96" stroke="#3b82f6" stroke-width="3.2" stroke-linecap="round"/>
+    <line x1="198" y1="84" x2="198" y2="96" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="185" cy="96" r="18" stroke="#d4af37" stroke-width="2" fill="none" class="jd-ippon"/>
+    <g class="jd-blue">
+      <rect x="136" y="76" width="20" height="28" rx="7" fill="#2563eb" stroke="#93c5fd" stroke-width="1.2"/>
+      <line x1="146" y1="76" x2="146" y2="104" stroke="#0f172a" stroke-width="2.4"/>
+      <circle cx="146" cy="90" r="6" fill="#fde68a" stroke="#1e3a8a" stroke-width="1"/>
+    </g>
+    <g class="jd-white">
+      <rect x="164" y="76" width="20" height="28" rx="7" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+      <line x1="174" y1="76" x2="174" y2="104" stroke="#0f172a" stroke-width="2.4"/>
+      <circle cx="174" cy="90" r="6" fill="#fde68a" stroke="#475569" stroke-width="1"/>
     </g>
   </svg>`
 };
@@ -681,6 +1218,66 @@ const LEGENDS = {
     { name: 'Серена Уильямс', years: 'р. 1981', country: 'США', role: 'Одиночный разряд', highlight: '23 титула Большого шлема',
       photo: 'assets/legends/williams.jpg', photoPos: 'center 18%',
       text: '23 победы в одиночном разряде в Открытую эру, рекорд. Четырёхкратная олимпийская чемпионка в одиночном и парном разрядах.' }
+  ],
+  formula1: [
+    { name: 'Михаэль Шумахер', years: 'р. 1969', country: 'Германия', role: 'Пилот Ф-1', highlight: '7 титулов чемпиона мира',
+      text: 'Пять титулов подряд с «Феррари» (2000–2004) и 91 победа на Гран-при — эпоха тотального доминирования.' },
+    { name: 'Айртон Сенна', years: '1960–1994', country: 'Бразилия', role: 'Пилот Ф-1', highlight: '3 титула и 65 поулов',
+      text: 'Легендарный «волшебник дождя», трёхкратный чемпион мира в составе «Макларена» (1988, 1990, 1991).' },
+    { name: 'Льюис Хэмилтон', years: 'р. 1985', country: 'Великобритания', role: 'Пилот Ф-1', highlight: '105+ побед на этапах',
+      text: 'Семикратный чемпион мира, рекордсмен Формулы-1 по числу побед в гонках и поул-позиций.' },
+    { name: 'Макс Ферстаппен', years: 'р. 1997', country: 'Нидерланды', role: 'Пилот Ф-1', highlight: 'Рекорд побед за сезон',
+      text: 'Многократный чемпион мира с «Ред Булл»; в 2023 году выиграл 19 гонок из 22 в одном сезоне.' }
+  ],
+  swimming: [
+    { name: 'Майкл Фелпс', years: 'р. 1985', country: 'США', role: 'Универсал / баттерфляй', highlight: '23 олимпийских золота',
+      text: 'Самый титулованный олимпиец в истории (28 медалей, 23 золотые). На Играх 2008 года в Пекине взял 8 золотых наград.' },
+    { name: 'Кэти Ледеки', years: 'р. 1997', country: 'США', role: 'Вольный стиль', highlight: '9 олимпийских золотых',
+      text: 'Доминирующая стайерша современности: олимпийская чемпионка 2012–2024 годов и многократная рекордсменка мира.' },
+    { name: 'Александр Попов', years: 'р. 1971', country: 'Россия', role: 'Спринт, вольный стиль', highlight: '4 олимпийских золота',
+      text: 'Выиграл спринты 50 и 100 м вольным стилем на Олимпиадах 1992 и 1996 годов; «русская ракета» бассейна.' },
+    { name: 'Иан Торп', years: 'р. 1982', country: 'Австралия', role: 'Вольный стиль', highlight: '5 олимпийских золотых',
+      text: 'Пятикратный олимпийский чемпион Сиднея и Афин, 11-кратный чемпион мира в плавании на средние дистанции.' }
+  ],
+  badminton: [
+    { name: 'Линь Дань', years: 'р. 1983', country: 'Китай', role: 'Одиночный разряд', highlight: '2 олимпийских золота',
+      text: 'Единственный бадминтонист, защитивший олимпийское золото (2008 и 2012) и выигравший пять чемпионатов мира.' },
+    { name: 'Ли Чонг Вей', years: 'р. 1982', country: 'Малайзия', role: 'Одиночный разряд', highlight: '349 недель на вершине BWF',
+      text: 'Трижды серебряный призёр Олимпиад (2008, 2012, 2016) и бессменная первая ракетка мира на протяжении почти семи лет.' },
+    { name: 'Виктор Аксельсен', years: 'р. 1994', country: 'Дания', role: 'Одиночный разряд', highlight: 'Золото Токио и Парижа',
+      text: 'Двукратный олимпийский чемпион (2020 и 2024) и двукратный чемпион мира, главный европейский лидер дисциплины.' },
+    { name: 'Каролина Марин', years: 'р. 1993', country: 'Испания', role: 'Одиночный разряд', highlight: 'Олимпийское золото 2016',
+      text: 'Первая неазиатская олимпийская чемпионка по бадминтону и трёхкратная чемпионка мира.' }
+  ],
+  chess: [
+    { name: 'Гарри Каспаров', years: 'р. 1963', country: 'СССР / Россия', role: 'Гроссмейстер', highlight: '13-й чемпион мира',
+      text: 'Удерживал мировую корону 15 лет (1985–2000) и более 20 лет возглавлял рейтинг-лист ФИДЕ.' },
+    { name: 'Магнус Карлсен', years: 'р. 1990', country: 'Норвегия', role: 'Гроссмейстер', highlight: 'Рейтинг 2882 (рекорд)',
+      text: '16-й чемпион мира (2013–2023), обладатель исторического пика рейтинга Эло и многократный чемпион по рапиду и блицу.' },
+    { name: 'Роберт Фишер', years: '1943–2008', country: 'США', role: 'Гроссмейстер', highlight: '11-й чемпион мира',
+      text: 'В 1972 году в Рейкьявике победил Бориса Спасского, а также придумал систему часов с добавлением секунд.' },
+    { name: 'Вишванатан Ананд', years: 'р. 1969', country: 'Индия', role: 'Гроссмейстер', highlight: '15-й чемпион мира',
+      text: 'Первый гроссмейстер Индии, пятикратный чемпион мира, внёсший огромный вклад в бум шахмат в Азии.' }
+  ],
+  tabletennis: [
+    { name: 'Ма Лун', years: 'р. 1988', country: 'Китай', role: 'Одиночный и командный', highlight: '6 олимпийских золотых',
+      text: 'Первый игрок в истории с двойным «Карьерным Большим шлемом» и шестикратный олимпийский чемпион (2012–2024).' },
+    { name: 'Ян-Уве Вальднер', years: 'р. 1965', country: 'Швеция', role: 'Одиночный разряд', highlight: 'Олимпийский чемпион 1992',
+      text: 'Легендарный «Моцарт настольного тенниса», первый олимпиец из Европы, взявший золото (Барселона-1992).' },
+    { name: 'Чжан Инин', years: 'р. 1981', country: 'Китай', role: 'Одиночный разряд', highlight: '4 олимпийских золота',
+      text: 'Выиграла одиночное и парное/командное золото на двух подряд Олимпиадах — в Афинах (2004) и Пекине (2008).' },
+    { name: 'Фань Чжэньдун', years: 'р. 1997', country: 'Китай', role: 'Одиночный разряд', highlight: 'Золото Парижа-2024',
+      text: 'Многократный чемпион мира и олимпийский чемпион Игр 2024 года в одиночном и командном разрядах.' }
+  ],
+  judo: [
+    { name: 'Ясухиро Ямасита', years: 'р. 1957', country: 'Япония', role: 'Тяжёлый вес', highlight: '203 победы подряд',
+      text: 'Олимпийский чемпион Лос-Анджелеса-1984 и четырёхкратный чемпион мира; ушёл непобеждённым после 203 схваток.' },
+    { name: 'Тадахиро Номура', years: 'р. 1974', country: 'Япония', role: 'До 60 кг', highlight: '3 олимпийских золота',
+      text: 'Единственный дзюдоист, выигравший три подряд олимпийские золотые медали в одиночном весе (1996, 2000, 2004).' },
+    { name: 'Тедди Ринер', years: 'р. 1989', country: 'Франция', role: 'Свыше 100 кг', highlight: '11 титулов чемпиона мира',
+      text: 'Многократный олимпийский чемпион (2012, 2016, 2024) и 11-кратный чемпион мира в супертяжёлом весе.' },
+    { name: 'Рёко Тани', years: 'р. 1975', country: 'Япония', role: 'До 48 кг', highlight: '5 олимпийских медалей',
+      text: 'Двукратная олимпийская чемпионка (2000, 2004) и семикратная чемпионка мира среди женщин.' }
   ]
 };
 
@@ -1118,8 +1715,8 @@ const qaTester = {
     if (!resultsGrid) return;
 
     const checks = [
-      { title: 'SVG-арены и портреты', owner: 'Изамутдин', passed: typeof VISUALS === 'object' && Object.keys(VISUALS).length === 6 && Object.keys(LEGENDS).length === 6, details: 'Арены — чистый SVG, легенды с фото' },
-      { title: 'Стабильные карточки', owner: 'Рамазан', passed: SPORTS_DATABASE.length === 6, details: '6 дисциплин, открытие по клику' },
+      { title: 'SVG-арены и портреты', owner: 'Изамутдин', passed: typeof VISUALS === 'object' && Object.keys(VISUALS).length === 12 && Object.keys(LEGENDS).length === 12, details: '12 арен на чистом SVG и зал легенд' },
+      { title: 'Стабильные карточки', owner: 'Рамазан', passed: SPORTS_DATABASE.length === 12, details: '12 дисциплин, открытие по клику' },
       { title: 'Внутренняя летопись', owner: 'Хучбар', passed: !!document.getElementById('internalSportView'), details: 'Детальная история подключена' },
       { title: 'Поиск и фильтрация', owner: 'Адам', passed: !!document.getElementById('sportSearchInput'), details: 'Живой поиск по дисциплинам' },
       { title: 'Раздел «О сайте»', owner: 'Рамазан', passed: !!document.getElementById('about-site'), details: 'Описание назначения портала' }
@@ -1150,7 +1747,13 @@ const WORLD_RECORDS = [
   { sportId: 'hockey', title: '2857 очков в НХЛ (гол + пас)', holder: 'Уэйн Гретцки', detail: 'Абсолютный рекорд лиги по системе «гол + пас», номер 99 закреплён навечно.' },
   { sportId: 'tennis', title: '24 титула Большого шлема в одиночке', holder: 'Новак Джокович', detail: 'Исторический рекорд среди мужчин по победам на турнирах Большого шлема.' },
   { sportId: 'football', title: '3 титула чемпиона мира по футболу', holder: 'Пеле · 1958, 1962, 1970', detail: 'Единственный футболист в истории, выигравший три мундиаля как игрок.' },
-  { sportId: 'boxing', title: '50 побед и 0 поражений на ринге', holder: 'Флойд Мейвезер', detail: 'Завершил профессиональную карьеру непобеждённым чемпионом в пяти весах.' }
+  { sportId: 'boxing', title: '50 побед и 0 поражений на ринге', holder: 'Флойд Мейвезер', detail: 'Завершил профессиональную карьеру непобеждённым чемпионом в пяти весах.' },
+  { sportId: 'formula1', title: '7 титулов чемпиона Формулы-1', holder: 'Шумахер · Хэмилтон', detail: 'Абсолютный рекорд мирового первенства по числу чемпионских титулов в королевских гонках.' },
+  { sportId: 'swimming', title: '23 золотые олимпийские медали', holder: 'Майкл Фелпс', detail: 'Абсолютный рекорд за всю историю Олимпийских игр (28 медалей с 2004 по 2016 год).' },
+  { sportId: 'badminton', title: '565 км/ч — скорость полёта волана', holder: 'Сатвиксаирадж Ранкиредди', detail: 'Мировой рекорд Гиннесса по скорости удара смэш в современном бадминтоне.' },
+  { sportId: 'chess', title: '2882 пункта рейтинга Эло ФИДЕ', holder: 'Магнус Карлсен · 2014', detail: 'Самый высокий классический рейтинг в истории шахмат.' },
+  { sportId: 'tabletennis', title: '6 олимпийских золотых наград', holder: 'Ма Лун · 2012–2024', detail: 'Рекорд по числу золотых олимпийских медалей среди всех мастеров малой ракетки.' },
+  { sportId: 'judo', title: '11 золотых медалей чемпионатов мира', holder: 'Тедди Ринер', detail: 'Беспрецедентное достижение в истории мужского дзюдо в супертяжёлом весе.' }
 ];
 
 function parseHistoryYear(yearStr) {
@@ -1163,6 +1766,7 @@ function parseHistoryYear(yearStr) {
     return isBce ? -val : val;
   }
   if (s.includes('xvi')) return 1550;
+  if (s.includes('vi')) return 550;
   if (s.includes('ii')) return isBce ? -200 : 150;
   return 0;
 }
@@ -1321,8 +1925,9 @@ const hallLogic = {
 
     const eras = [
       { title: 'Истоки и древний мир', period: 'до XIX века', match: y => y < 1800 },
-      { title: 'Становление правил', period: 'XIX век · 1863–1895', match: y => y >= 1800 && y < 1900 },
-      { title: 'Олимпийская и мировая эра', period: 'XX век · 1904–1979', match: y => y >= 1900 }
+      { title: 'Становление правил', period: 'XIX век · 1851–1896', match: y => y >= 1800 && y < 1900 },
+      { title: 'Олимпийская и мировая эра', period: 'XX век · 1904–1992', match: y => y >= 1900 && y < 2000 },
+      { title: 'Современная эпоха', period: 'XXI век', match: y => y >= 2000 }
     ];
     const pluralEvents = n => {
       const m = n % 100;

@@ -668,3 +668,58 @@ h1, h2, h3, h4, .font-display {
   box-shadow: 0 0 10px var(--glow);
   flex-shrink: 0;
 }
+
+/* Движение фигурок спортсменов на полях и кортах */
+.pl-team-a { animation: plShiftA 3.4s ease-in-out infinite; }
+.pl-team-b { animation: plShiftB 3.4s ease-in-out infinite; }
+.pl-gk { animation: plGoalie 2.8s ease-in-out infinite; }
+.pl-court-a { animation: plCourtA 2.4s ease-in-out infinite; }
+.pl-court-b { animation: plCourtB 2.4s ease-in-out infinite; }
+
+@keyframes plShiftA { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(6px, -2px); } }
+@keyframes plShiftB { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-6px, 2px); } }
+@keyframes plGoalie { 0%, 100% { transform: translateY(-5px); } 50% { transform: translateY(5px); } }
+@keyframes plCourtA { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(3px, -3px); } }
+@keyframes plCourtB { 0%, 100% { transform: translate(0px, 0px); } 50% { transform: translate(-3px, 3px); } }
+
+/* Анимации новых дисциплин: плавание, шахматы, дзюдо */
+.sw-stroke-l { transform-origin: 0px 0px; animation: swStrokeL 1.1s infinite ease-in-out; }
+.sw-stroke-r { transform-origin: 0px 0px; animation: swStrokeR 1.1s infinite ease-in-out; }
+@keyframes swStrokeL { 0%, 100% { transform: rotate(-28deg); } 50% { transform: rotate(26deg); } }
+@keyframes swStrokeR { 0%, 100% { transform: rotate(26deg); } 50% { transform: rotate(-28deg); } }
+
+.chess-knight { animation: chessJump 3.2s infinite ease-in-out; }
+.chess-dest-glow { animation: chessGlow 3.2s infinite ease-in-out; }
+@keyframes chessJump {
+  0%, 16%   { transform: translate(128px, 102px) scale(1); }
+  28%       { transform: translate(145px, 68px) scale(1.16); }
+  42%, 62%  { transform: translate(162px, 51px) scale(1); }
+  75%       { transform: translate(145px, 68px) scale(1.16); }
+  88%, 100% { transform: translate(128px, 102px) scale(1); }
+}
+@keyframes chessGlow {
+  0%, 34%, 72%, 100% { opacity: 0; }
+  42%, 62% { opacity: 0.9; }
+}
+
+.jd-blue { transform-origin: 160px 90px; animation: jdBlue 2.8s infinite ease-in-out; }
+.jd-white { transform-origin: 160px 90px; animation: jdWhite 2.8s infinite ease-in-out; }
+.jd-ippon { transform-origin: 185px 96px; animation: jdIppon 2.8s infinite ease-out; }
+@keyframes jdBlue {
+  0%, 15%   { transform: translate(-18px, 0px) rotate(0deg); }
+  35%       { transform: translate(0px, -4px) rotate(-14deg); }
+  50%, 72%  { transform: translate(4px, 0px) rotate(16deg); }
+  88%, 100% { transform: translate(-18px, 0px) rotate(0deg); }
+}
+@keyframes jdWhite {
+  0%, 15%   { transform: translate(18px, 0px) rotate(0deg); }
+  35%       { transform: translate(8px, -10px) rotate(-35deg); }
+  50%, 72%  { transform: translate(26px, 8px) rotate(-92deg); }
+  88%, 100% { transform: translate(18px, 0px) rotate(0deg); }
+}
+@keyframes jdIppon {
+  0%, 46% { opacity: 0; transform: scale(0.4); }
+  52%     { opacity: 0.95; transform: scale(1); }
+  72%     { opacity: 0; transform: scale(1.65); }
+  100%    { opacity: 0; transform: scale(0.4); }
+}

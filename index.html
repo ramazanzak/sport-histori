@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -76,6 +76,12 @@
           <button onclick="appLogic.quickFilter('Хоккей')" data-filter="хоккей" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Хоккей</button>
           <button onclick="appLogic.quickFilter('Баскетбол')" data-filter="баскетбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Баскетбол</button>
           <button onclick="appLogic.quickFilter('Теннис')" data-filter="теннис" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Теннис</button>
+          <button onclick="appLogic.quickFilter('Формула-1')" data-filter="формула-1" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Формула-1</button>
+          <button onclick="appLogic.quickFilter('Плавание')" data-filter="плавание" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Плавание</button>
+          <button onclick="appLogic.quickFilter('Бадминтон')" data-filter="бадминтон" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Бадминтон</button>
+          <button onclick="appLogic.quickFilter('Шахматы')" data-filter="шахматы" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Шахматы</button>
+          <button onclick="appLogic.quickFilter('Настольный теннис')" data-filter="настольный теннис" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Наст. теннис</button>
+          <button onclick="appLogic.quickFilter('Дзюдо')" data-filter="дзюдо" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Дзюдо</button>
         </div>
       </div>
 
@@ -114,12 +120,12 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div class="lg:col-span-6 space-y-6">
-          <span class="text-xs font-medium muted">Интерактивная энциклопедия · 6 дисциплин</span>
+          <span class="text-xs font-medium muted">Интерактивная энциклопедия · 12 дисциплин</span>
           <h1 class="font-display text-4xl sm:text-5xl font-medium leading-tight">
             История спортивных дисциплин от истоков до современности
           </h1>
           <p class="soft text-base leading-relaxed max-w-lg">
-            Исследуйте эволюцию футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от первых правил до легендарных арен и турниров
+            Исследуйте эволюцию 12 видов спорта — от первых правил и античных истоков до легендарных арен, автодромов и турниров
           </p>
           <div class="flex items-center gap-3 pt-2">
             <button onclick="appLogic.navigateSection('sports-catalog')" class="btn-light px-5 py-3 rounded-lg text-sm font-medium inline-flex items-center gap-2">
@@ -145,7 +151,7 @@
               <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-2">
                   <span id="heroSportName" class="text-xs font-medium muted">Футбол</span>
-                  <span id="heroSportCounter" class="text-[11px] font-mono muted opacity-70 tabular-nums">1 / 6</span>
+                  <span id="heroSportCounter" class="text-[11px] font-mono muted opacity-70 tabular-nums">1 / 12</span>
                 </div>
                 <span id="heroSportYear" class="text-xs font-mono muted tabular-nums">1863</span>
               </div>
@@ -170,7 +176,7 @@
             </button>
           </div>
 
-          <!-- Точки-индикаторы дисциплин (1–6) -->
+          <!-- Точки-индикаторы дисциплин (1–12) -->
           <div id="heroDots" class="flex items-center justify-center gap-2 mt-4" aria-label="Выбор дисциплины"></div>
         </div>
       </div>
@@ -183,7 +189,7 @@
       <div class="text-center max-w-2xl mx-auto mb-12">
         <span class="text-xs font-medium muted">О проекте</span>
         <h2 class="font-display text-2xl sm:text-3xl font-medium mt-2">Что это за сайт и для чего создан</h2>
-        <p class="soft mt-3 text-sm">Образовательная платформа по истории шести главных спортивных дисциплин</p>
+        <p class="soft mt-3 text-sm">Образовательная платформа по истории двенадцати главных спортивных дисциплин</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="glass-panel border-line p-5 rounded-xl">
@@ -193,8 +199,8 @@
         </div>
         <div class="glass-panel border-line p-5 rounded-xl">
           <span class="text-xs font-mono accent-text">02</span>
-          <h3 class="text-sm font-medium mt-2 mb-2">6 дисциплин</h3>
-          <p class="soft text-xs leading-relaxed">Происхождение и эволюция футбола, бокса, волейбола, хоккея, баскетбола и тенниса — от древних корней до современных правил</p>
+          <h3 class="text-sm font-medium mt-2 mb-2">12 дисциплин</h3>
+          <p class="soft text-xs leading-relaxed">Игровые виды, единоборства, автоспорт, водные и интеллектуальные дисциплины — от древних корней до современных правил</p>
         </div>
         <div class="glass-panel border-line p-5 rounded-xl">
           <span class="text-xs font-mono accent-text">03</span>
@@ -323,6 +329,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=15"></script>
+<script src="script.js?v=17"></script>
 </body>
 </html>
