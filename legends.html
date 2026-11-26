@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -56,32 +56,52 @@
         </button>
       </div>
 
-      <!-- Поиск по легендам и событиям -->
-      <div class="w-full lg:max-w-md relative">
-        <div class="relative flex items-center">
-          <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
-          </svg>
-          <input id="hallSearchInput" type="text" placeholder="Поиск легенды, страны или события"
-            class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
-            oninput="hallLogic.handleSearch(this.value)">
-          <button id="hallClearSearchBtn" onclick="hallLogic.clearSearch()"
-            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted">Сброс</button>
+      <!-- Поиск и выпадающий фильтр по дисциплинам -->
+      <div id="hallFilterWrap" class="w-full lg:max-w-lg relative">
+        <div class="flex items-center gap-2">
+          <div class="relative flex-1 flex items-center min-w-0">
+            <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
+            </svg>
+            <input id="hallSearchInput" type="text" placeholder="Поиск легенды, страны или события"
+              class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
+              oninput="hallLogic.handleSearch(this.value)">
+            <button id="hallClearSearchBtn" onclick="hallLogic.clearSearch()"
+              class="btn-clear-search hidden absolute right-2.5 text-xs px-2 py-1 rounded muted">Сброс</button>
+          </div>
+          <button id="hallFilterBtn" type="button" onclick="hallLogic.toggleFilterMenu(event)"
+            aria-expanded="false" aria-controls="hallFilterMenu"
+            class="filter-toggle-btn btn-dark px-3 py-2 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 shrink-0 cursor-pointer">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <span id="hallFilterBtnLabel" class="truncate max-w-[120px]">Фильтр: Все</span>
+            <svg class="w-3.5 h-3.5 filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
         </div>
-        <div id="hallSportFilters" class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
-          <button onclick="hallLogic.setSportFilter('all')" data-hall-filter="all" class="filter-chip is-active px-2.5 py-0.5 rounded btn-dark">Все</button>
-          <button onclick="hallLogic.setSportFilter('football')" data-hall-filter="football" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Футбол</button>
-          <button onclick="hallLogic.setSportFilter('boxing')" data-hall-filter="boxing" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Бокс</button>
-          <button onclick="hallLogic.setSportFilter('volleyball')" data-hall-filter="volleyball" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Волейбол</button>
-          <button onclick="hallLogic.setSportFilter('hockey')" data-hall-filter="hockey" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Хоккей</button>
-          <button onclick="hallLogic.setSportFilter('basketball')" data-hall-filter="basketball" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Баскетбол</button>
-          <button onclick="hallLogic.setSportFilter('tennis')" data-hall-filter="tennis" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Теннис</button>
-          <button onclick="hallLogic.setSportFilter('formula1')" data-hall-filter="formula1" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Формула-1</button>
-          <button onclick="hallLogic.setSportFilter('swimming')" data-hall-filter="swimming" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Плавание</button>
-          <button onclick="hallLogic.setSportFilter('badminton')" data-hall-filter="badminton" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Бадминтон</button>
-          <button onclick="hallLogic.setSportFilter('chess')" data-hall-filter="chess" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Шахматы</button>
-          <button onclick="hallLogic.setSportFilter('tabletennis')" data-hall-filter="tabletennis" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Наст. теннис</button>
-          <button onclick="hallLogic.setSportFilter('judo')" data-hall-filter="judo" class="filter-chip soft px-2.5 py-0.5 rounded btn-dark">Дзюдо</button>
+
+        <div id="hallFilterMenu" class="filter-dropdown-panel hidden absolute left-0 right-0 mt-2 rounded-xl p-3 z-50">
+          <div class="flex items-center justify-between gap-2 pb-2 mb-2.5 border-bottom-line">
+            <span class="text-xs font-medium muted">Фильтр по дисциплине</span>
+            <button type="button" onclick="hallLogic.setSportFilter('all')" data-hall-filter="all"
+              class="filter-chip is-active px-2.5 py-1 rounded-lg text-xs font-medium btn-dark cursor-pointer">Все (12)</button>
+          </div>
+          <div id="hallSportFilters" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
+            <button type="button" onclick="hallLogic.setSportFilter('football')" data-hall-filter="football" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Футбол</button>
+            <button type="button" onclick="hallLogic.setSportFilter('boxing')" data-hall-filter="boxing" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Бокс</button>
+            <button type="button" onclick="hallLogic.setSportFilter('volleyball')" data-hall-filter="volleyball" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Волейбол</button>
+            <button type="button" onclick="hallLogic.setSportFilter('hockey')" data-hall-filter="hockey" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Хоккей</button>
+            <button type="button" onclick="hallLogic.setSportFilter('basketball')" data-hall-filter="basketball" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Баскетбол</button>
+            <button type="button" onclick="hallLogic.setSportFilter('tennis')" data-hall-filter="tennis" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Теннис</button>
+            <button type="button" onclick="hallLogic.setSportFilter('formula1')" data-hall-filter="formula1" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Формула-1</button>
+            <button type="button" onclick="hallLogic.setSportFilter('swimming')" data-hall-filter="swimming" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Плавание</button>
+            <button type="button" onclick="hallLogic.setSportFilter('badminton')" data-hall-filter="badminton" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Бадминтон</button>
+            <button type="button" onclick="hallLogic.setSportFilter('chess')" data-hall-filter="chess" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Шахматы</button>
+            <button type="button" onclick="hallLogic.setSportFilter('tabletennis')" data-hall-filter="tabletennis" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Наст. теннис</button>
+            <button type="button" onclick="hallLogic.setSportFilter('judo')" data-hall-filter="judo" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Дзюдо</button>
+          </div>
         </div>
       </div>
 
@@ -248,6 +268,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=17"></script>
+<script src="script.js?v=18"></script>
 </body>
 </html>

@@ -723,3 +723,34 @@ h1, h2, h3, h4, .font-display {
   72%     { opacity: 0; transform: scale(1.65); }
   100%    { opacity: 0; transform: scale(0.4); }
 }
+
+/* Выпадающее меню фильтра в шапке */
+.filter-dropdown-panel {
+  background: rgba(10, 16, 32, 0.96);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.55);
+  animation: fade 160ms ease-out;
+}
+
+[data-theme="light"] .filter-dropdown-panel {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 18px 40px rgba(11, 31, 75, 0.16);
+}
+
+.filter-toggle-btn.is-active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  color: var(--accent-ink);
+  border-color: transparent;
+  box-shadow: 0 3px 12px var(--glow);
+  font-weight: 600;
+}
+
+.filter-chevron {
+  transition: transform 180ms ease-out;
+}
+
+.filter-toggle-btn.is-open .filter-chevron {
+  transform: rotate(180deg);
+}

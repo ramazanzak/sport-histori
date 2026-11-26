@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -56,32 +56,52 @@
         </button>
       </div>
 
-      <!-- Поиск и быстрые фильтры -->
-      <div class="w-full lg:max-w-md relative">
-        <div class="relative flex items-center">
-          <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
-          </svg>
-          <input id="sportSearchInput" type="text" placeholder="Поиск дисциплины"
-            class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
-            oninput="appLogic.handleSearch(this.value)">
-          <button id="clearSearchBtn" onclick="appLogic.clearSearch()"
-            class="btn-clear-search hidden absolute right-3 text-xs px-2 py-1 rounded muted">Сброс</button>
+      <!-- Поиск и выпадающий фильтр дисциплин -->
+      <div id="mainFilterWrap" class="w-full lg:max-w-lg relative">
+        <div class="flex items-center gap-2">
+          <div class="relative flex-1 flex items-center min-w-0">
+            <svg class="w-4 h-4 absolute left-3 pointer-events-none muted" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.3-4.3"/>
+            </svg>
+            <input id="sportSearchInput" type="text" placeholder="Поиск дисциплины"
+              class="search-input w-full pl-10 pr-16 py-2 rounded-lg text-sm focus:outline-none"
+              oninput="appLogic.handleSearch(this.value)">
+            <button id="clearSearchBtn" onclick="appLogic.clearSearch()"
+              class="btn-clear-search hidden absolute right-2.5 text-xs px-2 py-1 rounded muted">Сброс</button>
+          </div>
+          <button id="mainFilterBtn" type="button" onclick="appLogic.toggleFilterMenu(event)"
+            aria-expanded="false" aria-controls="mainFilterMenu"
+            class="filter-toggle-btn btn-dark px-3 py-2 rounded-lg text-xs font-medium inline-flex items-center gap-1.5 shrink-0 cursor-pointer">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            <span id="mainFilterBtnLabel" class="truncate max-w-[120px]">Фильтр</span>
+            <svg class="w-3.5 h-3.5 filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
         </div>
-        <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2 text-xs">
-          <span class="muted">Фильтр:</span>
-          <button onclick="appLogic.quickFilter('Футбол')" data-filter="футбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Футбол</button>
-          <button onclick="appLogic.quickFilter('Бокс')" data-filter="бокс" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Бокс</button>
-          <button onclick="appLogic.quickFilter('Волейбол')" data-filter="волейбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Волейбол</button>
-          <button onclick="appLogic.quickFilter('Хоккей')" data-filter="хоккей" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Хоккей</button>
-          <button onclick="appLogic.quickFilter('Баскетбол')" data-filter="баскетбол" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Баскетбол</button>
-          <button onclick="appLogic.quickFilter('Теннис')" data-filter="теннис" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Теннис</button>
-          <button onclick="appLogic.quickFilter('Формула-1')" data-filter="формула-1" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Формула-1</button>
-          <button onclick="appLogic.quickFilter('Плавание')" data-filter="плавание" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Плавание</button>
-          <button onclick="appLogic.quickFilter('Бадминтон')" data-filter="бадминтон" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Бадминтон</button>
-          <button onclick="appLogic.quickFilter('Шахматы')" data-filter="шахматы" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Шахматы</button>
-          <button onclick="appLogic.quickFilter('Настольный теннис')" data-filter="настольный теннис" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Наст. теннис</button>
-          <button onclick="appLogic.quickFilter('Дзюдо')" data-filter="дзюдо" class="filter-chip soft px-2 py-0.5 rounded btn-dark">Дзюдо</button>
+
+        <div id="mainFilterMenu" class="filter-dropdown-panel hidden absolute left-0 right-0 mt-2 rounded-xl p-3 z-50">
+          <div class="flex items-center justify-between gap-2 pb-2 mb-2.5 border-bottom-line">
+            <span class="text-xs font-medium muted">Выберите вид спорта</span>
+            <button type="button" onclick="appLogic.resetFilterFromMenu()"
+              class="text-xs accent-text font-medium hover:underline cursor-pointer">Все (12)</button>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-xs">
+            <button type="button" onclick="appLogic.quickFilter('Футбол')" data-filter="футбол" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Футбол</button>
+            <button type="button" onclick="appLogic.quickFilter('Бокс')" data-filter="бокс" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Бокс</button>
+            <button type="button" onclick="appLogic.quickFilter('Волейбол')" data-filter="волейбол" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Волейбол</button>
+            <button type="button" onclick="appLogic.quickFilter('Хоккей')" data-filter="хоккей" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Хоккей</button>
+            <button type="button" onclick="appLogic.quickFilter('Баскетбол')" data-filter="баскетбол" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Баскетбол</button>
+            <button type="button" onclick="appLogic.quickFilter('Теннис')" data-filter="теннис" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Теннис</button>
+            <button type="button" onclick="appLogic.quickFilter('Формула-1')" data-filter="формула-1" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Формула-1</button>
+            <button type="button" onclick="appLogic.quickFilter('Плавание')" data-filter="плавание" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Плавание</button>
+            <button type="button" onclick="appLogic.quickFilter('Бадминтон')" data-filter="бадминтон" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Бадминтон</button>
+            <button type="button" onclick="appLogic.quickFilter('Шахматы')" data-filter="шахматы" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Шахматы</button>
+            <button type="button" onclick="appLogic.quickFilter('Настольный теннис')" data-filter="настольный теннис" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Наст. теннис</button>
+            <button type="button" onclick="appLogic.quickFilter('Дзюдо')" data-filter="дзюдо" class="filter-chip soft px-2.5 py-1.5 rounded-lg btn-dark text-left truncate">Дзюдо</button>
+          </div>
         </div>
       </div>
 
@@ -329,6 +349,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=17"></script>
+<script src="script.js?v=18"></script>
 </body>
 </html>

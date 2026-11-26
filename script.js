@@ -1534,6 +1534,20 @@ const appLogic = {
       const filterVal = (btn.getAttribute('data-filter') || '').toLowerCase();
       btn.classList.toggle('is-active', cleanQuery.length > 0 && cleanQuery === filterVal);
     });
+    const activeChip = document.querySelector('[data-filter].is-active');
+    const fBtn = document.getElementById('mainFilterBtn');
+    const fLabel = document.getElementById('mainFilterBtnLabel');
+    if (fBtn) fBtn.classList.toggle('is-active', !!activeChip);
+    if (fLabel) fLabel.textContent = activeChip ? `Фильтр: ${activeChip.textContent.trim()}` : 'Фильтр';
+  },
+
+  toggleFilterMenu(event) {
+    toggleFilterDropdown('mainFilterMenu', 'mainFilterBtn', event);
+  },
+
+  resetFilterFromMenu() {
+    this.clearSearch();
+    closeAllFilterMenus();
   },
 
   handleSearch(query) {
@@ -1570,11 +1584,13 @@ const appLogic = {
     const input = document.getElementById('sportSearchInput');
     if (this.currentFilter === sportName.trim().toLowerCase()) {
       this.clearSearch();
+      closeAllFilterMenus();
       return;
     }
     if (input) {
       input.value = sportName;
       this.handleSearch(sportName);
+      closeAllFilterMenus();
       this.navigateSection('sports-catalog');
     }
   },
@@ -1707,7 +1723,43 @@ const appLogic = {
   }
 };
 
-/* Автоматический QA-тестер */
+function closeAllFilterMenus() {
+  [['mainFilterMenu', 'mainFilterBtn'], ['hallFilterMenu', 'hallFilterBtn']].forEach(([menuId, btnId]) => {
+    const m = document.getElementById(menuId);
+    const b = document.getElementById(btnId);
+    if (m) m.classList.add('hidden');
+    if (b) {
+      b.classList.remove('is-open');
+      b.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+function toggleFilterDropdown(menuId, btnId, event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById(menuId);
+  const btn = document.getElementById(btnId);
+  if (!menu) return;
+  const willOpen = menu.classList.contains('hidden');
+  closeAllFilterMenus();
+  if (willOpen) {
+    menu.classList.remove('hidden');
+    if (btn) {
+      btn.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  }
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#mainFilterWrap') && !e.target.closest('#hallFilterWrap')) {
+    closeAllFilterMenus();
+  }
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAllFilterMenus();
+});
 const qaTester = {
   runAllTests() {
     const resultsGrid = document.getElementById('qaResultsGrid');
@@ -1781,11 +1833,23 @@ const hallLogic = {
     this.renderAll();
   },
 
+  toggleFilterMenu(event) {
+    toggleFilterDropdown('hallFilterMenu', 'hallFilterBtn', event);
+  },
+
   setSportFilter(sportId) {
     this.activeSport = sportId;
+    let activeName = 'Все';
     document.querySelectorAll('[data-hall-filter]').forEach(btn => {
-      btn.classList.toggle('is-active', btn.getAttribute('data-hall-filter') === sportId);
+      const isAct = btn.getAttribute('data-hall-filter') === sportId;
+      btn.classList.toggle('is-active', isAct);
+      if (isAct && sportId !== 'all') activeName = btn.textContent.trim();
     });
+    const hBtn = document.getElementById('hallFilterBtn');
+    const hLabel = document.getElementById('hallFilterBtnLabel');
+    if (hBtn) hBtn.classList.toggle('is-active', sportId !== 'all');
+    if (hLabel) hLabel.textContent = `Фильтр: ${activeName}`;
+    closeAllFilterMenus();
     this.renderAll();
   },
 
