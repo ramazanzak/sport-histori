@@ -533,13 +533,19 @@ const SPORTS_DATABASE = [
   }
 ];
 
-/* Общий генератор фигурок спортсменов (вид сверху: форма + голова) */
-function svgPlayers(coords, fill, stroke, head, animClass = '', w = 9, h = 12.5, r = 3.2) {
+/* Общий генератор фигурок спортсменов (вид сверху: форма + голова + при необходимости клюшка) */
+function svgPlayers(coords, fill, stroke, head, animClass = '', w = 9, h = 12.5, r = 3.2, stickSide = '') {
   const rx = (w * 0.36).toFixed(1);
   const hw = (w / 2).toFixed(1);
   const hh = (h / 2).toFixed(1);
+  const stick = stickSide === 'right'
+    ? '<line x1="2" y1="3" x2="10" y2="8" stroke="#1e293b" stroke-width="1.6" stroke-linecap="round"/><line x1="10" y1="8" x2="13" y2="5" stroke="#0f172a" stroke-width="1.9" stroke-linecap="round"/>'
+    : (stickSide === 'left'
+      ? '<line x1="-2" y1="3" x2="-10" y2="8" stroke="#1e293b" stroke-width="1.6" stroke-linecap="round"/><line x1="-10" y1="8" x2="-13" y2="5" stroke="#0f172a" stroke-width="1.9" stroke-linecap="round"/>'
+      : '');
   const items = coords.map(([x, y]) => `
     <g transform="translate(${x} ${y})">
+      ${stick}
       <rect x="-${hw}" y="-${hh}" width="${w}" height="${h}" rx="${rx}" fill="${fill}" stroke="${stroke}" stroke-width="0.9"/>
       <line x1="0" y1="-${hh}" x2="0" y2="${hh}" stroke="#0f172a" stroke-width="1.2" opacity="0.55"/>
       <circle cx="0" cy="0" r="${r}" fill="${head}" stroke="#1e293b" stroke-width="0.7"/>
@@ -599,11 +605,11 @@ const VISUALS = {
     ${svgPlayers([[289,90]], '#0ea5e9', '#bae6fd', '#fde68a', 'pl-gk', 7.6, 10.4, 2.5)}
     ${svgPlayers([[262,34],[266,70],[266,110],[262,146],[224,48],[228,90],[224,132],[184,38],[176,90],[184,142]], '#dc2626', '#fca5a5', '#fde68a', 'pl-team-b', 7.6, 10.4, 2.5)}
     <g>
-      <circle cx="0" cy="0" r="6.5" fill="#fbf3df" stroke="#1e1b18" stroke-width="1.1"/>
-      <polygon points="0,-3.2 3,-1 1.9,2.6 -1.9,2.6 -3,-1" fill="#1e1b18"/>
-      <path d="M0,-3.2 V-6.2 M3,-1 L5.8,-2 M1.9,2.6 L4.2,4.8 M-1.9,2.6 L-4.2,4.8 M-3,-1 L-5.8,-2" stroke="#1e1b18" stroke-width="0.9"/>
-      <animateMotion dur="3.4s" repeatCount="indefinite"
-        path="M160,90 Q205,42 299,84 Q245,132 160,90 Q115,42 21,96 Q75,132 160,90"/>
+      <circle cx="0" cy="0" r="4.8" fill="#fbf3df" stroke="#1e1b18" stroke-width="1"/>
+      <polygon points="0,-2.3 2.2,-0.7 1.4,1.9 -1.4,1.9 -2.2,-0.7" fill="#1e1b18"/>
+      <path d="M0,-2.3 V-4.6 M2.2,-0.7 L4.4,-1.5 M1.4,1.9 L3.1,3.5 M-1.4,1.9 L-3.1,3.5 M-2.2,-0.7 L-4.4,-1.5" stroke="#1e1b18" stroke-width="0.8"/>
+      <animateMotion dur="5.2s" repeatCount="indefinite"
+        path="M54,70 L92,90 L136,38 L144,90 L96,132 L136,142 L184,142 L228,90 L266,70 L224,48 L184,38 L144,90 L92,90 L54,70"/>
     </g>
   </svg>`,
 
@@ -649,8 +655,6 @@ const VISUALS = {
         values="0 0; 0 0; -36 -4; 0 0"
         keyTimes="0; 0.5; 0.72; 1" dur="1.8s" repeatCount="indefinite"/>
     </g>
-    ${svgPlayers([[86,126]], '#d4a537', '#fef08a', '#fde68a', 'pl-court-a', 11, 14, 3.6)}
-    ${svgPlayers([[234,126]], '#c93b2b', '#fca5a5', '#fde68a', 'pl-court-b', 11, 14, 3.6)}
     <g transform="translate(160 80)" opacity="0">
       <polygon points="0,-14 3.5,-4 14,-4 5.5,2.5 8.5,12 0,6 -8.5,12 -5.5,2.5 -14,-4 -3.5,-4" fill="#ffe066" stroke="#ffffff" stroke-width="1"/>
       <animate attributeName="opacity"
@@ -702,11 +706,11 @@ const VISUALS = {
     ${svgPlayers([[68,48],[68,90],[68,132],[128,48],[128,90],[128,132]], '#2563eb', '#93c5fd', '#fde68a', 'pl-court-a', 9, 12.2, 3.1)}
     ${svgPlayers([[192,48],[192,90],[192,132],[252,48],[252,90],[252,132]], '#eab308', '#fef08a', '#fde68a', 'pl-court-b', 9, 12.2, 3.1)}
     <g>
-      <circle cx="0" cy="0" r="7" fill="#f7d046" stroke="#1e293b" stroke-width="1"/>
-      <path d="M-6.5,-2 Q0,-6 6.5,-2 Q4,4 0,6.8 Q-4,4 -6.5,-2 Z" fill="#2563eb"/>
-      <path d="M-4.5,-5.2 Q1,-1 -1,6.8 M4.5,-5.2 Q-1,1 5,4.8" stroke="#ffffff" stroke-width="1.3" fill="none"/>
-      <animateMotion dur="2.4s" repeatCount="indefinite"
-        path="M68,128 Q160,12 252,122 Q160,12 68,128"/>
+      <circle cx="0" cy="0" r="5.6" fill="#f7d046" stroke="#1e293b" stroke-width="0.9"/>
+      <path d="M-5.2,-1.6 Q0,-4.8 5.2,-1.6 Q3.2,3.2 0,5.4 Q-3.2,3.2 -5.2,-1.6 Z" fill="#2563eb"/>
+      <path d="M-3.6,-4.1 Q0.8,-0.8 -0.8,5.4 M3.6,-4.1 Q-0.8,0.8 4,3.8" stroke="#ffffff" stroke-width="1.1" fill="none"/>
+      <animateMotion dur="4.2s" repeatCount="indefinite"
+        path="M68,90 L128,48 Q160,16 252,132 L192,90 Q160,22 68,48 L128,132 Q160,18 192,48 L252,90 Q160,16 68,90"/>
     </g>
   </svg>`,
 
@@ -736,41 +740,16 @@ const VISUALS = {
     <path d="M282,74 A16,16 0 0 0 282,106 Z" fill="#7fc4e8" fill-opacity="0.65" stroke="#c8372d" stroke-width="1.3"/>
     <path d="M282,76 L294,79 C298,82 298,98 294,101 L282,104 Z" fill="#b7cad6"/>
     <path d="M282,76 L294,79 C298,82 298,98 294,101 L282,104 Z" fill="url(#hk-net)" stroke="#c8372d" stroke-width="2.2" stroke-linejoin="round"/>
-    ${svgPlayers([[44,90]], '#eab308', '#fef08a', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8)}
-    ${svgPlayers([[82,56],[82,124],[130,38],[136,72],[130,140]], '#1d4ed8', '#93c5fd', '#ffffff', 'pl-court-a', 8.5, 11.5, 2.8)}
-    ${svgPlayers([[276,90]], '#0ea5e9', '#bae6fd', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8)}
-    ${svgPlayers([[238,56],[238,124],[190,38],[184,72],[190,140]], '#dc2626', '#fca5a5', '#ffffff', 'pl-court-b', 8.5, 11.5, 2.8)}
-    <g transform="translate(72 42)">
-      <g class="hk-stick-left">
-        <line x1="0" y1="0" x2="8" y2="54" stroke="#2c241b" stroke-width="4.2" stroke-linecap="round"/>
-        <line x1="0" y1="0" x2="8" y2="54" stroke="#d4a537" stroke-width="1.6" stroke-dasharray="6 6"/>
-        <path d="M8,54 L25,51 C28,50 28,56 25,57 L7,58 Z" fill="#1e1b18" stroke="#1e1b18" stroke-width="1"/>
-        <path d="M12,53 L21,52 M13,56 L22,55" stroke="#fbf3df" stroke-width="1.5"/>
-      </g>
-    </g>
-    <g transform="translate(248 42)">
-      <g class="hk-stick-right">
-        <line x1="0" y1="0" x2="-8" y2="54" stroke="#2c241b" stroke-width="4.2" stroke-linecap="round"/>
-        <line x1="0" y1="0" x2="-8" y2="54" stroke="#c8372d" stroke-width="1.6" stroke-dasharray="6 6"/>
-        <path d="M-8,54 L-25,51 C-28,50 -28,56 -25,57 L-7,58 Z" fill="#1e1b18" stroke="#1e1b18" stroke-width="1"/>
-        <path d="M-12,53 L-21,52 M-13,56 L-22,55" stroke="#fbf3df" stroke-width="1.5"/>
-      </g>
-    </g>
-    <g class="hk-spark-left" stroke="#d4a537" stroke-width="1.5" stroke-linecap="round">
-      <line x1="94" y1="92" x2="100" y2="87"/>
-      <line x1="96" y1="98" x2="103" y2="98"/>
-      <line x1="94" y1="104" x2="100" y2="109"/>
-    </g>
-    <g class="hk-spark-right" stroke="#c8372d" stroke-width="1.5" stroke-linecap="round">
-      <line x1="226" y1="92" x2="220" y2="87"/>
-      <line x1="224" y1="98" x2="217" y2="98"/>
-      <line x1="226" y1="104" x2="220" y2="109"/>
-    </g>
-    <g class="hk-puck">
-      <ellipse cx="88" cy="102" rx="10" ry="3.5" fill="#7c96a8" opacity="0.55"/>
-      <ellipse cx="88" cy="99" rx="9.5" ry="4.6" fill="#0f1115" stroke="#334155" stroke-width="1"/>
-      <ellipse cx="88" cy="97.5" rx="9" ry="3.8" fill="#1e242c"/>
-      <path d="M83,96.5 Q88,94.8 93,96.5" stroke="#cbd5e1" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    ${svgPlayers([[44,90]], '#eab308', '#fef08a', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8, 'right')}
+    ${svgPlayers([[82,56],[82,124],[130,38],[136,90],[130,140]], '#1d4ed8', '#93c5fd', '#ffffff', 'pl-court-a', 8.5, 11.5, 2.8, 'right')}
+    ${svgPlayers([[276,90]], '#0ea5e9', '#bae6fd', '#ffffff', 'pl-gk', 8.5, 11.5, 2.8, 'left')}
+    ${svgPlayers([[238,56],[238,124],[190,38],[184,90],[190,140]], '#dc2626', '#fca5a5', '#ffffff', 'pl-court-b', 8.5, 11.5, 2.8, 'left')}
+    <g>
+      <ellipse cx="0" cy="0.8" rx="4.2" ry="2.6" fill="#0f1115" stroke="#334155" stroke-width="0.8"/>
+      <ellipse cx="0" cy="-0.3" rx="3.8" ry="2" fill="#1e242c"/>
+      <path d="M-2,-0.8 Q0,-1.8 2,-0.8" stroke="#cbd5e1" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+      <animateMotion dur="4.6s" repeatCount="indefinite"
+        path="M82,56 L136,90 L130,38 L190,38 L238,124 L184,90 L130,140 L82,124 L82,56"/>
     </g>
   </svg>`,
 
@@ -801,18 +780,13 @@ const VISUALS = {
     <rect x="307" y="72" width="5" height="36" fill="#fbf3df"/>
     <circle cx="299" cy="90" r="6" fill="none" stroke="#e05a24" stroke-width="2.4"/>
     <circle cx="299" cy="90" r="3.5" fill="none" stroke="#fbf3df" stroke-width="1" stroke-dasharray="2 2"/>
-    ${svgPlayers([[44,90],[74,48],[74,132],[114,58],[114,122]], '#ea580c', '#fed7aa', '#fde68a', 'pl-team-a', 9, 12.2, 3.1)}
-    ${svgPlayers([[276,90],[246,48],[246,132],[206,58],[206,122]], '#4f46e5', '#c7d2fe', '#fde68a', 'pl-team-b', 9, 12.2, 3.1)}
-    <ellipse cx="160" cy="148" rx="14" ry="3.5" fill="#2a1a0c" opacity="0.45">
-      <animate attributeName="rx" values="14;7;14" keyTimes="0;0.5;1" dur="1.15s" repeatCount="indefinite"/>
-      <animate attributeName="opacity" values="0.45;0.18;0.45" keyTimes="0;0.5;1" dur="1.15s" repeatCount="indefinite"/>
-    </ellipse>
+    ${svgPlayers([[44,90],[74,48],[74,132],[114,58],[114,122]], '#ea580c', '#fed7aa', '#fde68a', 'pl-team-a', 11.5, 15.5, 3.8)}
+    ${svgPlayers([[276,90],[246,48],[246,132],[206,58],[206,122]], '#4f46e5', '#c7d2fe', '#fde68a', 'pl-team-b', 11.5, 15.5, 3.8)}
     <g>
-      <circle cx="160" cy="118" r="11.5" fill="#e06d24" stroke="#2a200f" stroke-width="1.2"/>
-      <path d="M148.5 118 H171.5 M160 106.5 V129.5 M152 110 Q158 118 152 126 M168 110 Q162 118 168 126" stroke="#2a200f" stroke-width="1"/>
-      <animateTransform attributeName="transform" type="translate"
-        values="0 0; 0 -54; 0 0" keyTimes="0; 0.5; 1" dur="1.15s" repeatCount="indefinite"
-        calcMode="spline" keySplines="0.33 0.66 0.66 1; 0.33 0 0.66 0.33"/>
+      <circle cx="0" cy="0" r="6.2" fill="#e06d24" stroke="#2a200f" stroke-width="1"/>
+      <path d="M-6.2,0 H6.2 M0,-6.2 V6.2 M-4.2,-4.2 Q-1,0 -4.2,4.2 M4.2,-4.2 Q1,0 4.2,4.2" stroke="#2a200f" stroke-width="0.85" fill="none"/>
+      <animateMotion dur="4.4s" repeatCount="indefinite"
+        path="M74,48 L114,122 Q160,55 206,58 L246,132 L276,90 L206,122 Q160,60 114,58 L44,90 L74,48"/>
     </g>
   </svg>`,
 
@@ -867,8 +841,6 @@ const VISUALS = {
           keyTimes="0; 0.44; 0.57; 0.74; 1" dur="2.4s" repeatCount="indefinite"/>
       </g>
     </g>
-    ${svgPlayers([[46,124]], '#d4af37', '#fef08a', '#fde68a', 'pl-court-a', 9.5, 12.5, 3.2)}
-    ${svgPlayers([[274,124]], '#3b82f6', '#bfdbfe', '#fde68a', 'pl-court-b', 9.5, 12.5, 3.2)}
     <g>
       <circle cx="0" cy="0" r="5.5" fill="#d8f244" stroke="#2a200f" stroke-width="0.9"/>
       <path d="M-3.5,-3.5 Q0,0 -3.5,3.5 M3.5,-3.5 Q0,0 3.5,3.5" stroke="#ffffff" stroke-width="0.9" fill="none"/>
@@ -994,7 +966,6 @@ const VISUALS = {
     </g>
     <rect x="157" y="20" width="6" height="140" fill="url(#bd-mesh)"/>
     <line x1="160" y1="20" x2="160" y2="160" stroke="#ffffff" stroke-width="2.2"/>
-    ${svgPlayers([[50,124]], '#d4af37', '#fef08a', '#fde68a', 'pl-court-a', 9, 12, 3.1)}
     <g transform="translate(56 120)">
       <g>
         <line x1="0" y1="0" x2="0" y2="-22" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round"/>
@@ -1003,7 +974,6 @@ const VISUALS = {
           values="-18; 32; -10; -18" keyTimes="0; 0.12; 0.3; 1" dur="2.2s" repeatCount="indefinite"/>
       </g>
     </g>
-    ${svgPlayers([[270,124]], '#38bdf8', '#bae6fd', '#fde68a', 'pl-court-b', 9, 12, 3.1)}
     <g transform="translate(264 120)">
       <g>
         <line x1="0" y1="0" x2="0" y2="-22" stroke="#1e293b" stroke-width="3.2" stroke-linecap="round"/>
@@ -1072,7 +1042,7 @@ const VISUALS = {
     <line x1="160" y1="24" x2="160" y2="156" stroke="#f8fafc" stroke-width="2"/>
     <rect x="156" y="22" width="8" height="4" rx="1" fill="#94a3b8"/>
     <rect x="156" y="154" width="8" height="4" rx="1" fill="#94a3b8"/>
-    ${svgPlayers([[24,90]], '#dc2626', '#fca5a5', '#fde68a', 'pl-court-a', 9, 12, 3.1)}
+    ${svgPlayers([[22,90]], '#dc2626', '#fca5a5', '#fde68a', 'pl-court-a', 12.5, 16.5, 4.2)}
     <g transform="translate(46 90)">
       <g>
         <rect x="-2" y="8" width="4" height="12" rx="1.5" fill="#d97706"/>
@@ -1081,7 +1051,7 @@ const VISUALS = {
           values="0 -14; 8 -14; 0 18; 0 -14" keyTimes="0; 0.08; 0.65; 1" dur="1.45s" repeatCount="indefinite"/>
       </g>
     </g>
-    ${svgPlayers([[296,90]], '#1e293b', '#d4af37', '#fde68a', 'pl-court-b', 9, 12, 3.1)}
+    ${svgPlayers([[298,90]], '#1e293b', '#d4af37', '#fde68a', 'pl-court-b', 12.5, 16.5, 4.2)}
     <g transform="translate(274 90)">
       <g>
         <rect x="-2" y="8" width="4" height="12" rx="1.5" fill="#d97706"/>
