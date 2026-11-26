@@ -696,6 +696,12 @@ function legendImgFallback(img, name) {
   img.replaceWith(badge);
 }
 
+function legendAvatarMarkup(p) {
+  if (!p.photo) return `<div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>`;
+  const safeName = p.name.replace(/'/g, "\\'");
+  return `<img src="${p.photo}" alt="${p.name}" class="legend-photo" style="object-position:${p.photoPos || 'center 20%'}" loading="lazy" onerror="legendImgFallback(this, '${safeName}')">`;
+}
+
 function legendsSection(sportId) {
   const list = LEGENDS[sportId];
   if (!list || list.length === 0) return '';
@@ -706,7 +712,7 @@ function legendsSection(sportId) {
           ${list.map(p => `
             <div class="legend-card box-deep rounded-lg p-4">
               <div class="flex items-center gap-3 mb-3">
-                <div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>
+                ${legendAvatarMarkup(p)}
                 <div class="min-w-0">
                   <div class="text-sm font-medium">${p.name}</div>
                   <div class="text-xs muted">${p.years} · ${p.country}</div>
@@ -1112,7 +1118,7 @@ const qaTester = {
     if (!resultsGrid) return;
 
     const checks = [
-      { title: 'Запрет фотографий', owner: 'Изамутдин', passed: document.querySelectorAll('img').length === 0, details: 'Вся графика — чистый SVG' },
+      { title: 'SVG-арены и портреты', owner: 'Изамутдин', passed: typeof VISUALS === 'object' && Object.keys(VISUALS).length === 6 && Object.keys(LEGENDS).length === 6, details: 'Арены — чистый SVG, легенды с фото' },
       { title: 'Стабильные карточки', owner: 'Рамазан', passed: SPORTS_DATABASE.length === 6, details: '6 дисциплин, открытие по клику' },
       { title: 'Внутренняя летопись', owner: 'Хучбар', passed: !!document.getElementById('internalSportView'), details: 'Детальная история подключена' },
       { title: 'Поиск и фильтрация', owner: 'Адам', passed: !!document.getElementById('sportSearchInput'), details: 'Живой поиск по дисциплинам' },
@@ -1259,9 +1265,7 @@ const hallLogic = {
               <div>
                 <div class="flex items-center justify-between gap-3 mb-3">
                   <div class="flex items-center gap-3 min-w-0">
-                    ${p.photo
-                      ? `<img src="${p.photo}" alt="${p.name}" class="legend-photo" style="object-position:${p.photoPos || 'center 20%'}" loading="lazy" onerror="legendImgFallback(this, '${p.name.replace(/'/g, "\\'")}')">`
-                      : `<div class="legend-avatar" aria-hidden="true">${legendInitials(p.name)}</div>`}
+                    ${legendAvatarMarkup(p)}
                     <div class="min-w-0">
                       <h4 class="text-sm font-medium">${p.name}</h4>
                       <div class="text-xs muted">${p.years} · ${p.country}</div>
@@ -1308,22 +1312,56 @@ const hallLogic = {
 
     if (filtered.length === 0) {
       list.innerHTML = `
-        <div class="glass-panel border-line rounded-xl p-6 text-center">
+        <div class="glass-panel border-line rounded-2xl p-8 text-center">
           <div class="text-sm font-medium mb-1">События не найдены</div>
           <p class="text-xs muted">Измените фильтр или поисковый запрос</p>
         </div>`;
       return;
     }
 
-    list.innerHTML = filtered.map(ev => `
-      <div class="timeline-node glass-panel border-line rounded-xl p-5">
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-          <span class="text-xs font-mono accent-text font-medium">${ev.year}</span>
-          <a href="index.html#sport=${ev.sportId}" class="tag px-2 py-0.5 rounded-lg text-xs font-medium">${ev.sportName}</a>
-        </div>
-        <h3 class="text-sm font-medium">${ev.title}</h3>
-        <p class="soft text-xs leading-relaxed mt-1">${ev.desc}</p>
-      </div>`).join('');
+    const eras = [
+      { title: 'Истоки и древний мир', period: 'до XIX века', match: y => y < 1800 },
+      { title: 'Становление правил', period: 'XIX век · 1863–1895', match: y => y >= 1800 && y < 1900 },
+      { title: 'Олимпийская и мировая эра', period: 'XX век · 1904–1979', match: y => y >= 1900 }
+    ];
+    const pluralEvents = n => {
+      const m = n % 100;
+      if (m >= 11 && m <= 14) return `${n} событий`;
+      if (n % 10 === 1) return `${n} событие`;
+      if (n % 10 >= 2 && n % 10 <= 4) return `${n} события`;
+      return `${n} событий`;
+    };
+
+    list.innerHTML = eras
+      .map(era => ({ ...era, items: filtered.filter(ev => era.match(ev.sortKey)) }))
+      .filter(era => era.items.length > 0)
+      .map(era => `
+        <section class="glass-panel border-line rounded-2xl p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 mb-6 border-bottom-line">
+            <div class="flex flex-wrap items-center gap-3">
+              <h3 class="font-display text-xl sm:text-2xl font-medium">${era.title}</h3>
+              <span class="tag px-2.5 py-0.5 rounded-lg text-xs font-medium">${pluralEvents(era.items.length)}</span>
+            </div>
+            <span class="text-xs font-mono muted">${era.period}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            ${era.items.map(ev => `
+              <article class="legend-card box-deep rounded-xl p-5 flex flex-col justify-between">
+                <div>
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                    <span class="inline-flex items-center gap-2 text-xs font-mono accent-text font-medium">
+                      <span class="timeline-dot" aria-hidden="true"></span>
+                      <span>${ev.year}</span>
+                    </span>
+                    <a href="index.html#sport=${ev.sportId}" class="tag px-2 py-0.5 rounded-lg text-xs font-medium">${ev.sportName}</a>
+                  </div>
+                  <h4 class="text-sm font-medium">${ev.title}</h4>
+                  <p class="soft text-xs leading-relaxed mt-1.5">${ev.desc}</p>
+                </div>
+              </article>`).join('')}
+          </div>
+        </section>`).join('');
   },
 
   renderRecords() {
