@@ -709,7 +709,7 @@ const VISUALS = {
       <circle cx="0" cy="0" r="5.6" fill="#f7d046" stroke="#1e293b" stroke-width="0.9"/>
       <path d="M-5.2,-1.6 Q0,-4.8 5.2,-1.6 Q3.2,3.2 0,5.4 Q-3.2,3.2 -5.2,-1.6 Z" fill="#2563eb"/>
       <path d="M-3.6,-4.1 Q0.8,-0.8 -0.8,5.4 M3.6,-4.1 Q-0.8,0.8 4,3.8" stroke="#ffffff" stroke-width="1.1" fill="none"/>
-      <animateMotion dur="4.2s" repeatCount="indefinite"
+      <animateMotion dur="6.5s" repeatCount="indefinite"
         path="M68,90 L128,48 Q160,16 252,132 L192,90 Q160,22 68,48 L128,132 Q160,18 192,48 L252,90 Q160,16 68,90"/>
     </g>
   </svg>`,
