@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
   <!-- Подключение внешнего CSS -->
-  <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="style.css?v=13">
 </head>
 <body class="min-h-screen flex flex-col">
 
@@ -108,12 +108,29 @@
       <!-- Навигация и переключатель темы -->
       <div class="flex items-center justify-center gap-1.5 shrink-0 flex-wrap">
         <nav class="flex items-center gap-1 flex-wrap justify-center">
-          <button onclick="appLogic.navigateSection('hero')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</button>
-          <button onclick="appLogic.navigateSection('about-site')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">О сайте</button>
-          <button onclick="appLogic.navigateSection('sports-catalog')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Дисциплины</button>
+          <div id="mainHomeMenuWrap" class="relative">
+            <button id="mainHomeMenuBtn" type="button" onclick="appLogic.toggleHomeMenu('mainHomeMenu', 'mainHomeMenuBtn', event)"
+              aria-expanded="false" aria-controls="mainHomeMenu"
+              class="hl nav-dropdown-btn px-3 py-2 rounded-lg text-xs font-medium soft inline-flex items-center gap-1 cursor-pointer">
+              <span>Главная</span>
+              <svg class="w-3.5 h-3.5 filter-chevron opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </button>
+            <div id="mainHomeMenu" class="filter-dropdown-panel hidden absolute left-1/2 -translate-x-1/2 lg:left-0 lg:translate-x-0 mt-2 w-52 rounded-xl p-2 z-50">
+              <div class="flex items-center justify-between px-2.5 py-1.5 mb-1 border-bottom-line text-[11px] muted">
+                <span>Разделы главной</span>
+                <button type="button" onclick="appLogic.navigateSection('hero'); closeAllFilterMenus();" class="accent-text font-medium hover:underline cursor-pointer">Вверх</button>
+              </div>
+              <div class="flex flex-col gap-1 text-xs">
+                <button type="button" onclick="appLogic.navigateSection('about-site'); closeAllFilterMenus();" class="hl px-2.5 py-2 rounded-lg text-left soft cursor-pointer">О сайте</button>
+                <button type="button" onclick="appLogic.navigateSection('sports-catalog'); closeAllFilterMenus();" class="hl px-2.5 py-2 rounded-lg text-left soft cursor-pointer">Дисциплины</button>
+                <button type="button" onclick="appLogic.navigateSection('team-qa'); closeAllFilterMenus();" class="hl px-2.5 py-2 rounded-lg text-left soft cursor-pointer">Команда</button>
+              </div>
+            </div>
+          </div>
           <a href="legends.html" class="hl px-3 py-2 rounded-lg text-xs font-medium accent-text">Зал славы</a>
           <a href="chronology.html" class="hl px-3 py-2 rounded-lg text-xs font-medium accent-text">Хронология</a>
-          <button onclick="appLogic.navigateSection('team-qa')" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Команда</button>
         </nav>
         <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-switch hidden lg:inline-flex" aria-label="Переключить тему" title="Тёмная / светлая тема">
           <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
@@ -350,6 +367,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=27"></script>
+<script src="script.js?v=28"></script>
 </body>
 </html>

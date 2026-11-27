@@ -1710,6 +1710,10 @@ const appLogic = {
     if (scrollToTop) window.scrollTo({ top: 0, behavior: 'smooth' });
   },
 
+  toggleHomeMenu(menuId, btnId, event) {
+    toggleFilterDropdown(menuId, btnId, event);
+  },
+
   navigateSection(sectionId) {
     this.showMainPage(false);
     const target = document.getElementById(sectionId);
@@ -1718,7 +1722,14 @@ const appLogic = {
 };
 
 function closeAllFilterMenus() {
-  [['mainFilterMenu', 'mainFilterBtn'], ['hallFilterMenu', 'hallFilterBtn'], ['chronFilterMenu', 'chronFilterBtn']].forEach(([menuId, btnId]) => {
+  [
+    ['mainFilterMenu', 'mainFilterBtn'],
+    ['hallFilterMenu', 'hallFilterBtn'],
+    ['chronFilterMenu', 'chronFilterBtn'],
+    ['mainHomeMenu', 'mainHomeMenuBtn'],
+    ['hallHomeMenu', 'hallHomeMenuBtn'],
+    ['chronHomeMenu', 'chronHomeMenuBtn']
+  ].forEach(([menuId, btnId]) => {
     const m = document.getElementById(menuId);
     const b = document.getElementById(btnId);
     if (m) m.classList.add('hidden');
@@ -1746,7 +1757,14 @@ function toggleFilterDropdown(menuId, btnId, event) {
 }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('#mainFilterWrap') && !e.target.closest('#hallFilterWrap') && !e.target.closest('#chronFilterWrap')) {
+  if (
+    !e.target.closest('#mainFilterWrap') &&
+    !e.target.closest('#hallFilterWrap') &&
+    !e.target.closest('#chronFilterWrap') &&
+    !e.target.closest('#mainHomeMenuWrap') &&
+    !e.target.closest('#hallHomeMenuWrap') &&
+    !e.target.closest('#chronHomeMenuWrap')
+  ) {
     closeAllFilterMenus();
   }
 });
