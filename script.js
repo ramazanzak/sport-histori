@@ -1328,7 +1328,7 @@ const appLogic = {
   init() {
     this.initTheme();
     this.initScrollUI();
-    if (document.getElementById('hallLegendsGrid')) {
+    if (document.getElementById('hallLegendsGrid') || document.getElementById('hallTimelineList') || document.getElementById('hallRecordsGrid')) {
       hallLogic.init();
       return;
     }
@@ -1718,7 +1718,7 @@ const appLogic = {
 };
 
 function closeAllFilterMenus() {
-  [['mainFilterMenu', 'mainFilterBtn'], ['hallFilterMenu', 'hallFilterBtn']].forEach(([menuId, btnId]) => {
+  [['mainFilterMenu', 'mainFilterBtn'], ['hallFilterMenu', 'hallFilterBtn'], ['chronFilterMenu', 'chronFilterBtn']].forEach(([menuId, btnId]) => {
     const m = document.getElementById(menuId);
     const b = document.getElementById(btnId);
     if (m) m.classList.add('hidden');
@@ -1746,7 +1746,7 @@ function toggleFilterDropdown(menuId, btnId, event) {
 }
 
 document.addEventListener('click', e => {
-  if (!e.target.closest('#mainFilterWrap') && !e.target.closest('#hallFilterWrap')) {
+  if (!e.target.closest('#mainFilterWrap') && !e.target.closest('#hallFilterWrap') && !e.target.closest('#chronFilterWrap')) {
     closeAllFilterMenus();
   }
 });
@@ -1831,32 +1831,43 @@ const hallLogic = {
     toggleFilterDropdown('hallFilterMenu', 'hallFilterBtn', event);
   },
 
+  toggleChronFilterMenu(event) {
+    toggleFilterDropdown('chronFilterMenu', 'chronFilterBtn', event);
+  },
+
   setSportFilter(sportId) {
     this.activeSport = sportId;
     let activeName = 'Все';
-    document.querySelectorAll('[data-hall-filter]').forEach(btn => {
-      const isAct = btn.getAttribute('data-hall-filter') === sportId;
+    document.querySelectorAll('[data-hall-filter], [data-chron-filter]').forEach(btn => {
+      const val = btn.getAttribute('data-hall-filter') || btn.getAttribute('data-chron-filter');
+      const isAct = val === sportId;
       btn.classList.toggle('is-active', isAct);
       if (isAct && sportId !== 'all') activeName = btn.textContent.trim();
     });
-    const hBtn = document.getElementById('hallFilterBtn');
-    const hLabel = document.getElementById('hallFilterBtnLabel');
-    if (hBtn) hBtn.classList.toggle('is-active', sportId !== 'all');
-    if (hLabel) hLabel.textContent = `Фильтр: ${activeName}`;
+    [['hallFilterBtn', 'hallFilterBtnLabel'], ['chronFilterBtn', 'chronFilterBtnLabel']].forEach(([btnId, labelId]) => {
+      const btn = document.getElementById(btnId);
+      const label = document.getElementById(labelId);
+      if (btn) btn.classList.toggle('is-active', sportId !== 'all');
+      if (label) label.textContent = `Фильтр: ${activeName}`;
+    });
     closeAllFilterMenus();
     this.renderAll();
   },
 
   handleSearch(query) {
     this.searchQuery = query.trim().toLowerCase();
-    const clearBtn = document.getElementById('hallClearSearchBtn');
-    if (clearBtn) clearBtn.classList.toggle('hidden', this.searchQuery.length === 0);
+    ['hallClearSearchBtn', 'chronClearSearchBtn'].forEach(id => {
+      const clearBtn = document.getElementById(id);
+      if (clearBtn) clearBtn.classList.toggle('hidden', this.searchQuery.length === 0);
+    });
     this.renderAll();
   },
 
   clearSearch() {
-    const input = document.getElementById('hallSearchInput');
-    if (input) input.value = '';
+    ['hallSearchInput', 'chronSearchInput'].forEach(id => {
+      const input = document.getElementById(id);
+      if (input) input.value = '';
+    });
     this.handleSearch('');
   },
 

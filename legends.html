@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Зал славы и хронология — Хроники Спорта</title>
+  <title>Зал славы — Хроники Спорта</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Шрифты Inter и Unbounded -->
@@ -110,8 +110,8 @@
         <nav class="flex items-center gap-1 flex-wrap justify-center">
           <a href="index.html" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Главная</a>
           <a href="#hall-of-fame" class="hl nav-link-active px-3 py-2 rounded-lg text-xs font-medium">Зал славы</a>
-          <a href="#unified-timeline" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Хронология</a>
-          <a href="#world-records" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Рекорды</a>
+          <a href="chronology.html#unified-timeline" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Хронология</a>
+          <a href="chronology.html#world-records" class="hl px-3 py-2 rounded-lg text-xs font-medium soft">Рекорды</a>
         </nav>
         <button id="themeToggleBtn" type="button" onclick="appLogic.toggleTheme()" class="theme-switch hidden lg:inline-flex" aria-label="Переключить тему" title="Тёмная / светлая тема">
           <span class="theme-switch-item theme-switch-dark" aria-hidden="true">
@@ -139,12 +139,12 @@
       <div class="glass-panel border-line rounded-2xl p-6 sm:p-10">
         <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div class="space-y-4 max-w-2xl">
-            <span class="text-xs font-medium muted">Архив великих достижений · 12 дисциплин</span>
+            <span class="text-xs font-medium muted">Архив великих чемпионов · 12 дисциплин</span>
             <h1 class="font-display text-3xl sm:text-5xl font-medium leading-tight">
-              Зал славы и великая хронология спорта
+              Зал славы мирового спорта
             </h1>
             <p class="soft text-sm sm:text-base leading-relaxed">
-              Единая летопись ключевых событий от Античной Олимпии до современности, легендарные спортсмены и главные мировые рекорды.
+              48 легендарных спортсменов из двенадцати дисциплин с портретами, ключевыми наградами и главными достижениями в истории спорта.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-3 shrink-0">
@@ -153,6 +153,12 @@
                 <path d="M15 6l-6 6 6 6"/>
               </svg>
               <span>К каталогу дисциплин</span>
+            </a>
+            <a href="chronology.html" class="btn-light px-4 py-2.5 rounded-lg text-xs font-medium inline-flex items-center gap-2">
+              <span>Хронология и рекорды</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 6l6 6-6 6"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -163,16 +169,16 @@
             <div class="text-xs muted mt-1">Легенды спорта</div>
           </div>
           <div class="box-deep rounded-xl p-4">
-            <div class="font-display text-2xl font-medium accent-text" id="hallEventsCount">37</div>
-            <div class="text-xs muted mt-1">Исторических вех</div>
-          </div>
-          <div class="box-deep rounded-xl p-4">
-            <div class="font-display text-2xl font-medium accent-text">688 до н.э.</div>
-            <div class="text-xs muted mt-1">Первая дата архива</div>
-          </div>
-          <div class="box-deep rounded-xl p-4">
             <div class="font-display text-2xl font-medium accent-text">12</div>
             <div class="text-xs muted mt-1">Спортивных дисциплин</div>
+          </div>
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text">4</div>
+            <div class="text-xs muted mt-1">Легенды в каждой</div>
+          </div>
+          <div class="box-deep rounded-xl p-4">
+            <div class="font-display text-2xl font-medium accent-text">100%</div>
+            <div class="text-xs muted mt-1">Портретов собрано</div>
           </div>
         </div>
       </div>
@@ -187,57 +193,10 @@
           <span class="text-xs font-medium muted">Легендарные спортсмены</span>
           <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Зал славы</h2>
         </div>
-        <span id="hallLegendsStatus" class="text-xs font-mono muted">Показано: 24</span>
+        <span id="hallLegendsStatus" class="text-xs font-mono muted">Показано: 48</span>
       </div>
 
       <div id="hallLegendsGrid" class="space-y-8"></div>
-    </div>
-  </section>
-
-  <!-- Единая лента времени -->
-  <section id="unified-timeline" class="py-16 panel-deep border-top-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-        <div>
-          <span class="text-xs font-medium muted">От древности до XXI века</span>
-          <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Единая хронология событий</h2>
-        </div>
-        <span id="hallTimelineStatus" class="text-xs font-mono muted">Событий: 19</span>
-      </div>
-
-      <div id="hallTimelineList" class="space-y-8"></div>
-    </div>
-  </section>
-
-  <!-- Таблица мировых рекордов и стандартов -->
-  <section id="world-records" class="py-16 border-top-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="mb-8">
-        <span class="text-xs font-medium muted">Цифры и достижения</span>
-        <h2 class="font-display text-2xl sm:text-3xl font-medium mt-1">Мировые рекорды и стандарты</h2>
-      </div>
-
-      <div id="hallRecordsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
-
-      <div class="glass-panel border-line rounded-xl overflow-hidden">
-        <div class="px-5 py-4 border-bottom-line flex items-center justify-between">
-          <h3 class="text-sm font-medium">Сравнительная сводка правил и арен</h3>
-          <span class="text-xs font-mono muted">12 дисциплин</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
-            <thead>
-              <tr class="border-bottom-line muted">
-                <th class="px-5 py-3 font-medium">Дисциплина</th>
-                <th class="px-5 py-3 font-medium">Год правил</th>
-                <th class="px-5 py-3 font-medium">Ключевой стандарт</th>
-                <th class="px-5 py-3 font-medium">Состав / Формат</th>
-              </tr>
-            </thead>
-            <tbody id="hallStandardsBody"></tbody>
-          </table>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -249,6 +208,7 @@
     <div class="flex items-center gap-4">
       <span class="font-display soft font-medium">Хроники Спорта</span>
       <a href="index.html" class="hover:underline soft">Главная страница</a>
+      <a href="chronology.html" class="hover:underline soft">Хронология и рекорды</a>
     </div>
     <div class="flex flex-wrap justify-center gap-3">
       <span>Дизайн: Изамутдин</span>
@@ -268,6 +228,6 @@
 </button>
 
 <!-- Подключение внешнего JavaScript -->
-<script src="script.js?v=26"></script>
+<script src="script.js?v=27"></script>
 </body>
 </html>
