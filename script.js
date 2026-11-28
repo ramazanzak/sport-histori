@@ -1722,20 +1722,32 @@ const appLogic = {
     this.showMainPage(false);
     const target = document.getElementById(sectionId);
     if (target) target.scrollIntoView({ behavior: 'smooth' });
+  },
+
+  navigateChronSection(sectionId) {
+    closeAllFilterMenus();
+    const target = document.getElementById(sectionId);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
   }
 };
 
+const HEADER_MENU_PAIRS = [
+  ['mainFilterMenu', 'mainFilterBtn', 'mainFilterWrap'],
+  ['hallFilterMenu', 'hallFilterBtn', 'hallFilterWrap'],
+  ['chronFilterMenu', 'chronFilterBtn', 'chronFilterWrap'],
+  ['tournFilterMenu', 'tournFilterBtn', 'tournFilterWrap'],
+  ['mainHomeMenu', 'mainHomeMenuBtn', 'mainHomeMenuWrap'],
+  ['hallHomeMenu', 'hallHomeMenuBtn', 'hallHomeMenuWrap'],
+  ['chronHomeMenu', 'chronHomeMenuBtn', 'chronHomeMenuWrap'],
+  ['tournHomeMenu', 'tournHomeMenuBtn', 'tournHomeMenuWrap'],
+  ['mainChronMenu', 'mainChronMenuBtn', 'mainChronMenuWrap'],
+  ['hallChronMenu', 'hallChronMenuBtn', 'hallChronMenuWrap'],
+  ['chronChronMenu', 'chronChronMenuBtn', 'chronChronMenuWrap'],
+  ['tournChronMenu', 'tournChronMenuBtn', 'tournChronMenuWrap']
+];
+
 function closeAllFilterMenus() {
-  [
-    ['mainFilterMenu', 'mainFilterBtn'],
-    ['hallFilterMenu', 'hallFilterBtn'],
-    ['chronFilterMenu', 'chronFilterBtn'],
-    ['tournFilterMenu', 'tournFilterBtn'],
-    ['mainHomeMenu', 'mainHomeMenuBtn'],
-    ['hallHomeMenu', 'hallHomeMenuBtn'],
-    ['chronHomeMenu', 'chronHomeMenuBtn'],
-    ['tournHomeMenu', 'tournHomeMenuBtn']
-  ].forEach(([menuId, btnId]) => {
+  HEADER_MENU_PAIRS.forEach(([menuId, btnId]) => {
     const m = document.getElementById(menuId);
     const b = document.getElementById(btnId);
     if (m) m.classList.add('hidden');
@@ -1763,16 +1775,7 @@ function toggleFilterDropdown(menuId, btnId, event) {
 }
 
 document.addEventListener('click', e => {
-  if (
-    !e.target.closest('#mainFilterWrap') &&
-    !e.target.closest('#hallFilterWrap') &&
-    !e.target.closest('#chronFilterWrap') &&
-    !e.target.closest('#tournFilterWrap') &&
-    !e.target.closest('#mainHomeMenuWrap') &&
-    !e.target.closest('#hallHomeMenuWrap') &&
-    !e.target.closest('#chronHomeMenuWrap') &&
-    !e.target.closest('#tournHomeMenuWrap')
-  ) {
+  if (!HEADER_MENU_PAIRS.some(([, , wrapId]) => e.target.closest(`#${wrapId}`))) {
     closeAllFilterMenus();
   }
 });
