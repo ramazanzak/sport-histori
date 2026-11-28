@@ -1332,6 +1332,10 @@ const appLogic = {
       hallLogic.init();
       return;
     }
+    if (document.getElementById('tournamentsGrid') || document.getElementById('duelsGrid')) {
+      tournamentsLogic.init();
+      return;
+    }
     this.renderHeroPreview(false);
     this.renderSportsCatalog(SPORTS_DATABASE);
     qaTester.runAllTests();
@@ -1726,9 +1730,11 @@ function closeAllFilterMenus() {
     ['mainFilterMenu', 'mainFilterBtn'],
     ['hallFilterMenu', 'hallFilterBtn'],
     ['chronFilterMenu', 'chronFilterBtn'],
+    ['tournFilterMenu', 'tournFilterBtn'],
     ['mainHomeMenu', 'mainHomeMenuBtn'],
     ['hallHomeMenu', 'hallHomeMenuBtn'],
-    ['chronHomeMenu', 'chronHomeMenuBtn']
+    ['chronHomeMenu', 'chronHomeMenuBtn'],
+    ['tournHomeMenu', 'tournHomeMenuBtn']
   ].forEach(([menuId, btnId]) => {
     const m = document.getElementById(menuId);
     const b = document.getElementById(btnId);
@@ -1761,9 +1767,11 @@ document.addEventListener('click', e => {
     !e.target.closest('#mainFilterWrap') &&
     !e.target.closest('#hallFilterWrap') &&
     !e.target.closest('#chronFilterWrap') &&
+    !e.target.closest('#tournFilterWrap') &&
     !e.target.closest('#mainHomeMenuWrap') &&
     !e.target.closest('#hallHomeMenuWrap') &&
-    !e.target.closest('#chronHomeMenuWrap')
+    !e.target.closest('#chronHomeMenuWrap') &&
+    !e.target.closest('#tournHomeMenuWrap')
   ) {
     closeAllFilterMenus();
   }
@@ -2090,6 +2098,220 @@ const hallLogic = {
           <td class="px-5 py-3 soft">${format}</td>
         </tr>`;
     }).join('');
+  }
+};
+
+/* Логика 4-й страницы «Великие турниры и легендарные дуэли» */
+const TOURNAMENTS_DATA = [
+  { sportId: 'football', name: 'Чемпионат мира ФИФА', founded: '1930 год', cycle: 'Раз в 4 года',
+    trophy: 'Кубок мира ФИФА', holder: 'Бразилия (5 титулов)',
+    desc: 'Крупнейший международный турнир сборных, впервые проведённый в Уругвае и собирающий миллионы болельщиков по всему миру.' },
+  { sportId: 'boxing', name: 'Бои за титул абсолютного чемпиона', founded: 'Эпоха 4 поясов с 2007', cycle: 'Титульные поединки',
+    trophy: 'Пояса WBA · WBC · IBF · WBO', holder: 'Джо Луис (25 защит)',
+    desc: 'Объединительные поединки лучших боксёров весовой категории за право владеть всеми главными чемпионскими поясами планеты.' },
+  { sportId: 'volleyball', name: 'Чемпионат мира и Олимпиада ФИВБ', founded: '1949 год', cycle: 'Раз в 2–4 года',
+    trophy: 'Золото ОИ и ЧМ', holder: 'СССР / Россия (6 ЧМ)',
+    desc: 'Главные турниры национальных волейбольных сборных, где сходятся европейская, южноамериканская и азиатская школы.' },
+  { sportId: 'hockey', name: 'Кубок Стэнли (НХЛ)', founded: '1893 год', cycle: 'Ежегодно',
+    trophy: 'Серебряная чаша лорда Стэнли', holder: 'Монреаль Канадиенс (24)',
+    desc: 'Старейший профессиональный хоккейный трофей Северной Америки, на серебряных кольцах которого гравируют имена всех чемпионов.' },
+  { sportId: 'basketball', name: 'Финал НБА', founded: '1947 год', cycle: 'Ежегодно',
+    trophy: 'Кубок Ларри О’Брайена', holder: 'Бостон Селтикс (18 титулов)',
+    desc: 'Решающая серия плей-офф до четырёх побед между чемпионами Восточной и Западной конференций сильнейшей баскетбольной лиги мира.' },
+  { sportId: 'tennis', name: 'Уимблдонский турнир', founded: '1877 год', cycle: 'Ежегодно · Трава',
+    trophy: 'Позолоченный кубок и тарелка', holder: 'Навратилова (9) · Федерер (8)',
+    desc: 'Старейший и самый престижный турнир Большого шлема в Лондоне со строгим белым дресс-кодом и натуральным травяным покрытием.' },
+  { sportId: 'formula1', name: 'Чемпионат мира Формулы-1', founded: '1950 год', cycle: 'Ежегодно · Гран-при',
+    trophy: 'Кубок конструкторов и титул ФИА', holder: 'Шумахер · Хэмилтон (по 7)',
+    desc: 'Вершина кольцевых автогонок мира — серия Гран-при на легендарных автодромах от Монцы и Монако до Сильверстоуна.' },
+  { sportId: 'swimming', name: 'Олимпийское плавание и ЧМ World Aquatics', founded: '1896 год (ОИ)', cycle: 'Раз в 2–4 года',
+    trophy: 'Олимпийские медали', holder: 'Майкл Фелпс (23 золота ОИ)',
+    desc: 'Королевская водная программа Игр на дистанциях от 50 м до 1500 м вольным стилем, на спине, брассом и баттерфляем.' },
+  { sportId: 'badminton', name: 'All England Open и ЧМ BWF', founded: '1899 год', cycle: 'Ежегодно',
+    trophy: 'Старейший кубок бадминтона', holder: 'Линь Дань (5 титулов ЧМ)',
+    desc: 'Открытый чемпионат Англии в Бирмингеме и мировое первенство BWF, задающие высочайшую планку скорости и техники игры.' },
+  { sportId: 'chess', name: 'Матч за звание чемпиона мира ФИДЕ', founded: '1886 год', cycle: 'Раз в 2 года',
+    trophy: 'Шахматная корона', holder: 'Ласкер (27 лет) · Каспаров (15)',
+    desc: 'Исторический поединок действующего чемпиона и победителя Турнира претендентов за звание сильнейшего шахматиста планеты.' },
+  { sportId: 'tabletennis', name: 'Чемпионат мира ITTF и Олимпиада', founded: '1926 год', cycle: 'Ежегодно / ОИ',
+    trophy: 'Кубок Свейтлинг и Сент-Брайд', holder: 'Ма Лун (6 золотых ОИ)',
+    desc: 'Главные турниры настольного тенниса в одиночном, парном и командном разрядах на предельных скоростях реакции.' },
+  { sportId: 'judo', name: 'Чемпионат мира IJF и Большой шлем Токио', founded: '1956 год', cycle: 'Ежегодно',
+    trophy: 'Золото мира и татами Кодокана', holder: 'Тедди Ринер (11 титулов ЧМ)',
+    desc: 'Престижнейшие старты мирового дзюдо на родине единоборства в Японии и международных татами под эгидой IJF.' }
+];
+
+const ICONIC_DUELS = [
+  { sportId: 'football', year: '2022 · Лусаил', title: 'Финал чемпионата мира',
+    sideA: 'Аргентина', sideB: 'Франция', outcome: '3:3 · 4:2 по пенальти',
+    desc: 'Дуэль Лионеля Месси и Килиана Мбаппе с хет-триком, овертаймом и драматичной серией пенальти за главный трофей футбола.' },
+  { sportId: 'boxing', year: '1971–1975 · Трилогия', title: '«Бой века» и «Триллер в Маниле»',
+    sideA: 'Мохаммед Али', sideB: 'Джо Фрейзер', outcome: '2:1 в серии в пользу Али',
+    desc: 'Три легендарных боя в тяжёлом весе, которые вывели бокс на пик мировой популярности и стали классикой спортивной драмы.' },
+  { sportId: 'volleyball', year: '2012 · Олимпиада в Лондоне', title: 'Великий камбэк в финале Игр',
+    sideA: 'Россия', sideB: 'Бразилия', outcome: '3:2 (камбэк с 0:2)',
+    desc: 'Сборная России отыгралась со счёта 0:2 по партиям и взяла историческое олимпийское золото в решающем пятом сете.' },
+  { sportId: 'hockey', year: '1972 · Суперсерия', title: 'Восемь матчей двух хоккейных школ',
+    sideA: 'СССР', sideB: 'Канада', outcome: '4 победы Канады · 3 СССР · 1 ничья',
+    desc: 'Первая серия встреч лучших профессионалов НХЛ и сборной СССР с Валерием Харламовым и Филом Эспозито, изменившая мировой хоккей.' },
+  { sportId: 'basketball', year: '1980-е · Противостояние эпохи', title: '«Лейкерс» против «Селтикс»',
+    sideA: 'Мэджик Джонсон', sideB: 'Ларри Бёрд', outcome: '3 финала НБА (2:1 в пользу Мэджика)',
+    desc: 'Соперничество двух противоположных баскетбольных культур, подарившее НБА глобальную популярность и три культовых финала.' },
+  { sportId: 'tennis', year: '2008 · Центральный корт', title: 'Величайший финал Уимблдона',
+    sideA: 'Роджер Федерер', sideB: 'Рафаэль Надаль', outcome: '6:4, 6:4, 6:7, 6:7, 9:7 (Надаль)',
+    desc: 'Пятисетовый марафон длиной 4 часа 48 минут под дождём и почти в темноте, завершившийся победой Надаля на траве Лондона.' },
+  { sportId: 'formula1', year: '1988–1990 · Сузука', title: 'Война напарников и чемпионов',
+    sideA: 'Айртон Сенна', sideB: 'Ален Прост', outcome: '3 титула на двоих за 3 года',
+    desc: 'Принципиальная схватка «Макларена» и «Феррари», в которой столкновения в Японии решали судьбу чемпионских корон Ф-1.' },
+  { sportId: 'swimming', year: '2008 · Пекин', title: 'Финиш длиною в сотую секунды',
+    sideA: 'Майкл Фелпс', sideB: 'Милорад Чавич', outcome: '50.58 против 50.59 (-0.01 с)',
+    desc: 'Заплыв на 100 м баттерфляем на Олимпиаде-2008, где последнее касание бортика принесло Фелпсу седьмое золото из восьми.' },
+  { sportId: 'badminton', year: '2008–2016 · Олимпиады и ЧМ', title: 'Сорок битв двух гениев',
+    sideA: 'Линь Дань', sideB: 'Ли Чонг Вей', outcome: '28:12 по личным встречам',
+    desc: 'Финалы Олимпиад в Пекине и Лондоне и величайшие трёхсетовые матчи в истории бадминтона на запредельной скорости.' },
+  { sportId: 'chess', year: '1984–1990 · Пять матчей', title: 'Битва за шахматную корону',
+    sideA: 'Гарри Каспаров', sideB: 'Анатолий Карпов', outcome: '144 партии · 4:1 по титулам за Каспаровым',
+    desc: 'Беспрецедентная серия из пяти матчей на первенство мира, превратившаяся в главное интеллектуальное соперничество XX века.' },
+  { sportId: 'tabletennis', year: '1990–2000 · Европа против Китая', title: '«Моцарт» против китайской школы',
+    sideA: 'Ян-Уве Вальднер', sideB: 'Лю Голян · Кун Линхуэй', outcome: 'Золото Барселоны-92 и финал Сиднея-2000',
+    desc: 'Многолетнее противостояние шведского мастера непредсказуемых подач с лидерами сборной Китая на Олимпиадах и ЧМ.' },
+  { sportId: 'judo', year: '1980–1985 · Токио', title: 'Классика японского татами',
+    sideA: 'Ясухиро Ямасита', sideB: 'Хитоси Сайто', outcome: 'Непобедимая серия 203 схваток',
+    desc: 'Ожесточённые схватки тяжеловесов на Всеяпонских чемпионатах, где Ямасита отстоял рекордную серию без поражений.' }
+];
+
+const tournamentsLogic = {
+  activeSport: 'all',
+  searchQuery: '',
+
+  init() {
+    this.renderAll();
+  },
+
+  toggleFilterMenu(event) {
+    toggleFilterDropdown('tournFilterMenu', 'tournFilterBtn', event);
+  },
+
+  setSportFilter(sportId) {
+    this.activeSport = sportId;
+    let activeName = 'Все';
+    document.querySelectorAll('[data-tourn-filter]').forEach(btn => {
+      const isAct = btn.getAttribute('data-tourn-filter') === sportId;
+      btn.classList.toggle('is-active', isAct);
+      if (isAct && sportId !== 'all') activeName = btn.textContent.trim();
+    });
+    const tBtn = document.getElementById('tournFilterBtn');
+    const tLabel = document.getElementById('tournFilterBtnLabel');
+    if (tBtn) tBtn.classList.toggle('is-active', sportId !== 'all');
+    if (tLabel) tLabel.textContent = `Фильтр: ${activeName}`;
+    closeAllFilterMenus();
+    this.renderAll();
+  },
+
+  handleSearch(query) {
+    this.searchQuery = query.trim().toLowerCase();
+    const clearBtn = document.getElementById('tournClearSearchBtn');
+    if (clearBtn) clearBtn.classList.toggle('hidden', this.searchQuery.length === 0);
+    this.renderAll();
+  },
+
+  clearSearch() {
+    const input = document.getElementById('tournSearchInput');
+    if (input) input.value = '';
+    this.handleSearch('');
+  },
+
+  renderAll() {
+    this.renderTournaments();
+    this.renderDuels();
+  },
+
+  matchesFilter(item, sportNames) {
+    if (this.activeSport !== 'all' && item.sportId !== this.activeSport) return false;
+    if (!this.searchQuery) return true;
+    const hay = `${Object.values(item).join(' ')} ${sportNames[item.sportId] || ''}`.toLowerCase();
+    return hay.includes(this.searchQuery);
+  },
+
+  renderTournaments() {
+    const grid = document.getElementById('tournamentsGrid');
+    const status = document.getElementById('tournStatus');
+    const countEl = document.getElementById('tournTotalCount');
+    if (!grid) return;
+
+    if (countEl) countEl.textContent = TOURNAMENTS_DATA.length;
+    const sportNames = Object.fromEntries(SPORTS_DATABASE.map(s => [s.id, s.name]));
+    const filtered = TOURNAMENTS_DATA.filter(item => this.matchesFilter(item, sportNames));
+    if (status) status.textContent = `Турниров: ${filtered.length}`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="md:col-span-2 lg:col-span-3 glass-panel border-line rounded-xl p-8 text-center">
+          <div class="text-sm font-medium mb-2">Турниры по запросу не найдены</div>
+          <p class="text-xs muted mb-4">Попробуйте другой запрос или выберите все дисциплины</p>
+          <button onclick="tournamentsLogic.setSportFilter('all'); tournamentsLogic.clearSearch();" class="btn-light px-4 py-2 rounded-lg text-xs font-medium">Сбросить фильтры</button>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(t => `
+      <article class="glass-panel border-line rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <a href="index.html#sport=${t.sportId}" class="tag px-2.5 py-0.5 rounded-lg text-xs font-medium">${sportNames[t.sportId] || ''}</a>
+            <span class="text-xs font-mono muted">${t.cycle}</span>
+          </div>
+          <h3 class="font-display text-lg font-medium mb-1.5">${t.name}</h3>
+          <div class="text-xs font-mono accent-text mb-3">${t.founded} · ${t.trophy}</div>
+          <p class="soft text-xs leading-relaxed mb-4">${t.desc}</p>
+        </div>
+        <div class="box-deep rounded-xl p-3 flex items-center justify-between gap-2 text-xs">
+          <span class="muted">Рекордсмен:</span>
+          <span class="font-medium soft text-right">${t.holder}</span>
+        </div>
+      </article>`).join('');
+  },
+
+  renderDuels() {
+    const grid = document.getElementById('duelsGrid');
+    const status = document.getElementById('duelsStatus');
+    const countEl = document.getElementById('duelsTotalCount');
+    if (!grid) return;
+
+    if (countEl) countEl.textContent = ICONIC_DUELS.length;
+    const sportNames = Object.fromEntries(SPORTS_DATABASE.map(s => [s.id, s.name]));
+    const filtered = ICONIC_DUELS.filter(item => this.matchesFilter(item, sportNames));
+    if (status) status.textContent = `Дуэлей: ${filtered.length}`;
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="md:col-span-2 glass-panel border-line rounded-xl p-8 text-center">
+          <div class="text-sm font-medium mb-1">Противостояния не найдены</div>
+          <p class="text-xs muted">Измените фильтр или поисковый запрос</p>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(d => `
+      <article class="legend-card glass-panel border-line rounded-2xl p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <a href="index.html#sport=${d.sportId}" class="tag px-2.5 py-0.5 rounded-lg text-xs font-medium">${sportNames[d.sportId] || ''}</a>
+            <span class="text-xs font-mono muted">${d.year}</span>
+          </div>
+          <div class="text-xs font-medium muted mb-2">${d.title}</div>
+          <div class="box-deep rounded-xl px-4 py-3 mb-4 flex flex-wrap items-center justify-between gap-2">
+            <span class="text-sm font-medium">${d.sideA}</span>
+            <span class="tag px-2 py-0.5 rounded-md text-[11px] font-mono font-semibold">VS</span>
+            <span class="text-sm font-medium text-right">${d.sideB}</span>
+          </div>
+          <p class="soft text-xs leading-relaxed mb-4">${d.desc}</p>
+        </div>
+        <div class="flex items-center justify-between gap-2 pt-3 border-top-line text-xs">
+          <span class="muted">Итог:</span>
+          <span class="font-mono accent-text text-right">${d.outcome}</span>
+        </div>
+      </article>`).join('');
   }
 };
 
